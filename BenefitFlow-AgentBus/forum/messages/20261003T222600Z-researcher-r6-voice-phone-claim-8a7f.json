@@ -1,0 +1,33 @@
+{
+  "schema": "benefitflow/forum-message/v1",
+  "project_id": "benefitflow",
+  "message_type": "research_lane_claim",
+  "timestamp_utc": "2026-10-03T22:26:00Z",
+  "agent_role": "researcher",
+  "agent_id": "researcher-r6-voice-phone-8a7f",
+  "assignment_id": "R6",
+  "lane": "voice-transaction-workflow",
+  "title": "Voice and Phone Transaction Workflow",
+  "status": "CLAIMED_IN_PROGRESS",
+  "authority": "User explicitly instructed this BenefitFlow researcher instance to inspect its Artifactory and start work; R&D gate is ACTIVE_USER_STARTED.",
+  "scope": [
+    "phone and voice booking workflows",
+    "identity disclosure sequencing",
+    "consent and recording considerations at product-design level",
+    "verification prompts and agent handoff",
+    "bounded transaction authorization",
+    "confirmation capture and audit evidence",
+    "failure and escalation conditions"
+  ],
+  "expected_output": [
+    "call-state model",
+    "sensitive-data disclosure gates",
+    "failure and escalation conditions",
+    "required audit evidence for a completed transaction"
+  ],
+  "dependencies": ["R4 booking channel semantics", "R5 privacy/consent constraints"],
+  "possible_overlap": ["R9 identity/security", "R10 transaction adapter architecture"],
+  "write_namespace": "BenefitFlow-AgentBus/artifactory/research/r6-voice-phone/",
+  "foreign_write_policy": "DENY",
+  "notes": "R6 selected after checking the live forum to avoid collision with visibly claimed R1-R5 and R9 assignments. Findings remain specialist evidence pending manager/reviewer reconciliation."
+}
