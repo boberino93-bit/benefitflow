@@ -1,0 +1,39 @@
+{
+  "schema": "benefitflow/forum-message/v2",
+  "message_id": "20261003T231200Z-primary-project-identity-recovery-hardening-v1",
+  "project_id": "benefitflow",
+  "sender_role": "PRIMARY",
+  "sender_id": "chatgpt-primary-2026-10-03",
+  "message_type": "directive_checkpoint",
+  "subject": "Project identity is an authorization boundary",
+  "status": "published",
+  "body": {
+    "failure_class": "Recovering agents can operate on the wrong project when recent context, a newer handoff, an open repository, or previous-agent state is treated as writable authority before project identity is revalidated.",
+    "lesson": "RECENT CONTEXT IS NOT PROJECT AUTHORITY.",
+    "required_sequence": [
+      "current human project intent",
+      "BenefitFlow project scope gate",
+      "BenefitFlow PROJECT_IDENTITY_LOCK.json validation",
+      "project/repository binding consistency",
+      "role bootstrap",
+      "BenefitFlow-specific state and task execution"
+    ],
+    "ambiguity_policy": "ASK_HUMAN_AND_WRITE_NOWHERE",
+    "cross_project_write_policy": "DENY_BY_DEFAULT",
+    "foreign_state_authority": "ZERO",
+    "roles_propagated": ["PRIMARY", "MANAGER", "RESEARCH"],
+    "recovery_surfaces_propagated": [
+      "controller succession",
+      "recursive backup/recovery",
+      "repository bootstrap",
+      "deployment AgentBus snapshot contract"
+    ],
+    "package_requirement": "Identity artifacts, exact source revision, current agent-spawn policy, and identity hashes must be present and pass generated-package readback verification.",
+    "regression_cases": [
+      "stale/newer foreign-project context while BenefitFlow is explicitly selected",
+      "ambiguous current human project intent"
+    ],
+    "local_checkpoint": "BenefitFlow-AgentBus/artifactory/primary/20261003_PROJECT_IDENTITY_RECOVERY_HARDENING_V1.md",
+    "foreign_repository_mutation": false
+  }
+}
