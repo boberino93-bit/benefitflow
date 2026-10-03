@@ -34,3 +34,24 @@ def test_optimizer_blocks_incomplete_semantics_for_manual_review():
     result = build_plan(req)
     assert not result.services
     assert "vision" in result.manual_review_categories
+
+
+def test_optimizer_blocks_explicit_semantic_manual_review_flag():
+    req = PlanRequest(
+        annual_out_of_pocket_budget=500,
+        benefits=[
+            BenefitRule(
+                category="massage therapy",
+                coverage_percent=80,
+                maximum_amount=500,
+                period_kind="annual_unspecified",
+                confidence="medium",
+                manual_review_required=True,
+            )
+        ],
+        preferences=[CategoryPreference(category="massage therapy", priority=5, desired_visits=2, estimated_cost_per_visit=120)],
+    )
+    result = build_plan(req)
+    assert not result.services
+    assert "massage therapy" in result.manual_review_categories
+    assert any("semantic ambiguity" in warning for warning in result.warnings)
