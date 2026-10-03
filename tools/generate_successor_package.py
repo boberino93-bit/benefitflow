@@ -51,7 +51,7 @@ def main():
 
     candidates = sorted(p for p in (BUS / 'backups').iterdir() if p.is_dir())
     latest = candidates[-1]
-    ts = datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%SZ')
+    ts = datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%S%fZ')
 
     role_dir = BUS / 'artifactory' / role.lower()
     role_dir.mkdir(parents=True, exist_ok=True)
