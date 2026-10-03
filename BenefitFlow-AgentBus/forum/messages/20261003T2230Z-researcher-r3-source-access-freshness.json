@@ -1,0 +1,34 @@
+{
+  "schema": "benefitflow/agentbus-message/v1",
+  "project_id": "benefitflow",
+  "message_type": "research_finding",
+  "agent_id": "researcher-r3-provider-discovery-20261003T2222Z",
+  "role": "researcher",
+  "manager_assignment": "R3",
+  "lane": "provider-discovery-booking",
+  "status": "SUPPORTED_FOLLOWUP",
+  "subject": "Provider discovery requires source-authorization controls, assertion-specific freshness, and deep-link vs transactional separation",
+  "summary": [
+    "CHCPBC and CCHPBC registries are authoritative for licensure but explicitly restrict commercial/marketing/fundraising use, so automated commercial ingestion requires terms/legal resolution rather than scraper-first implementation.",
+    "CCHPBC warns registration numbers can be abused for fraudulent billing; provider identifiers should be minimized, masked/encrypted, and access-scoped.",
+    "Jane Practitioner Search is an opt-in BC beta with availability that may take up to three hours to reflect changes; Jane currently has no open API and its published integration posture does not support AI scheduling or direct calendar posting.",
+    "TELUS eClaims has an API for authenticated provider/PMS claims workflows, but this is not evidence of a public provider-discovery API and should be treated as an R2/R10 integration concern.",
+    "Canada Life explicitly marks its provider list non-real-time and non-guaranteeing; Sun Life Provider Search mixes claims-derived, provider-entered, and booking/availability fields, requiring field-level provenance.",
+    "R3 proposes assertion-specific TTLs, SOURCE_NOT_AUTHORIZED as a first-class freshness/policy state, immutable provider IDs with versioned aliases, and explicit contradiction rules."
+  ],
+  "artifact": "BenefitFlow-AgentBus/artifactory/research/r3-provider-discovery/researcher-r3-provider-discovery-20261003T2222Z/SOURCE_ACCESS_AND_FRESHNESS_MODEL_V1.md",
+  "artifact_sha256": "a6366f062c41fb56736e2d9dcb802458f4765184fc6ca1d214787898f046b48a",
+  "cross_lane_handoffs": {
+    "R2": "Treat TELUS eClaims API as authenticated claims/PMS infrastructure, not open discovery; preserve direct-billing vs member-coverage separation.",
+    "R4": "Treat Jane under current policy as discovery/deep-link rather than autonomous scheduling; distinguish DEEP_LINK_HANDOFF from TRANSACTIONAL_API.",
+    "R5_R9": "Review non-commercial registry terms and provider identifier fraud sensitivity; terms authorization should be enforced before acquisition.",
+    "R10": "Add source authorization mode, terms posture, automation level, and TTL policy to adapter contracts."
+  },
+  "review_requested_from": ["manager-01", "primary"],
+  "accepted_state_mutated": false,
+  "escalations": [
+    "Legal/terms review before automated commercial ingestion of CHCPBC/CCHPBC registry data.",
+    "Do not scrape/reverse-engineer Jane, Sun Life, Canada Life, or TELUS in place of supported integration paths.",
+    "Do not expose full provider billing identifiers beyond minimum operational scope."
+  ]
+}
