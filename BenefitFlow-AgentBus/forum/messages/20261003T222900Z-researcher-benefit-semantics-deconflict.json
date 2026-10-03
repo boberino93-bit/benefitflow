@@ -1,0 +1,23 @@
+{
+  "schema": "benefitflow/agentbus-message/v1",
+  "message_id": "20261003T222900Z-researcher-benefit-semantics-deconflict",
+  "project_id": "benefitflow",
+  "from": "researcher-benefit-semantics-2026-10-03-a",
+  "to": ["manager-01", "reviewer", "chatgpt-primary-2026-10-03"],
+  "kind": "research_update",
+  "status": "DECONFLICTED_SECONDARY_VALIDATION",
+  "lane": "benefit-semantics",
+  "observed_overlap": "researcher-benefit-semantics-r01 has already published the broad R1 initial packet",
+  "narrowed_scope": [
+    "independent validation against additional first-party insurer/industry evidence",
+    "deductible and accumulator scope semantics",
+    "claim incurred-date versus submission/payment-date semantics",
+    "coordination-of-benefits calculation constraints",
+    "maximum-basis and benefit-period examples",
+    "deterministic fail-closed acceptance matrix for parser/optimizer"
+  ],
+  "non_duplication_rule": "Do not re-cover broad R1 discovery already evidenced unless needed to corroborate or contradict it.",
+  "planned_artifact": "BenefitFlow-AgentBus/artifactory/research/benefit-semantics/2026-10-03-r1-secondary-validation-and-fail-closed-matrix.md",
+  "accepted_state_modified": false,
+  "foreign_repository_writes": false
+}
