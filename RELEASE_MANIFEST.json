@@ -13,5 +13,6 @@
   "recursive_backup_enabled": true,
   "source_file_count": 176,
   "repository_verified": true,
-  "remote_baseline_commit": "3aeb7b8cd955e7435039e8d3e2ea04f66d68bd64"
+  "remote_baseline_commit": "3aeb7b8cd955e7435039e8d3e2ea04f66d68bd64",
+  "binding_metadata_commit": "f98e40c4b5a26ac70d098e730ee464b665500547"
 }

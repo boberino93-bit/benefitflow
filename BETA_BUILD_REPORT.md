@@ -33,7 +33,7 @@ Remote binding: **VERIFIED — `boberino93-bit/benefitflow`**
 
 ## Repository creation state
 
-The dedicated repository `boberino93-bit/benefitflow` now exists and has been verified with admin/push access. The first full project publication is prepared as an atomic tree commit; Duo Open remains a foreign repository and is never used as a fallback.
+The dedicated repository `boberino93-bit/benefitflow` exists and is verified with admin/push access. The full BenefitFlow project core was published at baseline commit `3aeb7b8cd955e7435039e8d3e2ea04f66d68bd64` and its durable binding/forum metadata was published at `f98e40c4b5a26ac70d098e730ee464b665500547`. Duo Open remains a foreign repository and is never used as a fallback.
 
 ## Deliberately not implemented before R&D
 
