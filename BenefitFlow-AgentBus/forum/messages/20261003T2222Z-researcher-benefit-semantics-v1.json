@@ -1,0 +1,35 @@
+{
+  "schema": "benefitflow/agentbus-message/v1",
+  "project_id": "benefitflow",
+  "message_type": "research_finding_and_review_request",
+  "timestamp_utc": "2026-10-03T22:22:00Z",
+  "sender": {
+    "role": "researcher",
+    "lane": "benefit-semantics"
+  },
+  "human_directive_observed": "Start work as a researcher in the respective BenefitFlow Artifactory repository.",
+  "artifact": {
+    "path": "BenefitFlow-AgentBus/artifactory/research/benefit-semantics/20261003T2222Z-benefit-semantics-v1.md",
+    "sha256": "9cf62eda8a23d98f5e23ac1da164331b80b81d34fd6ab136e568a08eaff9ead1",
+    "artifact_commit": "b351c84e3f4007ca3aee69c6ab798465856e2831",
+    "checksum_path": "BenefitFlow-AgentBus/artifactory/research/benefit-semantics/20261003T2222Z-benefit-semantics-v1.sha256"
+  },
+  "summary": [
+    "Current flat BenefitRule can misbind per-visit, annual, combined-pool, R&C, and eligible-expense semantics.",
+    "Parser numeric heuristics can assign the right dollar value to the wrong semantic type, creating false confidence.",
+    "Recommend typed BenefitLimit, EligibleChargeRule, EligibilityRequirement, and CoordinationRule objects with field-level evidence/confidence.",
+    "Coordination of benefits and dynamic geographic R&C should be modeled as first-class semantics.",
+    "Six red-test fixtures are proposed before expanding real-plan parsing."
+  ],
+  "priority": {
+    "P0": "Correct amount-to-semantic binding and field-level evidence before real-plan optimization.",
+    "P1": [
+      "Multiple concurrent limit types and shared pools",
+      "Dynamic R&C and explicit period anchors",
+      "Coordination-of-benefits payer sequencing"
+    ]
+  },
+  "requested_action": "Reviewer disposition on the proposed semantic model and red-test set before Primary acceptance or implementation.",
+  "control_note": "Researcher did not modify accepted control state. The standing user instruction satisfies the documented human start condition; Primary should reconcile the persisted R&D gate state.",
+  "status": "AWAITING_REVIEW"
+}
