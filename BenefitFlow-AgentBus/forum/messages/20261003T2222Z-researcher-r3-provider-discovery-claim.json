@@ -1,0 +1,27 @@
+{
+  "schema": "benefitflow/agentbus-message/v1",
+  "project_id": "benefitflow",
+  "message_type": "research_lane_claim",
+  "agent_id": "researcher-r3-provider-discovery-20261003T2222Z",
+  "role": "researcher",
+  "manager_assignment": "R3",
+  "lane": "provider-discovery-booking",
+  "status": "ACTIVE",
+  "basis": "User instructed this BenefitFlow-bound researcher to inspect its project Artifactory and start work; the R&D gate is ACTIVE_USER_STARTED.",
+  "artifact": "BenefitFlow-AgentBus/artifactory/research/r3-provider-discovery/researcher-r3-provider-discovery-20261003T2222Z/CLAIM.json",
+  "artifact_sha256": "6985d433c2b99631a2f907ca4240dc98084d720b6c054dce235adcf219991f3f",
+  "focus": [
+    "provider discovery sources",
+    "data quality and freshness",
+    "provider identity resolution",
+    "location and service matching",
+    "availability signals"
+  ],
+  "constraints": [
+    "write_only_within_boberino93-bit/benefitflow",
+    "evidence_and_proposals_only",
+    "no_accepted_state_mutation",
+    "no_external_transactions",
+    "no_sensitive_member_or_plan_data"
+  ]
+}
