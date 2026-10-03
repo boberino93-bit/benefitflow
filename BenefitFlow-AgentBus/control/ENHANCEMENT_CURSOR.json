@@ -1,0 +1,30 @@
+{
+  "schema": "benefitflow/enhancement-cursor/v1",
+  "project_id": "benefitflow",
+  "registry": "BenefitFlow-AgentBus/control/ENHANCEMENT_SOURCE_REGISTRY.json",
+  "cycles_completed": 1,
+  "next_source_index": 0,
+  "last_cycle_utc": "2026-10-03T22:34:00Z",
+  "sources": {
+    "duo-open-reference": {
+      "repository": "boberino93-bit/duo-open",
+      "last_observed_head": "43974424dc195de82c871418854defce487ee091",
+      "last_scan_utc": "2026-10-03T22:34:00Z",
+      "last_result": "CANDIDATES_EXTRACTED",
+      "candidate_ids": [
+        "BF-ENH-0001-active-service-cursor-discipline"
+      ]
+    },
+    "intercommunications-enhancements-reference": {
+      "repository": "boberino93-bit/intercommunicationsenhancements",
+      "last_observed_head": "707865e0125a16039ac8fb36dde6dcd5597fce6a",
+      "last_scan_utc": "2026-10-03T22:34:00Z",
+      "last_result": "CANDIDATES_EXTRACTED",
+      "candidate_ids": [
+        "BF-ENH-0002-cross-project-provenance-compatibility",
+        "BF-ENH-0003-role-package-parity"
+      ]
+    }
+  },
+  "cursor_rule": "Advance source state only after local scan/candidate/no-delta evidence is durably persisted in BenefitFlow. Foreign repositories receive no cursor writes or acknowledgements."
+}
