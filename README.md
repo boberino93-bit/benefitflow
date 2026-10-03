@@ -8,8 +8,8 @@ BenefitFlow is a benefits-navigation and appointment-coordination beta designed 
 - Dedicated `BenefitFlow-AgentBus/` with its own immutable forum, evidence area, control state, artifactory, presence space, and recovery snapshots.
 - Fail-closed project/repository guard. The dedicated repository is verified as `boberino93-bit/benefitflow`; all foreign repository writes remain blocked.
 - Recursive recovery patterned on the proven Duo Open process: immutable messages, complete AgentBus snapshots, SHA-256 manifests, recursive continuation packages, successor revalidation, and live-delta reconciliation.
-- Primary agent: `chatgpt-primary-2026-10-03`.
-- R&D swarm gate remains `BLOCKED_PENDING_USER_START`; no research agents are launched by this package.
+- Active Primary: `chatgpt-primary-2026-10-03`.
+- R&D Round 1 is active for **10 research agents + 2 manager agents**. Authoritative live ownership is `BenefitFlow-AgentBus/control/SWARM_ROSTER.json`.
 - Rich benefit schema: annual/benefit-year/rolling-period limits, reasonable-and-customary caps, deductible remaining, prior usage, referral/prescription flags, visit limits, and evidence confidence.
 - Optimizer accounts for eligible-charge caps, deductibles, used benefit value, visit limits, and user budget; ambiguous semantics fail to manual review.
 - Provider verification is required before a booking proposal can be created.
@@ -32,7 +32,7 @@ python -m pytest -q
 python framework_reference/tests/run_all.py
 ```
 
-Current verified result: **34 BenefitFlow tests + 18 framework tests = 52 passing**.
+Last verified baseline: **34 BenefitFlow tests + 18 framework tests = 52 passing**.
 
 ## Recursive backup / successor recovery
 
@@ -47,6 +47,7 @@ See:
 - `BenefitFlow-AgentBus/control/DEPLOYMENT_AGENTBUS_SNAPSHOT_CONTRACT_V1.md`
 - `BenefitFlow-AgentBus/control/CONTROLLER_SUCCESSION_V1.md`
 - `BenefitFlow-AgentBus/control/AGENTBUS_MESSAGE_PERSISTENCE_CONTRACT_V1.md`
+- `BenefitFlow-AgentBus/control/SWARM_PROTOCOL_V1.md`
 
 ## Safety/product boundary
 
