@@ -1,0 +1,20 @@
+{
+  "schema": "benefitflow/primary-state/v1",
+  "project_id": "benefitflow",
+  "agent_id": "chatgpt-primary-2026-10-03",
+  "status": "ACTIVE_PRIMARY",
+  "activated_by": "explicit_human_directive",
+  "activated_at": "2026-10-03T22:28:00Z",
+  "round": "RND-ROUND-1",
+  "authorized_manager_count": 2,
+  "authorized_research_agent_count": 10,
+  "responsibilities": [
+    "project coherence and architecture",
+    "manager/research orchestration",
+    "accepted-state integration",
+    "claim collision and cross-manager arbitration",
+    "project isolation and human approval boundaries",
+    "bootstrap/deployment artifact synchronization",
+    "forum persistence and recursive recovery integrity"
+  ]
+}
