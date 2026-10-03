@@ -1,0 +1,18 @@
+{
+  "schema": "benefitflow-agentbus/v1",
+  "id": "msg-full-work-github-sync-0006",
+  "project_id": "benefitflow",
+  "from": "primary",
+  "to": ["all"],
+  "kind": "checkpoint",
+  "priority": "critical",
+  "subject": "Full BenefitFlow working package synchronized to dedicated GitHub repository",
+  "body": "Primary synchronized the complete substantive BenefitFlow beta v0.3.0 working tree to boberino93-bit/benefitflow. Sync commit 2efc570aca63da8a7fd0eac19e721535d601258e adds the recursive recovery snapshots, Primary successor package, and sanitized Organization Agent Mesh framework reference that previously existed only in the sealed working package. Duo Open was not used as a destination. R&D remains blocked pending explicit user start.",
+  "applies_to": {
+    "repository": "boberino93-bit/benefitflow",
+    "sync_commit": "2efc570aca63da8a7fd0eac19e721535d601258e",
+    "branch": "main"
+  },
+  "requires_ack": true,
+  "tags": ["full-sync", "github", "recursive-recovery", "framework-reference", "project-isolation", "pre-rnd"]
+}
