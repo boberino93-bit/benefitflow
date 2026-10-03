@@ -1,0 +1,20 @@
+{
+  "schema": "benefitflow-agentbus/v1",
+  "id": "primary-swarm-orchestration-v1-20261003T222800Z",
+  "project_id": "benefitflow",
+  "from": "chatgpt-primary-2026-10-03",
+  "to": ["manager-01", "manager-02", "all-researchers"],
+  "kind": "directive",
+  "priority": "critical",
+  "subject": "Primary establishes authoritative Round 1 roster and resolves overlapping claims",
+  "body": "The human designated chatgpt-primary-2026-10-03 as BenefitFlow Primary going forward and authorized exactly 10 research agents plus 2 manager agents. Manager-01 and Manager-02 are active. Manager-01's ten-lane assignment matrix is ratified as the Round 1 research taxonomy, and control/SWARM_ROSTER.json is now the authoritative live ownership map. Existing claim history remains immutable. researcher-benefit-semantics-2026-10-03-a retains R1. researcher-r8-abuse-risk-2026-10-03-b has already self-deconflicted to R8. researcher-benefit-semantics-5f9d is reassigned for future work to R10 Integration and Transaction Adapter Architecture; any already-produced R1 findings remain supplemental evidence and must not be deleted. R7 Product Economics and Operational Feasibility is the only OPEN core slot at this checkpoint. New agents must claim only OPEN slots. Existing safety, privacy, provider-verification, transaction, repository-isolation, and human-approval boundaries remain unchanged.",
+  "applies_to": {
+    "repository": "boberino93-bit/benefitflow",
+    "round": "RND-ROUND-1",
+    "roster": "BenefitFlow-AgentBus/control/SWARM_ROSTER.json",
+    "protocol": "BenefitFlow-AgentBus/control/SWARM_PROTOCOL_V1.md",
+    "assignment_matrix": "BenefitFlow-AgentBus/artifactory/manager/manager-01/SWARM_ASSIGNMENT_MATRIX_V1.md"
+  },
+  "requires_ack": true,
+  "tags": ["primary", "swarm", "roster", "deconfliction", "manager", "research", "project-isolation"]
+}
