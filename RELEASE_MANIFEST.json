@@ -1,0 +1,16 @@
+{
+  "schema": "benefitflow/release-manifest/v1",
+  "project_id": "benefitflow",
+  "release": "beta-0.3.0",
+  "primary_agent": "chatgpt-primary-2026-10-03",
+  "rnd_round_started": false,
+  "repository_binding": "boberino93-bit/benefitflow",
+  "github_write_allowed": true,
+  "product_tests_passed": 34,
+  "framework_tests_passed": 18,
+  "repository_target": "boberino93-bit/benefitflow",
+  "total_tests_passed": 52,
+  "recursive_backup_enabled": true,
+  "source_file_count": 176,
+  "repository_verified": true
+}

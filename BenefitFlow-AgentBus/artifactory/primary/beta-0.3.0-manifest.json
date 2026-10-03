@@ -1,0 +1,9 @@
+{
+  "schema": "benefitflow/artifact-manifest/v1",
+  "project_id": "benefitflow",
+  "artifact_id": "beta-0.3.0-primary-build",
+  "producer": "chatgpt-primary-2026-10-03",
+  "authority": "PRIMARY",
+  "rnd_round_started": false,
+  "foreign_repo_writes": false
+}

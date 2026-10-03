@@ -1,0 +1,20 @@
+{
+  "schema": "benefitflow/github-repository-binding/v1",
+  "project_id": "benefitflow",
+  "target_repository": "boberino93-bit/benefitflow",
+  "status": "VERIFIED_BOUND",
+  "github_write_allowed": true,
+  "foreign_repositories": [
+    "boberino93-bit/duo-open"
+  ],
+  "foreign_write_policy": "DENY",
+  "activation_requirements": [
+    "repository_exists",
+    "repository_identity_verified",
+    "initial_commit_sha_recorded",
+    "binding_message_published",
+    "project_isolation_tests_pass"
+  ],
+  "repository_verified": true,
+  "initial_remote_commit": "PENDING_FIRST_PROJECT_COMMIT"
+}

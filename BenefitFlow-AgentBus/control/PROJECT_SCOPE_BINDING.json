@@ -1,0 +1,17 @@
+{
+  "schema": "benefitflow/project-scope-binding/v1",
+  "project_id": "benefitflow",
+  "project_name": "BenefitFlow",
+  "primary_agent": "chatgpt-primary-2026-10-03",
+  "repository_binding": "boberino93-bit/benefitflow",
+  "github_write_allowed": true,
+  "agentbus_root": "BenefitFlow-AgentBus/",
+  "forum_root": "BenefitFlow-AgentBus/forum/",
+  "artifactory_root": "BenefitFlow-AgentBus/artifactory/",
+  "foreign_repositories": [
+    "boberino93-bit/duo-open"
+  ],
+  "foreign_write_policy": "DENY",
+  "unknown_project_policy": "ASK_USER_BEFORE_PROJECT_WORK_OR_WRITE",
+  "explicit_project_policy": "BIND_WITHOUT_REDUNDANT_PROMPT"
+}

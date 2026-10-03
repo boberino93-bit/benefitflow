@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>BenefitFlow Beta</title>
+  <link rel="stylesheet" href="/static/styles.css" />
+</head>
+<body>
+<main>
+  <header class="hero">
+    <div class="eyebrow">BETA 0.3 · LOCAL PILOT</div>
+    <h1>BenefitFlow</h1>
+    <p class="lede">Turn a benefits package and your annual spending limit into a care-use plan, verify provider/direct-billing details, and prepare a booking only after you approve the exact transaction.</p>
+    <div class="statusbar"><span>Project isolated</span><span>R&amp;D swarm not started</span><span>External actions disabled</span></div>
+  </header>
+
+  <section class="grid two">
+    <article class="card">
+      <div class="step">01</div><h2>Load your plan</h2>
+      <p>Paste benefit text or upload a PDF. The beta extracts supported categories with evidence snippets and flags ambiguous rules.</p>
+      <textarea id="benefitsText" rows="10" placeholder="Example: Physiotherapy: 80% reimbursement, annual maximum $750 per calendar year..."></textarea>
+      <div class="row"><button onclick="parseBenefits()">Parse text</button><label class="filebtn">Upload PDF<input id="planFile" type="file" accept=".pdf,.txt" onchange="parseFile()" /></label></div>
+      <div id="parseOut" class="output muted">No plan parsed yet.</div>
+    </article>
+
+    <article class="card">
+      <div class="step">02</div><h2>Set your annual budget</h2>
+      <label>Maximum out-of-pocket spend ($)<input id="budget" type="number" value="600" min="0" /></label>
+      <p class="small">For this first beta, each confidently parsed category defaults to four desired visits. The optimizer will never add visits beyond that user-declared demand.</p>
+      <button onclick="buildPlan()">Build plan</button>
+      <div id="planOut" class="output muted">No annual plan generated yet.</div>
+    </article>
+  </section>
+
+  <section class="grid two">
+    <article class="card">
+      <div class="step">03</div><h2>Research a provider</h2>
+      <p>Provider data is synthetic in this beta. The production adapter will replace it with current research and clinic confirmation.</p>
+      <label>Insurer name<input id="insurer" value="Example Insurer" /></label>
+      <button onclick="loadProviders()">Load demo providers</button>
+      <div id="providerOut" class="output muted">No providers loaded.</div>
+    </article>
+
+    <article class="card">
+      <div class="step">04</div><h2>Verify before proposing</h2>
+      <label>Provider ID<input id="providerId" value="demo-physio-1" /></label>
+      <button onclick="verifyProvider()">Simulate clinic verification</button>
+      <div id="verifyOut" class="output muted">Verification required before proposal.</div>
+    </article>
+  </section>
+
+  <section class="card approval">
+    <div class="step">05</div><h2>Create approval card</h2>
+    <div class="grid two compact">
+      <label>Category<input id="category" value="physiotherapy" /></label>
+      <label>Preferred window<input id="window" value="Tuesday afternoon" /></label>
+      <label>Plan number<input id="planNumber" value="12345678" /></label>
+      <label>Member / certificate ID<input id="memberId" value="ABCDEFGH" /></label>
+    </div>
+    <button onclick="proposeBooking()">Prepare booking proposal</button>
+    <div id="proposalOut" class="output muted">No proposal yet.</div>
+    <div id="approvalControls" class="row hidden">
+      <button class="approve" onclick="approveBooking(true)">Approve exact transaction</button>
+      <button class="ghost" onclick="approveBooking(false)">Decline</button>
+    </div>
+    <div id="bookingOut" class="output muted">No external action authorized.</div>
+  </section>
+
+  <section class="card boundary">
+    <h2>Beta boundary</h2>
+    <p>This build does not place calls, book real appointments, access insurer accounts, submit claims, or provide clinical advice. The last step emits a transaction-adapter handoff only after explicit user approval.</p>
+  </section>
+</main>
+<script>
+let parsed=null, currentProposal=null;
+const pretty=x=>JSON.stringify(x,null,2);
+const show=(id,obj)=>{const el=document.getElementById(id);el.classList.remove('muted');el.innerHTML='<pre>'+pretty(obj).replaceAll('&','&amp;').replaceAll('<','&lt;')+'</pre>';};
+async function parseBenefits(){const body=new FormData();body.append('text',document.getElementById('benefitsText').value);const r=await fetch('/api/parse-text',{method:'POST',body});parsed=await r.json();show('parseOut',parsed);}
+async function parseFile(){const f=document.getElementById('planFile').files[0];if(!f)return;const body=new FormData();body.append('file',f);const r=await fetch('/api/parse-file',{method:'POST',body});parsed=await r.json();show('parseOut',parsed);}
+async function buildPlan(){if(!parsed){alert('Parse a plan first.');return;}const prefs=parsed.benefits.map((b,i)=>({category:b.category,priority:Math.max(1,5-i),desired_visits:4}));const payload={annual_out_of_pocket_budget:Number(document.getElementById('budget').value),benefits:parsed.benefits,preferences:prefs};const r=await fetch('/api/plan',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(payload)});show('planOut',await r.json());}
+async function loadProviders(){const r=await fetch('/api/providers');show('providerOut',await r.json());}
+async function verifyProvider(){const payload={provider_id:document.getElementById('providerId').value,insurer_name:document.getElementById('insurer').value};const r=await fetch('/api/providers/verify',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(payload)});show('verifyOut',await r.json());}
+async function proposeBooking(){const payload={provider_id:document.getElementById('providerId').value,category:document.getElementById('category').value,preferred_window:document.getElementById('window').value,insurer_name:document.getElementById('insurer').value,plan_number:document.getElementById('planNumber').value,member_id:document.getElementById('memberId').value};const r=await fetch('/api/booking/propose',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(payload)});const data=await r.json();show('proposalOut',data);if(r.ok){currentProposal=data.proposal_id;document.getElementById('approvalControls').classList.remove('hidden');}}
+async function approveBooking(approved){if(!currentProposal)return;const r=await fetch('/api/booking/approve',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({proposal_id:currentProposal,approved})});show('bookingOut',await r.json());}
+</script>
+</body>
+</html>
