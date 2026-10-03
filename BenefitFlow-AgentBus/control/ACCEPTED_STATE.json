@@ -2,7 +2,7 @@
   "schema": "benefitflow/accepted-state/v1",
   "project_id": "benefitflow",
   "release": "beta-0.3.0",
-  "status": "RND_ROUND_1_ACTIVE",
+  "status": "RND_ROUND_1_ACTIVE_P0_ARCHITECTURE_GATE",
   "accepted": [
     "Distinct BenefitFlow AgentBus/forum/artifactory namespace",
     "Fail-closed project/repository guard",
@@ -11,6 +11,9 @@
     "Primary authority remains chatgpt-primary-2026-10-03 going forward",
     "R&D Round 1 is authorized for exactly 10 research agents and 2 manager agents",
     "Authoritative live role and lane ownership is maintained in control/SWARM_ROSTER.json",
-    "Research evidence requires manager review before Primary acceptance"
+    "Research evidence requires manager review before Primary acceptance",
+    "P0 architecture gate: synthetic R&D may continue, but real member data, live provider/insurer credentials, claims submission, and live booking adapters remain blocked until coordinated domain, authorization, sensitive-data, IAM/audit, evidence-provenance, and transaction-state hardening is implemented and verified",
+    "Existing human approval boundary remains mandatory and must become mechanically enforceable in production architecture",
+    "Typed benefit semantics, evidence-backed provider/direct-billing observations, bounded disclosure authorization, sensitive-data isolation, object-level authorization/audit, and idempotent reconciliable booking transaction state are accepted as required hardening themes; exact class/enum names are not yet accepted project truth"
   ]
 }
