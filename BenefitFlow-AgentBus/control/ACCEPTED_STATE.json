@@ -2,12 +2,15 @@
   "schema": "benefitflow/accepted-state/v1",
   "project_id": "benefitflow",
   "release": "beta-0.3.0",
-  "status": "PRIMARY_PREPARED_PRE_RND",
+  "status": "RND_ROUND_1_ACTIVE",
   "accepted": [
     "Distinct BenefitFlow AgentBus/forum/artifactory namespace",
     "Fail-closed project/repository guard",
     "Human approval required before transaction adapter handoff",
     "Provider verification required before booking proposal",
-    "No R&D specialists started yet"
+    "Primary authority remains chatgpt-primary-2026-10-03 going forward",
+    "R&D Round 1 is authorized for exactly 10 research agents and 2 manager agents",
+    "Authoritative live role and lane ownership is maintained in control/SWARM_ROSTER.json",
+    "Research evidence requires manager review before Primary acceptance"
   ]
 }
