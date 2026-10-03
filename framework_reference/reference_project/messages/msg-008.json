@@ -1,0 +1,27 @@
+{
+  "applies_to_state": "baseline-v1",
+  "artifacts": [
+    "review/contradiction-001/"
+  ],
+  "evidence": [
+    "ev-policy-owner-note",
+    "ev-b-data"
+  ],
+  "from_agent": "reviewer-quinn",
+  "from_role": "REVIEWER",
+  "id": "msg-008",
+  "kind": "REVIEW_DISPOSITION",
+  "priority": "normal",
+  "project_id": "fictional-supplier-intake-001",
+  "reply_to": "msg-006",
+  "requires_ack": false,
+  "schema": "org-agent-mesh/message/v1",
+  "subject": "Use complete-packet interval for approved KPI",
+  "summary": "Authoritative KPI owner confirms complete-packet through approval. The 5-day measure is READY_FOR_INTEGRATION; the 8-day measure remains valid only for end-to-end customer wait analysis.",
+  "supersedes": [],
+  "tags": [],
+  "timestamp_utc": "2026-01-15T10:08:00Z",
+  "to": [
+    "orchestrator-rhea"
+  ]
+}
