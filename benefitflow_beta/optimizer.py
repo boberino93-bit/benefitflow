@@ -29,7 +29,11 @@ def build_plan(req: PlanRequest) -> PlanResult:
         if not benefit:
             warnings.append(f"No parsed benefit line found for {pref.category}; it was not scheduled.")
             continue
-        if benefit.coverage_percent is None or benefit.maximum_amount is None or benefit.period_kind == "unknown":
+        if benefit.manual_review_required:
+            warnings.append(f"{pref.category} contains material semantic ambiguity and requires manual review before planning.")
+            manual_review.append(pref.category)
+            continue
+        if benefit.coverage_percent is None or benefit.maximum_amount is None or benefit.period_kind in ("unknown", "annual_unspecified"):
             warnings.append(f"{pref.category} has incomplete benefit semantics and requires manual review before planning.")
             manual_review.append(pref.category)
             continue
