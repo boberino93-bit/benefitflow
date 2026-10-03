@@ -3,86 +3,140 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>BenefitFlow Beta</title>
+  <title>BenefitFlow Alpha 0.4</title>
   <link rel="stylesheet" href="/static/styles.css" />
 </head>
 <body>
 <main>
   <header class="hero">
-    <div class="eyebrow">BETA 0.3 · LOCAL PILOT</div>
-    <h1>BenefitFlow</h1>
-    <p class="lede">Turn a benefits package and your annual spending limit into a care-use plan, verify provider/direct-billing details, and prepare a booking only after you approve the exact transaction.</p>
-    <div class="statusbar"><span>Project isolated</span><span>R&amp;D swarm not started</span><span>External actions disabled</span></div>
+    <div class="eyebrow">ALPHA 0.4 · END-TO-END DEMONSTRATOR</div>
+    <h1>Use your benefits with confidence.</h1>
+    <p class="lede">BenefitFlow turns plan language into an evidence-backed utilization plan, verifies provider facts, shows the exact action it proposes, and demonstrates a safe booking lifecycle without contacting a real clinic or insurer.</p>
+    <div class="statusbar"><span>Round 1 closed</span><span>P0 hardening active</span><span>Demo-only transactions</span><span>No live claims or bookings</span></div>
   </header>
+
+  <section class="summary-strip">
+    <div><strong id="summaryBenefits">—</strong><span>benefit categories parsed</span></div>
+    <div><strong id="summaryInsurer">—</strong><span>estimated insurer contribution</span></div>
+    <div><strong id="summaryUser">—</strong><span>estimated out-of-pocket</span></div>
+    <div><strong id="summaryBooking">Not started</strong><span>booking state</span></div>
+  </section>
+
+  <section class="card intro-card">
+    <div>
+      <div class="step">DEMO FLOW</div>
+      <h2>Plan → Provider → Approval → Simulated confirmation</h2>
+      <p>This demonstrator intentionally uses synthetic provider records and demo identifiers. Do not enter real member IDs or real plan credentials.</p>
+    </div>
+    <button class="secondary" onclick="loadDemoPlan()">Load demo benefits</button>
+  </section>
 
   <section class="grid two">
     <article class="card">
-      <div class="step">01</div><h2>Load your plan</h2>
-      <p>Paste benefit text or upload a PDF. The beta extracts supported categories with evidence snippets and flags ambiguous rules.</p>
-      <textarea id="benefitsText" rows="10" placeholder="Example: Physiotherapy: 80% reimbursement, annual maximum $750 per calendar year..."></textarea>
-      <div class="row"><button onclick="parseBenefits()">Parse text</button><label class="filebtn">Upload PDF<input id="planFile" type="file" accept=".pdf,.txt" onchange="parseFile()" /></label></div>
-      <div id="parseOut" class="output muted">No plan parsed yet.</div>
+      <div class="step">01 · UNDERSTAND</div><h2>Load your benefits</h2>
+      <p>Paste plan wording or upload a small PDF/text file. BenefitFlow keeps evidence snippets and flags ambiguous rules instead of inventing values.</p>
+      <textarea id="benefitsText" rows="11" placeholder="Physiotherapy: 80% reimbursement, annual maximum $750 per calendar year..."></textarea>
+      <div class="row"><button onclick="parseBenefits()">Parse benefits</button><label class="filebtn">Upload file<input id="planFile" type="file" accept=".pdf,.txt" onchange="parseFile()" /></label></div>
+      <div id="parseOut" class="output empty">No plan parsed yet.</div>
     </article>
 
     <article class="card">
-      <div class="step">02</div><h2>Set your annual budget</h2>
-      <label>Maximum out-of-pocket spend ($)<input id="budget" type="number" value="600" min="0" /></label>
-      <p class="small">For this first beta, each confidently parsed category defaults to four desired visits. The optimizer will never add visits beyond that user-declared demand.</p>
-      <button onclick="buildPlan()">Build plan</button>
-      <div id="planOut" class="output muted">No annual plan generated yet.</div>
+      <div class="step">02 · OPTIMIZE</div><h2>Build a benefits-use plan</h2>
+      <label>Annual out-of-pocket budget ($)<input id="budget" type="number" value="600" min="0" /></label>
+      <p class="small">For the demo, each parsed category starts with four desired visits. The optimizer respects user demand and fails closed on material ambiguity.</p>
+      <button onclick="buildPlan()">Build annual plan</button>
+      <div id="planOut" class="output empty">No utilization plan generated yet.</div>
     </article>
   </section>
 
   <section class="grid two">
     <article class="card">
-      <div class="step">03</div><h2>Research a provider</h2>
-      <p>Provider data is synthetic in this beta. The production adapter will replace it with current research and clinic confirmation.</p>
-      <label>Insurer name<input id="insurer" value="Example Insurer" /></label>
+      <div class="step">03 · DISCOVER</div><h2>Find a provider</h2>
+      <p>Each provider assertion has its own source/freshness record. This demo uses a synthetic registry so no external terms or scraping issues are involved.</p>
       <button onclick="loadProviders()">Load demo providers</button>
-      <div id="providerOut" class="output muted">No providers loaded.</div>
+      <div id="providerOut" class="provider-list empty">No providers loaded.</div>
     </article>
 
     <article class="card">
-      <div class="step">04</div><h2>Verify before proposing</h2>
-      <label>Provider ID<input id="providerId" value="demo-physio-1" /></label>
-      <button onclick="verifyProvider()">Simulate clinic verification</button>
-      <div id="verifyOut" class="output muted">Verification required before proposal.</div>
+      <div class="step">04 · VERIFY</div><h2>Verify current facts</h2>
+      <label>Selected provider ID<input id="providerId" value="demo-physio-1" /></label>
+      <label>Insurer name<input id="insurer" value="Example Insurer" /></label>
+      <button onclick="verifyProvider()">Run synthetic verification</button>
+      <div id="verifyOut" class="output empty">Verification is required before a proposal.</div>
     </article>
   </section>
 
   <section class="card approval">
-    <div class="step">05</div><h2>Create approval card</h2>
+    <div class="step">05 · AUTHORIZE</div><h2>Review the exact proposed action</h2>
+    <div class="notice"><strong>Demo identifiers only.</strong> Alpha 0.4 retains only masked tails and disclosure categories in workflow state.</div>
     <div class="grid two compact">
       <label>Category<input id="category" value="physiotherapy" /></label>
       <label>Preferred window<input id="window" value="Tuesday afternoon" /></label>
-      <label>Plan number<input id="planNumber" value="12345678" /></label>
-      <label>Member / certificate ID<input id="memberId" value="ABCDEFGH" /></label>
+      <label>Demo plan number<input id="planNumber" value="DEMO-PLAN-0001" /></label>
+      <label>Demo member ID<input id="memberId" value="DEMO-MEMBER-0001" /></label>
     </div>
-    <button onclick="proposeBooking()">Prepare booking proposal</button>
-    <div id="proposalOut" class="output muted">No proposal yet.</div>
+    <button onclick="proposeBooking()">Prepare approval card</button>
+    <div id="proposalOut" class="output empty">No proposal yet.</div>
     <div id="approvalControls" class="row hidden">
-      <button class="approve" onclick="approveBooking(true)">Approve exact transaction</button>
+      <button class="approve" onclick="approveBooking(true)">Approve exact scope</button>
       <button class="ghost" onclick="approveBooking(false)">Decline</button>
     </div>
-    <div id="bookingOut" class="output muted">No external action authorized.</div>
+    <div id="bookingOut" class="output empty">No transaction authorization exists.</div>
+  </section>
+
+  <section id="simulationCard" class="card hidden">
+    <div class="step">06 · SIMULATE</div><h2>Run the transaction lifecycle</h2>
+    <p>The mock adapter proves booking-state behavior without contacting anyone. Pick a scenario to demonstrate confirmation, waitlist, retry-safe failure, ambiguous outcome/reconciliation, or rejection.</p>
+    <div class="row scenario-row">
+      <select id="scenario">
+        <option value="confirmed">Confirmed booking</option>
+        <option value="waitlisted">Waitlisted — not booked</option>
+        <option value="retryable_failure">Transport failed before action</option>
+        <option value="ambiguous_after_send">Ambiguous after request — reconcile</option>
+        <option value="rejected">Provider rejected request</option>
+      </select>
+      <button onclick="runSimulation()">Run demo transaction</button>
+      <button class="ghost" onclick="loadAudit()">View audit trail</button>
+    </div>
+    <div id="transactionOut" class="timeline empty">No simulated transaction yet.</div>
+    <div id="auditOut" class="output hidden"></div>
   </section>
 
   <section class="card boundary">
-    <h2>Beta boundary</h2>
-    <p>This build does not place calls, book real appointments, access insurer accounts, submit claims, or provide clinical advice. The last step emits a transaction-adapter handoff only after explicit user approval.</p>
+    <div class="step">SAFETY BOUNDARY</div>
+    <h2>This is a real product demonstration, not a live transaction system.</h2>
+    <p>Alpha 0.4 does not place calls, log into insurer portals, submit claims, charge money, disclose real member identifiers, or create real appointments. The P0 architecture gate remains active until the authorization, security, evidence, and transaction controls are fully implemented and verified.</p>
   </section>
 </main>
+
 <script>
-let parsed=null, currentProposal=null;
-const pretty=x=>JSON.stringify(x,null,2);
-const show=(id,obj)=>{const el=document.getElementById(id);el.classList.remove('muted');el.innerHTML='<pre>'+pretty(obj).replaceAll('&','&amp;').replaceAll('<','&lt;')+'</pre>';};
-async function parseBenefits(){const body=new FormData();body.append('text',document.getElementById('benefitsText').value);const r=await fetch('/api/parse-text',{method:'POST',body});parsed=await r.json();show('parseOut',parsed);}
-async function parseFile(){const f=document.getElementById('planFile').files[0];if(!f)return;const body=new FormData();body.append('file',f);const r=await fetch('/api/parse-file',{method:'POST',body});parsed=await r.json();show('parseOut',parsed);}
-async function buildPlan(){if(!parsed){alert('Parse a plan first.');return;}const prefs=parsed.benefits.map((b,i)=>({category:b.category,priority:Math.max(1,5-i),desired_visits:4}));const payload={annual_out_of_pocket_budget:Number(document.getElementById('budget').value),benefits:parsed.benefits,preferences:prefs};const r=await fetch('/api/plan',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(payload)});show('planOut',await r.json());}
-async function loadProviders(){const r=await fetch('/api/providers');show('providerOut',await r.json());}
-async function verifyProvider(){const payload={provider_id:document.getElementById('providerId').value,insurer_name:document.getElementById('insurer').value};const r=await fetch('/api/providers/verify',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(payload)});show('verifyOut',await r.json());}
-async function proposeBooking(){const payload={provider_id:document.getElementById('providerId').value,category:document.getElementById('category').value,preferred_window:document.getElementById('window').value,insurer_name:document.getElementById('insurer').value,plan_number:document.getElementById('planNumber').value,member_id:document.getElementById('memberId').value};const r=await fetch('/api/booking/propose',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(payload)});const data=await r.json();show('proposalOut',data);if(r.ok){currentProposal=data.proposal_id;document.getElementById('approvalControls').classList.remove('hidden');}}
-async function approveBooking(approved){if(!currentProposal)return;const r=await fetch('/api/booking/approve',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({proposal_id:currentProposal,approved})});show('bookingOut',await r.json());}
+let parsed=null, currentPlan=null, currentProposal=null, approved=false;
+const $=id=>document.getElementById(id);
+const esc=s=>String(s??'').replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;');
+const money=n=>Number(n||0).toLocaleString('en-CA',{style:'currency',currency:'CAD'});
+async function jsonFetch(url,opts={}){const r=await fetch(url,opts);const data=await r.json();if(!r.ok)throw new Error(data.detail||'Request failed');return data;}
+function setError(id,e){const el=$(id);el.classList.remove('empty');el.innerHTML=`<div class="error">${esc(e.message||e)}</div>`;}
+function loadDemoPlan(){
+  $('benefitsText').value=`Physiotherapy: 80% reimbursement. Maximum $1,000 per calendar year. No referral required.\nMassage Therapy: 80% reimbursement. Maximum $750 per calendar year.\nPsychology: 80% reimbursement. Maximum $1,500 per calendar year.\nChiropractic: 80% reimbursement. Maximum $500 per calendar year.`;
+  parseBenefits();
+}
+function renderBenefits(data){
+  $('summaryBenefits').textContent=data.benefits.length;
+  const cards=data.benefits.map(b=>`<div class="benefit-card"><div class="benefit-head"><strong>${esc(b.category)}</strong><span class="pill ${esc(b.confidence)}">${esc(b.confidence)}</span></div><div class="benefit-metrics"><span>${b.coverage_percent==null?'Unknown':esc(b.coverage_percent)+'%'} coverage</span><span>${b.maximum_amount==null?'Maximum unresolved':money(b.maximum_amount)+' max'}</span></div><p>${esc(b.evidence_excerpt||'No source excerpt')}</p>${b.manual_review_required?'<div class="warning">Manual review required</div>':''}</div>`).join('');
+  const warnings=(data.warnings||[]).map(w=>`<li>${esc(w)}</li>`).join('');
+  $('parseOut').classList.remove('empty');
+  $('parseOut').innerHTML=`<div class="stack">${cards}</div>${warnings?`<details><summary>Parser warnings</summary><ul>${warnings}</ul></details>`:''}`;
+}
+async function parseBenefits(){try{const body=new FormData();body.append('text',$('benefitsText').value);parsed=await jsonFetch('/api/parse-text',{method:'POST',body});renderBenefits(parsed);}catch(e){setError('parseOut',e);}}
+async function parseFile(){const f=$('planFile').files[0];if(!f)return;try{const body=new FormData();body.append('file',f);parsed=await jsonFetch('/api/parse-file',{method:'POST',body});renderBenefits(parsed);}catch(e){setError('parseOut',e);}}
+async function buildPlan(){if(!parsed){setError('planOut','Parse a plan first.');return;}try{const prefs=parsed.benefits.map((b,i)=>({category:b.category,priority:Math.max(1,5-i),desired_visits:4}));const payload={annual_out_of_pocket_budget:Number($('budget').value),benefits:parsed.benefits,preferences:prefs};currentPlan=await jsonFetch('/api/plan',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(payload)});$('summaryInsurer').textContent=money(currentPlan.estimated_insurer_paid);$('summaryUser').textContent=money(currentPlan.estimated_user_paid);const services=currentPlan.services.map(s=>`<div class="service-row"><div><strong>${esc(s.category)}</strong><span>${esc(s.visits)} visits · ${money(s.estimated_cost_per_visit)}/visit</span></div><div><b>${money(s.estimated_insurer_paid)}</b><small>insurer est.</small></div><div><b>${money(s.estimated_user_paid)}</b><small>you est.</small></div></div>`).join('');$('planOut').classList.remove('empty');$('planOut').innerHTML=`<div class="plan-summary"><strong>${money(currentPlan.estimated_insurer_paid)}</strong> estimated insurer contribution · <strong>${money(currentPlan.estimated_user_paid)}</strong> estimated user spend</div>${services||'<p>No services could be planned.</p>'}${currentPlan.manual_review_categories.length?`<div class="warning">Manual review: ${esc(currentPlan.manual_review_categories.join(', '))}</div>`:''}`;}catch(e){setError('planOut',e);}}
+async function loadProviders(){try{const data=await jsonFetch('/api/providers');$('providerOut').classList.remove('empty');$('providerOut').innerHTML=data.providers.map(p=>`<div class="provider-card"><div><strong>${esc(p.name)}</strong><span>${esc(p.category)} · ${esc(p.city)}</span></div><div class="row"><span class="pill">${esc(p.booking_channel)}</span><button class="mini" onclick="selectProvider('${esc(p.provider_id)}','${esc(p.category)}')">Select</button></div></div>`).join('');}catch(e){setError('providerOut',e);}}
+async function selectProvider(id,category){$('providerId').value=id;$('category').value=category;try{const ev=await jsonFetch(`/api/providers/${encodeURIComponent(id)}/evidence`);$('providerOut').innerHTML+=`<div class="evidence-panel"><strong>Evidence for ${esc(id)}</strong>${ev.assertions.map(a=>`<div class="evidence-row"><span>${esc(a.field)}</span><b>${esc(a.value)}</b><small>${esc(a.source)} · ${esc(a.freshness)}</small></div>`).join('')}<p>${esc(ev.note)}</p></div>`;}catch(e){setError('providerOut',e);}}
+async function verifyProvider(){try{const payload={provider_id:$('providerId').value,insurer_name:$('insurer').value};const v=await jsonFetch('/api/providers/verify',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(payload)});$('verifyOut').classList.remove('empty');$('verifyOut').innerHTML=`<div class="verification"><span class="ok">Verified for demo</span><h3>${money(v.current_price)}</h3><p>Accepting new patients: <strong>${v.accepting_new_patients?'Yes':'No/unknown'}</strong></p><p>Direct billing: <strong>${esc(v.direct_billing)}</strong></p><p>Cancellation: ${esc(v.cancellation_policy)}</p><small>${esc(v.evidence_note)}</small></div>`;}catch(e){setError('verifyOut',e);}}
+async function proposeBooking(){try{const payload={provider_id:$('providerId').value,category:$('category').value,preferred_window:$('window').value,insurer_name:$('insurer').value,plan_number:$('planNumber').value,member_id:$('memberId').value};const p=await jsonFetch('/api/booking/propose',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(payload)});currentProposal=p.proposal_id;approved=false;$('proposalOut').classList.remove('empty');$('proposalOut').innerHTML=`<div class="approval-card"><div><span class="pill">Awaiting approval</span><h3>${esc(p.category)} at ${esc(p.provider.name)}</h3><p>${esc(p.preferred_window)} · ${money(p.expected_cost)}</p></div><div class="approval-grid"><span>Plan identifier <b>${esc(p.plan_number_masked)}</b></span><span>Member identifier <b>${esc(p.member_id_masked)}</b></span><span>Provider verification <b>present</b></span><span>External action <b>not yet authorized</b></span></div></div>`;$('approvalControls').classList.remove('hidden');$('simulationCard').classList.add('hidden');$('bookingOut').textContent='No transaction authorization exists.';$('bookingOut').classList.add('empty');}catch(e){setError('proposalOut',e);}}
+async function approveBooking(decision){if(!currentProposal)return;try{const b=await jsonFetch('/api/booking/approve',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({proposal_id:currentProposal,approved:decision})});approved=decision;$('bookingOut').classList.remove('empty');$('bookingOut').innerHTML=decision?`<div class="authorization"><span class="ok">Authorized for local simulation</span><p>${esc(b.next_action)}</p><details><summary>Bounded transaction scope</summary><pre>${esc(b.transaction_script)}</pre></details></div>`:`<div class="warning">Declined. This proposal is permanently closed; create a new proposal to make a different decision.</div>`;if(decision)$('simulationCard').classList.remove('hidden');}catch(e){setError('bookingOut',e);}}
+async function runSimulation(){if(!currentProposal||!approved)return;try{const tx=await jsonFetch('/api/demo/transaction',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({proposal_id:currentProposal,scenario:$('scenario').value})});$('summaryBooking').textContent=tx.outcome;$('transactionOut').classList.remove('empty');$('transactionOut').innerHTML=tx.events.map((e,i)=>`<div class="timeline-item ${e.state==='CONFIRMED_BOOKED'?'success':e.state.includes('RECONCILIATION')?'attention':''}"><div class="dot"></div><div><small>${esc(e.timestamp)}</small><strong>${esc(e.state)}</strong><p>${esc(e.note)}</p></div></div>`).join('')+(tx.calendar_projection?`<div class="calendar-card"><strong>Demo calendar projection</strong><span>${esc(tx.calendar_projection.title)}</span><span>${esc(tx.calendar_projection.window)}</span></div>`:'');}catch(e){setError('transactionOut',e);}}
+async function loadAudit(){if(!currentProposal)return;try{const a=await jsonFetch(`/api/demo/audit/${encodeURIComponent(currentProposal)}`);$('auditOut').classList.remove('hidden');$('auditOut').innerHTML=`<div class="audit"><h3>Sanitized audit</h3><p>${esc(a.note)}</p><div class="audit-grid"><span>Proposal <b>${esc(a.proposal_id)}</b></span><span>Decision <b>${esc(a.approval?.decision||'none')}</b></span><span>Authorization <b>${esc(a.approval?.authorization_id||'none')}</b></span><span>Raw sensitive values retained <b>${a.sensitive_values_retained?'Yes':'No'}</b></span><span>Transaction <b>${esc(a.transaction?.transaction_id||'not run')}</b></span><span>Outcome <b>${esc(a.transaction?.outcome||'not run')}</b></span></div></div>`;}catch(e){setError('auditOut',e);}}
 </script>
 </body>
 </html>

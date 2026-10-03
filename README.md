@@ -1,21 +1,36 @@
-# BenefitFlow Beta v0.3.0
+# BenefitFlow Alpha v0.4.0
 
-BenefitFlow is a benefits-navigation and appointment-coordination beta designed to turn a user's extended-benefits package, priorities, and annual out-of-pocket budget into an evidence-backed utilization plan and a user-approved booking workflow.
+BenefitFlow is an evidence-backed benefits-navigation and appointment-coordination proof of concept. It turns plan wording, user priorities, and an annual out-of-pocket budget into a utilization plan, provider-evidence workflow, scoped approval, and a simulated booking lifecycle.
 
-## Beta capabilities
+## Alpha 0.4 demonstrator
 
-- Canonical project identity: `BenefitFlow` / `project_id=benefitflow`.
-- Dedicated `BenefitFlow-AgentBus/` with its own immutable forum, evidence area, control state, artifactory, presence space, and recovery snapshots.
-- Fail-closed project/repository guard. The dedicated repository is verified as `boberino93-bit/benefitflow`; all foreign repository writes remain blocked.
-- Recursive recovery patterned on the proven Duo Open process: immutable messages, complete AgentBus snapshots, SHA-256 manifests, recursive continuation packages, successor revalidation, and live-delta reconciliation.
-- Bounded recursive self-enhancement: PRIMARY, MANAGER, and RESEARCH agents inspect registered foreign Artifactory/AgentBus repos as read-only reference sources, preserve provenance, review compatibility, and graft accepted improvements only into BenefitFlow.
-- Active Primary: `chatgpt-primary-2026-10-03`.
-- R&D Round 1 is active for **10 research agents + 2 manager agents**. Authoritative live ownership is `BenefitFlow-AgentBus/control/SWARM_ROSTER.json`.
-- Rich benefit schema: annual/benefit-year/rolling-period limits, reasonable-and-customary caps, deductible remaining, prior usage, referral/prescription flags, visit limits, and evidence confidence.
-- Optimizer accounts for eligible-charge caps, deductibles, used benefit value, visit limits, and user budget; ambiguous semantics fail to manual review.
-- Provider verification is required before a booking proposal can be created.
-- Booking approval emits a bounded transaction-adapter handoff rather than pretending a real call or booking occurred.
-- Persistent beta workflow state uses local SQLite.
+The end-to-end demo now supports:
+
+`benefit text/PDF -> evidence-backed normalization -> budgeted utilization plan -> synthetic provider discovery -> field-level provider evidence -> transaction-time verification -> exact approval card -> irreversible scoped authorization -> synthetic transaction lifecycle -> confirmation/reconciliation state -> sanitized audit trail`
+
+The simulator deliberately demonstrates that a request, hold, waitlist, successful transport, completed call, or calendar projection is **not** a confirmed appointment. Only the `CONFIRMED_BOOKED` state is treated as a confirmed booking, and a calendar projection is created only after that state.
+
+Available synthetic transaction scenarios:
+- confirmed booking;
+- waitlisted / not booked;
+- retryable transport failure before business action;
+- ambiguous outcome after request submission, requiring reconciliation rather than blind retry;
+- provider rejection.
+
+## P0 hardening demonstrated in this build
+
+- Benefit semantics/provenance primitives remain fail-closed on material ambiguity.
+- Demo upload/text size bounds protect hosted parser paths from unbounded input.
+- Approval decisions are durably recorded and cannot be reversed on the same proposal.
+- Approval and allowed disclosure categories are explicit.
+- Raw demo plan/member identifiers are not persisted in proposal workflow state; only masked tails/categories are retained.
+- Provider facts are represented as assertion-level evidence with separate freshness/provenance.
+- The local transaction simulator uses stable transaction/operation/attempt identities and is idempotent per proposal.
+- Ambiguous post-send outcomes enter `RECONCILIATION_REQUIRED` and block blind retry.
+- Calendar projection is downstream of authoritative confirmation.
+- Sanitized audit output contains no raw member/plan identifiers.
+
+These are proof-of-concept controls, not a claim that the complete production P0 gate is satisfied.
 
 ## Run
 
@@ -33,58 +48,40 @@ python -m pytest -q
 python framework_reference/tests/run_all.py
 ```
 
-Previous verified baseline before the recursive-enhancement additions: **34 BenefitFlow tests + 18 framework tests = 52 passing**. The enhancement guard adds additional regression tests and should be revalidated with the full suite before a new baseline is published.
+CI runs both suites on pushes to `main` and also validates/generates PRIMARY, MANAGER, and RESEARCH successor packages.
 
-## Recursive enhancement
+## Project state
 
-Authoritative controls:
-- `BenefitFlow-AgentBus/control/RECURSIVE_CROSS_PROJECT_ENHANCEMENT_V1.md`
-- `BenefitFlow-AgentBus/control/ENHANCEMENT_SOURCE_REGISTRY.json`
-- `BenefitFlow-AgentBus/control/ENHANCEMENT_CURSOR.json`
+- Canonical identity: `BenefitFlow` / `project_id=benefitflow`.
+- R&D Round 1: **CLOSED** by explicit human directive.
+- All R1-R10 research slots: `COMPLETE_ROUND1`.
+- Current phase: **P0 hardening / implementation**.
+- Primary: `chatgpt-primary-2026-10-03`.
+- GitHub/AgentBus is authoritative project state. Slack is an optional secondary operational tool only; material results must be persisted back to the repository/forum.
+- Foreign enhancement-source repositories are read-only. Reusable patterns may be inspected and grafted only into BenefitFlow through the accepted review/disposition process.
 
-Local helper:
+Authoritative controls live under `BenefitFlow-AgentBus/control/`.
 
-```bash
-python tools/recursive_enhancement_cycle.py next-source
-python tools/recursive_enhancement_cycle.py validate-candidate <candidate.json>
-```
+## Safety boundary
 
-Foreign source repositories are strictly read-only. The enhancement mechanism may inspect them, but it may not create, modify, delete, merge, branch, tag, comment, dispatch, or write cursor/ack state into them. Accepted grafts are BenefitFlow-local and remain subject to Manager review, Primary disposition, regression/invariant verification, and all-role package parity.
+Alpha 0.4 does **not**:
+- place live phone calls;
+- create real appointments;
+- log into insurer/provider accounts;
+- use live provider or insurer credentials;
+- submit claims;
+- charge money;
+- disclose real member/plan identifiers;
+- provide clinical advice.
 
-## Recursive backup / successor recovery
+The accepted P0 architecture gate remains active. Real member data, credentials, claims submission, live booking adapters, and financial actions remain blocked until the required authorization, privacy, security, IAM/audit, evidence-provenance, transaction-state, and verification controls are implemented and verified.
 
-```bash
-python tools/build_recursive_backup.py
-python tools/verify_recursive_backup.py <snapshot-folder>/DEPLOYMENT_METADATA/AGENTBUS_SNAPSHOT
-python tools/generate_successor_package.py PRIMARY
-python tools/generate_successor_package.py MANAGER
-python tools/generate_successor_package.py RESEARCH
-# or refresh all roles
-python tools/generate_all_role_packages.py
-```
+## Intended progression
 
-See:
-- `BenefitFlow-AgentBus/control/RECURSIVE_BACKUP_AND_RECOVERY_V1.md`
-- `BenefitFlow-AgentBus/control/DEPLOYMENT_AGENTBUS_SNAPSHOT_CONTRACT_V1.md`
-- `BenefitFlow-AgentBus/control/CONTROLLER_SUCCESSION_V1.md`
-- `BenefitFlow-AgentBus/control/AGENTBUS_MESSAGE_PERSISTENCE_CONTRACT_V1.md`
-- `BenefitFlow-AgentBus/control/SWARM_PROTOCOL_V1.md`
-- `BenefitFlow-AgentBus/control/RECURSIVE_CROSS_PROJECT_ENHANCEMENT_V1.md`
+1. **Alpha 0.4 PoC** — synthetic end-to-end demonstrator.
+2. **Closed pilot** — limited real plan information + curated provider evidence, no autonomous external transactions.
+3. **Integration pilot** — one sanctioned provider/insurer/booking integration after P0 controls and qualified privacy/legal review.
 
-## Safety/product boundary
+## Project isolation and recovery
 
-This beta does not place live calls, book appointments, log into insurer portals, submit claims, charge money, or give clinical advice. Provider records and verification are synthetic.
-
-The intended production sequence is:
-
-`plan upload -> evidence-backed normalization -> user priorities/budget -> utilization plan -> provider research -> clinic verification -> exact approval card -> user approval -> transaction adapter -> confirmed booking -> calendar`
-
-Member/plan identifiers remain outside research-agent context and may be disclosed externally only within the user's approved transaction scope.
-
-The accepted P0 architecture gate remains in force: recursive self-enhancement cannot silently authorize real member data, live credentials, claims submission, or live booking adapters before the required domain, authorization, sensitive-data, IAM/audit, evidence-provenance, and transaction-state hardening is implemented and verified.
-
-## Project isolation
-
-BenefitFlow coordination state lives only under `BenefitFlow-AgentBus/`. Duo Open and other enhancement-source repositories are explicitly foreign and read-only. There is no implicit/default writable repository.
-
-Repository activation is defined in `REPOSITORY_BOOTSTRAP.md` and `BenefitFlow-AgentBus/control/GITHUB_REPOSITORY_BINDING.json`.
+BenefitFlow coordination state lives only under `BenefitFlow-AgentBus/`. Recursive backups, successor packages, forum persistence, project binding, cross-project enhancement controls, swarm history, and package parity requirements remain in force.

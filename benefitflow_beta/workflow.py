@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from datetime import datetime, timezone
 import secrets
 
 from .models import BookingProposal, BookingProposalRequest, BookingResult, ProviderVerification
@@ -13,6 +14,10 @@ def _mask(value: str) -> str:
     if len(value) <= 4:
         return "*" * len(value)
     return "*" * (len(value) - 4) + value[-4:]
+
+
+def _tail(value: str) -> str:
+    return value[-4:] if value else ""
 
 
 def verify_provider(provider_id: str, insurer_name: str) -> ProviderVerification:
@@ -44,8 +49,46 @@ def create_proposal(req: BookingProposalRequest) -> BookingProposal:
         plan_number_masked=_mask(req.plan_number),
         member_id_masked=_mask(req.member_id),
     )
-    put(f"proposal:{proposal_id}", {"proposal": proposal.model_dump(mode="json"), "sensitive": {"plan_number": req.plan_number, "member_id": req.member_id}})
+    allowed_disclosures = []
+    if req.plan_number:
+        allowed_disclosures.append("plan_number")
+    if req.member_id:
+        allowed_disclosures.append("member_id")
+    put(
+        f"proposal:{proposal_id}",
+        {
+            "proposal": proposal.model_dump(mode="json"),
+            "identifier_tails": {
+                "plan_number_tail": _tail(req.plan_number),
+                "member_id_tail": _tail(req.member_id),
+            },
+            "requested_disclosures": allowed_disclosures,
+            "approval": None,
+        },
+    )
     return proposal
+
+
+def _approved_result(proposal: BookingProposal, record: dict) -> BookingResult:
+    tails = record.get("identifier_tails", {})
+    plan_tail = tails.get("plan_number_tail") or "N/A"
+    member_tail = tails.get("member_id_tail") or "N/A"
+    approval = record.get("approval") or {}
+    script = f"""DEMO TRANSACTION SCOPE — no live external action is authorized by this build.
+
+Arrange a {proposal.category} appointment with {proposal.provider.name} within {proposal.preferred_window}. The verified synthetic price is ${proposal.expected_cost:.2f} and direct-billing status is '{proposal.verification.direct_billing}'.
+
+Authorization {approval.get('authorization_id', 'N/A')} permits only these disclosure categories: {', '.join(approval.get('allowed_disclosures', [])) or 'none'}.
+
+If a production adapter were enabled later, it would have to reconfirm the clinic/service and necessity before retrieving secrets from a dedicated secret store. The demo retains only masked tails: plan ****{plan_tail}; member ****{member_tail}.
+
+Any material change to provider, practitioner, service, price, cancellation terms, appointment window, disclosure category, payment, or claim submission requires fresh user authorization."""
+    return BookingResult(
+        proposal_id=proposal.proposal_id,
+        status="READY_FOR_TRANSACTION_ADAPTER",
+        next_action="Alpha 0.4 may execute only the local synthetic transaction simulator. Live adapters remain blocked by the P0 gate.",
+        transaction_script=script,
+    )
 
 
 def approve_proposal(proposal_id: str, approved: bool) -> BookingResult:
@@ -53,22 +96,35 @@ def approve_proposal(proposal_id: str, approved: bool) -> BookingResult:
     if record is None:
         raise KeyError("proposal not found")
     proposal = BookingProposal.model_validate(record["proposal"])
-    if not approved:
+
+    existing = record.get("approval")
+    if existing is not None:
+        existing_approved = existing.get("decision") == "APPROVED"
+        if existing_approved != approved:
+            raise ValueError("approval decision is final for this proposal; create a new proposal for a different decision")
+        if approved:
+            return _approved_result(proposal, record)
         return BookingResult(proposal_id=proposal_id, status="DECLINED", next_action="No external action is authorized.")
 
-    sensitive = record.get("sensitive", {})
-    plan_tail = sensitive.get("plan_number", "")[-4:] or "N/A"
-    member_tail = sensitive.get("member_id", "")[-4:] or "N/A"
-    script = f"""Hello, I’m an automated scheduling assistant acting with the member's approval to arrange a {proposal.category} appointment with {proposal.provider.name}.
+    if not approved:
+        record["approval"] = {
+            "decision": "DECLINED",
+            "decided_at": datetime.now(timezone.utc).isoformat(),
+            "authorization_id": None,
+            "allowed_disclosures": [],
+        }
+        put(f"proposal:{proposal_id}", record)
+        return BookingResult(proposal_id=proposal_id, status="DECLINED", next_action="No external action is authorized.")
 
-The clinic verification on file indicates a current price of ${proposal.expected_cost:.2f}, direct billing status '{proposal.verification.direct_billing}', and a requested window of {proposal.preferred_window}.
-
-Before disclosing identifiers, reconfirm that the clinic needs them for direct-billing profile setup and that the practitioner/service remains the one verified. The approved stored plan number ends in {plan_tail}; the member/certificate ID ends in {member_tail}.
-
-Do not accept a materially different provider, practitioner, service, price, cancellation condition, or appointment window without returning to the user for fresh approval. Do not pay a deposit or submit a claim without separate authorization."""
-    return BookingResult(
-        proposal_id=proposal_id,
-        status="READY_FOR_TRANSACTION_ADAPTER",
-        next_action="Beta stops at the transaction adapter boundary. A production voice/web adapter may act only within this approved scope.",
-        transaction_script=script,
-    )
+    record["approval"] = {
+        "decision": "APPROVED",
+        "decided_at": datetime.now(timezone.utc).isoformat(),
+        "authorization_id": "auth_" + secrets.token_urlsafe(8),
+        "allowed_disclosures": record.get("requested_disclosures", []),
+        "purpose": "synthetic appointment-coordination proof of concept",
+        "recipient": proposal.provider.provider_id,
+        "expires_when": "proposal scope materially changes",
+        "live_external_action_allowed": False,
+    }
+    put(f"proposal:{proposal_id}", record)
+    return _approved_result(proposal, record)
