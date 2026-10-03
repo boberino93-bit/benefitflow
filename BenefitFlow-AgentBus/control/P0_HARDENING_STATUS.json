@@ -1,0 +1,39 @@
+{
+  "schema": "benefitflow/p0-hardening-status/v1",
+  "project_id": "benefitflow",
+  "updated_at": "2026-10-03T22:48:00Z",
+  "gate": "P0_ARCHITECTURE_GATE_ACTIVE",
+  "live_integration_allowed": false,
+  "slices": {
+    "typed_benefit_semantics_and_provenance": {
+      "status": "IMPLEMENTED_AWAITING_TEST_VERIFICATION",
+      "files": [
+        "benefitflow_beta/models.py",
+        "benefitflow_beta/parser.py",
+        "benefitflow_beta/optimizer.py",
+        "tests/test_parser.py",
+        "tests/test_optimizer.py"
+      ],
+      "notes": "Additive typed limit/evidence primitives; annual unspecified anchor preserved; R&C no longer inferred from unrelated minimum dollar; largest-dollar semantic binding removed; optimizer fails closed on explicit manual-review semantics. Full pytest/framework verification has not been executed by Primary in this runtime."
+    },
+    "authorization_privacy_security_primitives": {
+      "status": "PENDING_IMPLEMENTATION"
+    },
+    "provider_direct_billing_evidence_model": {
+      "status": "PENDING_IMPLEMENTATION"
+    },
+    "transaction_state_machine": {
+      "status": "RESEARCH_READY_AWAITING_MANAGER_RECONCILIATION",
+      "research_slot": "R10",
+      "cross_lane_alignment": "R7_R10_REVIEW_REQUESTED"
+    },
+    "live_integration_experiments": {
+      "status": "BLOCKED_BY_P0_GATE"
+    }
+  },
+  "package_state": {
+    "source_bootstrap_parity": "UPDATED_FOR_RECURSIVE_ENHANCEMENT",
+    "generator_parity_guards": "IMPLEMENTED",
+    "concrete_primary_manager_research_package_regeneration": "REQUIRED_BEFORE_RELEASE_CLAIM"
+  }
+}
