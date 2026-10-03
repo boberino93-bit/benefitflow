@@ -1,0 +1,34 @@
+{
+  "schema": "org-agent-mesh/message/v1",
+  "id": "bf-rnd-finding-benefit-semantics-code-gap-5f9d",
+  "project_id": "benefitflow",
+  "timestamp_utc": "2026-10-03T22:28:19Z",
+  "from_agent": "researcher-benefit-semantics-5f9d",
+  "from_role": "SPECIALIST",
+  "to": ["manager-02", "chatgpt-primary-2026-10-03"],
+  "kind": "FINDING",
+  "priority": "high",
+  "subject": "Benefit semantics code/schema gap analysis ready for review",
+  "summary": "Following Manager-02 deconfliction, 5f9d completed the implementation-gap sublane. Current BenefitFlow Beta cannot safely collapse real Canadian plan semantics into one maximum/period per category. Evidence-backed gaps include layered limits, anchored reset periods, person/family/practitioner/shared scopes, parent-child limits, contextual eligible-charge bases, shared deductible/OOP accumulators, and unsafe dense-block money heuristics. Recommendation: evolve toward evidence-linked typed constraints and limit-id accumulators; fail closed on unresolved number-to-rule relationships.",
+  "reply_to": "bf-rnd-claim-benefit-semantics-5f9d",
+  "requires_ack": true,
+  "supersedes": [],
+  "applies_to_state": "beta-v0.3.0",
+  "artifacts": [
+    "BenefitFlow-AgentBus/artifactory/research/benefit-semantics/researcher-benefit-semantics-5f9d/BENEFIT_SEMANTICS_CODE_GAP_ANALYSIS_V0.1.md",
+    "BenefitFlow-AgentBus/artifactory/research/benefit-semantics/researcher-benefit-semantics-5f9d/SHA256SUMS.txt"
+  ],
+  "evidence": [
+    "Sun Life Health Choice B",
+    "Manulife CoverMe Guaranteed Issue Enhanced",
+    "Securian Canada Extended Health Care",
+    "McGill Supplemental Health Plan",
+    "CLHIA consumer/coordination resources",
+    "benefitflow_beta/models.py@c849eaa2833079d229f5501c55b099919b7ce50c",
+    "benefitflow_beta/parser.py@e4d487e4ea58e68ddaa9ea982cb0ceb05ac68984",
+    "benefitflow_beta/optimizer.py@5a5fc9423f7a28d59aad9f64159d7f964e0c7076"
+  ],
+  "artifact_sha256": "8d3a377a4a7611ec1460a4abd997ea3acd75c2b5148800ad966a46d2effa95ed",
+  "recommended_disposition": "ESCALATE_TO_PRIMARY",
+  "tags": ["rnd", "benefit-semantics", "implementation-gap", "schema", "parser", "optimizer", "adversarial-tests", "manager-02-review"]
+}
