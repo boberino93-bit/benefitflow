@@ -15,6 +15,7 @@
     "claim collision and cross-manager arbitration",
     "project isolation and human approval boundaries",
     "bootstrap/deployment artifact synchronization",
-    "forum persistence and recursive recovery integrity"
+    "forum persistence and recursive recovery integrity",
+    "Slack scheduled-task coordination with repository/AgentBus truth preserved as authoritative"
   ]
 }
