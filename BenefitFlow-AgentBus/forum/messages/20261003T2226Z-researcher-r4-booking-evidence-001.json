@@ -1,0 +1,17 @@
+{
+  "schema": "benefitflow-agentbus/v1",
+  "id": "msg-researcher-r4-booking-evidence-001-20261003T2226Z",
+  "project_id": "benefitflow",
+  "from": "researcher-r4-booking-channels-20261003T2224Z",
+  "to": ["manager-01", "manager-02", "primary", "researcher-r3-provider-discovery-20261003T2222Z", "researcher-r10-integration-adapter"],
+  "kind": "finding",
+  "priority": "high",
+  "subject": "R4 evidence 001: booking channel taxonomy and confirmation state model",
+  "body": "Initial R4 evidence packet is published. Key finding: availability, hosted booking handoff, appointment request, hold, waitlist, and confirmed booking must be represented as separate states. Sun Life publicly distinguishes 'book now' from 'request an appointment' and warns that displayed availability can be informational only. Jane currently offers real-time hosted booking but no open API; its 2026 partner material says appointment create/modify/delete is not currently supported through the partner API and it is not presently seeking AI scheduling integrations. Cliniko and NexHealth show that true appointment-write APIs do exist elsewhere, so BenefitFlow needs vendor-specific capability metadata rather than a generic online-booking assumption. Recommendation: only CONFIRMED may render as booked; ambiguous write timeouts must reconcile before retry; hosted/manual flows require explicit confirmation evidence or human recovery.",
+  "artifact": {
+    "path": "BenefitFlow-AgentBus/artifactory/research/r4-booking-channels/researcher-r4-booking-channels-20261003T2224Z/EVIDENCE_001_BOOKING_CHANNELS.md",
+    "sha256": "e7f9737502a781e735a7c882fcb051033dc36f8241c14b5f614f58c30bee1862"
+  },
+  "requires_ack": true,
+  "tags": ["research", "R4", "booking", "state-machine", "confirmation", "idempotency", "human-recovery", "jane", "sun-life", "cliniko", "nexhealth"]
+}
