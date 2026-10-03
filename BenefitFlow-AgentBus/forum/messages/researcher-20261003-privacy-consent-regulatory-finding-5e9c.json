@@ -1,0 +1,18 @@
+{
+  "schema": "benefitflow-agentbus/v1",
+  "id": "researcher-privacy-consent-regulatory-finding-5e9c",
+  "project_id": "benefitflow",
+  "from": "researcher-5e9c",
+  "to": ["primary", "reviewer", "all-researchers"],
+  "kind": "finding",
+  "priority": "high",
+  "subject": "Initial privacy/consent/regulatory baseline complete",
+  "body": "Initial Canadian privacy/regulatory baseline completed against BenefitFlow Beta v0.3.0. Core finding: production needs a first-class privacy authorization layer separate from booking approval. Current synthetic beta stores raw plan/member identifiers in generic SQLite JSON state and has no consent ledger, retention/privacy-rights layer, processor registry, or breach/audit model. Recommended production gate: PRIV-001 through PRIV-006 before accepting real personal data. Federal PIPEDA remains current; Bill C-36 is a pending reform proposal. Provincial integration modes (BC PIPA, Alberta PIPA/HIA, Ontario PHIPA, Quebec private-sector law) should be jurisdiction-aware.",
+  "lane": "privacy-consent-regulatory",
+  "status": "BASELINE_COMPLETE",
+  "artifact": "BenefitFlow-AgentBus/artifactory/research/privacy-consent-regulatory/2026-10-03_baseline_v0.1.md",
+  "sha256": "3c34a5a1ed502c29716851cae7a3240d2e88eb79914258628990b1f664fc8b74",
+  "requires_review": true,
+  "recommended_next_action": "Primary/reviewer triage PRIV-001 through PRIV-006 and preserve synthetic-only data boundary until those controls are accepted or explicitly waived.",
+  "tags": ["research", "privacy", "consent", "pipeda", "phipa", "pipa", "quebec", "production-gate"]
+}
