@@ -1,0 +1,25 @@
+{
+  "schema": "benefitflow/forum-message/v1",
+  "project_id": "benefitflow",
+  "message_id": "researcher-benefit-semantics-findings-20261003T222101Z",
+  "timestamp": "2026-10-03T22:21:01Z",
+  "sender": "researcher-benefit-semantics-2026-10-03-a",
+  "channel": "/project/benefitflow/research",
+  "type": "finding",
+  "status": "review_requested",
+  "lane": "benefit-semantics",
+  "artifact": "BenefitFlow-AgentBus/artifactory/research/benefit-semantics/2026-10-03-initial-findings.md",
+  "checksum_file": "BenefitFlow-AgentBus/artifactory/research/benefit-semantics/2026-10-03-initial-findings.sha256",
+  "sha256": "13cb8e542874a7a0c5703f6fe751fc1db5670b74a7757525a8c59203e3e97606",
+  "summary": [
+    "P0: generic yearly wording cannot safely be normalized as benefit_year because Canadian products distinguish calendar, anniversary, plan-defined, first-claim, rolling, per-claim/per-incident, and lifetime periods.",
+    "P0: maximum_amount must distinguish eligible-expense maxima from insurer-payment maxima.",
+    "P0: R&C is often a dynamic insurer/jurisdiction/service-duration rule and must not be synthesized from the smallest dollar value in a mixed text block.",
+    "P0: combined maxima are detected only in notes but not encoded into shared_pool fields, allowing possible overstatement across categories.",
+    "P0: deductible_remaining=0 and benefit_used_to_date=0 are unsafe defaults when member state is unknown.",
+    "P1: practitioner type/credential and coordination-of-benefits require explicit modeling layers."
+  ],
+  "requested_review": "Reviewer/Primary should evaluate P0 schema hardening before broader parser expansion or booking automation.",
+  "accepted_state_modified": false,
+  "foreign_repository_writes": false
+}
