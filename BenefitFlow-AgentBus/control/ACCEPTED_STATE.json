@@ -2,23 +2,26 @@
   "schema": "benefitflow/accepted-state/v1",
   "project_id": "benefitflow",
   "release": "beta-0.3.0",
-  "status": "RND_ROUND_1_ACTIVE_P0_ARCHITECTURE_GATE",
+  "status": "RND_ROUND_1_CLOSED_P0_HARDENING_ACTIVE",
   "accepted": [
     "Distinct BenefitFlow AgentBus/forum/artifactory namespace",
     "Fail-closed project/repository guard",
     "Human approval required before transaction adapter handoff",
     "Provider verification required before booking proposal",
     "Primary authority remains chatgpt-primary-2026-10-03 going forward",
-    "R&D Round 1 is authorized for exactly 10 research agents and 2 manager agents",
-    "Authoritative live role and lane ownership is maintained in control/SWARM_ROSTER.json",
-    "Research evidence requires manager review before Primary acceptance",
-    "P0 architecture gate: synthetic R&D may continue, but real member data, live provider/insurer credentials, claims submission, and live booking adapters remain blocked until coordinated domain, authorization, sensitive-data, IAM/audit, evidence-provenance, and transaction-state hardening is implemented and verified",
+    "R&D Round 1 was authorized for exactly 10 research agents and 2 manager agents and was closed by explicit human directive on 2026-10-03 after all ten research slots produced substantive findings",
+    "Authoritative Round 1 role and lane history is maintained in control/SWARM_ROSTER.json; all R1-R10 research slots are COMPLETE_ROUND1 and no new Round 1 claims are permitted",
+    "Round 1 research evidence remains preserved as historical evidence and requires the existing manager/Primary disposition process before unaccepted proposals become project truth",
+    "P0 architecture gate remains active after Round 1 closure: real member data, live provider/insurer credentials, claims submission, and live booking adapters remain blocked until coordinated domain, authorization, sensitive-data, IAM/audit, evidence-provenance, and transaction-state hardening is implemented and verified",
     "Existing human approval boundary remains mandatory and must become mechanically enforceable in production architecture",
     "Typed benefit semantics, evidence-backed provider/direct-billing observations, bounded disclosure authorization, sensitive-data isolation, object-level authorization/audit, and idempotent reconciliable booking transaction state are accepted as required hardening themes; exact class/enum names are not yet accepted project truth",
+    "Round 1 R7/R10 reconciliation is administratively closed under human authority with Manager-01 support-with-guardrails: transaction architecture owns business truth; economics attaches cost/time observations to shared transaction/operation/attempt identities; only confirmed booking state counts as confirmed-booking economics; retries, reconciliation, and human recovery remain first-class safety/cost events; metrics may not incentivize unsafe retries or premature confirmation",
     "Human-authorized recursive cross-project enhancement is active for PRIMARY, MANAGER, and RESEARCH roles using only registered read-only foreign sources and BenefitFlow-local grafts",
     "Foreign repositories may be inspected for reusable patterns but may never be mutated, deleted from, acknowledged into, or used as writable shared state by the BenefitFlow enhancement loop",
     "Foreign accepted truth never automatically overrides BenefitFlow accepted truth; future enhancement candidates require provenance, compatibility review, Manager recommendation, and Primary disposition before project-truth grafting",
     "Accepted control-plane enhancements require PRIMARY/MANAGER/RESEARCH package parity and recursive recovery synchronization before completion",
-    "Slack is an approved secondary operational surface for scheduled-task queueing, reminders, status and coordination; BenefitFlow GitHub/AgentBus state remains authoritative and material Slack results must be persisted back to the repository/forum before becoming durable project truth"
+    "Slack is an approved secondary operational surface for scheduled-task queueing, reminders, status and coordination; BenefitFlow GitHub/AgentBus state remains authoritative and material Slack results must be persisted back to the repository/forum before becoming durable project truth",
+    "Closing R&D Round 1 does not authorize live external transactions, claims, financial actions, sensitive-identifier disclosure outside existing gates, or any weakening of provider verification, consent, privacy, security, or human-approval controls",
+    "A future broad research swarm requires a new explicit human start directive"
   ]
 }
