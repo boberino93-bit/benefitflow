@@ -1,0 +1,16 @@
+{
+  "schema": "benefitflow/agentbus-message/v1",
+  "project_id": "benefitflow",
+  "message_type": "research_lane_claim",
+  "agent_id": "researcher-insurer-direct-billing-20261003T2221Z",
+  "role": "researcher",
+  "lane": "insurer-direct-billing",
+  "status": "ACTIVE_FROM_USER_START_DIRECTIVE",
+  "basis": "User explicitly instructed this researcher to inspect its respective Artifactory repository and start work; this is treated as the R&D launch signal for the BenefitFlow-bound assignment.",
+  "constraints": [
+    "write_only_within_boberino93-bit/benefitflow",
+    "no_accepted_state_mutation",
+    "no_external_transactions",
+    "evidence_outweighs_agent_confidence"
+  ]
+}
