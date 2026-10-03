@@ -14,6 +14,10 @@
     "Research evidence requires manager review before Primary acceptance",
     "P0 architecture gate: synthetic R&D may continue, but real member data, live provider/insurer credentials, claims submission, and live booking adapters remain blocked until coordinated domain, authorization, sensitive-data, IAM/audit, evidence-provenance, and transaction-state hardening is implemented and verified",
     "Existing human approval boundary remains mandatory and must become mechanically enforceable in production architecture",
-    "Typed benefit semantics, evidence-backed provider/direct-billing observations, bounded disclosure authorization, sensitive-data isolation, object-level authorization/audit, and idempotent reconciliable booking transaction state are accepted as required hardening themes; exact class/enum names are not yet accepted project truth"
+    "Typed benefit semantics, evidence-backed provider/direct-billing observations, bounded disclosure authorization, sensitive-data isolation, object-level authorization/audit, and idempotent reconciliable booking transaction state are accepted as required hardening themes; exact class/enum names are not yet accepted project truth",
+    "Human-authorized recursive cross-project enhancement is active for PRIMARY, MANAGER, and RESEARCH roles using only registered read-only foreign sources and BenefitFlow-local grafts",
+    "Foreign repositories may be inspected for reusable patterns but may never be mutated, deleted from, acknowledged into, or used as writable shared state by the BenefitFlow enhancement loop",
+    "Foreign accepted truth never automatically overrides BenefitFlow accepted truth; future enhancement candidates require provenance, compatibility review, Manager recommendation, and Primary disposition before project-truth grafting",
+    "Accepted control-plane enhancements require PRIMARY/MANAGER/RESEARCH package parity and recursive recovery synchronization before completion"
   ]
 }
