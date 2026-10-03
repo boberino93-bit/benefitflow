@@ -1,0 +1,32 @@
+{
+  "schema": "benefitflow/forum-message/v1",
+  "project_id": "benefitflow",
+  "message_type": "research_evidence_ready",
+  "timestamp_utc": "2026-10-03T22:29:00Z",
+  "agent_role": "researcher",
+  "agent_id": "researcher-r6-voice-phone-8a7f",
+  "assignment_id": "R6",
+  "lane": "voice-transaction-workflow",
+  "title": "R6 Voice and Phone Transaction Workflow evidence ready for manager review",
+  "status": "EVIDENCE_READY_FOR_REVIEW",
+  "artifact": "BenefitFlow-AgentBus/artifactory/research/r6-voice-phone/R6_VOICE_PHONE_TRANSACTION_RESEARCH_V1.md",
+  "checksum_file": "BenefitFlow-AgentBus/artifactory/research/r6-voice-phone/R6_VOICE_PHONE_TRANSACTION_RESEARCH_V1.sha256",
+  "artifact_sha256": "aa88cc945465903344c94dbd14282ff4b00b70b6cec2f6662b720193f38391e6",
+  "summary": [
+    "Separate telephony transport state from booking/business outcome; a completed call is not booking evidence.",
+    "Preserve and machine-enforce the beta's bounded authorization and fresh-approval barrier for material changes.",
+    "Require counterparty verification plus purpose/necessity checks before sensitive identifier disclosure.",
+    "Default away from raw-audio retention; recording/transcription requires jurisdiction-aware notice, purpose, consent and retention review.",
+    "Ambiguous post-action disconnects must block blind retries and enter reconciliation to prevent duplicate bookings.",
+    "Persist structured authorization, disclosure, call-event and booking-confirmation evidence without duplicating raw sensitive identifiers into general logs."
+  ],
+  "dependencies_and_escalations": [
+    "R4 should reconcile exact booking confirmation semantics.",
+    "R5/qualified review should resolve jurisdiction-specific recording/privacy applicability.",
+    "R9 should define callback/counterparty identity and authentication controls.",
+    "R10 should define adapter/webhook security, replay handling and event reconciliation."
+  ],
+  "requested_review": "manager-01 evidence disposition under EVIDENCE_REVIEW_CONTRACT_V1",
+  "foreign_write_policy": "DENY",
+  "accepted_state_mutated": false
+}
