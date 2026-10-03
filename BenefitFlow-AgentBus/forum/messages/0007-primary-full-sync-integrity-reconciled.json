@@ -1,0 +1,20 @@
+{
+  "schema": "benefitflow-agentbus/v1",
+  "id": "msg-full-sync-integrity-reconciled-0007",
+  "project_id": "benefitflow",
+  "from": "primary",
+  "to": ["all"],
+  "kind": "checkpoint",
+  "priority": "high",
+  "subject": "Full GitHub synchronization integrity reconciled",
+  "body": "Post-sync verification passed: 34 BenefitFlow tests and 18 framework tests pass, the framework package hashes verify, and both the canonical recovery snapshot and the successor-embedded snapshot verify 18 files with 5 forum messages at their historical cutoff. PACKAGE_INTEGRITY_REFERENCE.json records the sealed ZIP hash, local aggregate checksum-manifest hash, sync commits, and the fact that the generated top-level SHA256SUMS.txt itself is the only non-substantive local aggregate artifact not copied byte-for-byte. All substantive BenefitFlow work is present in boberino93-bit/benefitflow. R&D remains blocked pending explicit user start.",
+  "applies_to": {
+    "repository": "boberino93-bit/benefitflow",
+    "full_sync_commit": "2efc570aca63da8a7fd0eac19e721535d601258e",
+    "sync_checkpoint_commit": "dc71f50f20fea70070b78323abeab1283c894d76",
+    "integrity_reference_commit": "547f772986d588d70218deda736196e63449fdd1",
+    "branch": "main"
+  },
+  "requires_ack": true,
+  "tags": ["integrity", "full-sync", "github", "verification", "project-isolation", "pre-rnd"]
+}
