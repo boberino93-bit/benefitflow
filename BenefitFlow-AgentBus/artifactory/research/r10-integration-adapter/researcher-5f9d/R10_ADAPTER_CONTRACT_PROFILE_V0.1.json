@@ -1,0 +1,223 @@
+{
+  "schema": "benefitflow/research-r10-adapter-contract-profile/v0.1",
+  "project_id": "benefitflow",
+  "slot": "R10",
+  "agent_id": "researcher-benefit-semantics-5f9d",
+  "status": "SPECIALIST_RECOMMENDATION_NOT_ACCEPTED_STATE",
+  "principles": [
+    "approval_is_not_booking",
+    "booking_approval_is_not_disclosure_authorization",
+    "transport_success_is_not_business_confirmation",
+    "calendar_is_projection_not_booking_authority",
+    "webhook_is_signal_not_sufficient_truth",
+    "retry_policy_depends_on_side_effect_certainty",
+    "ambiguous_mutation_requires_reconciliation_before_duplicate_prone_retry",
+    "human_recovery_is_first_class"
+  ],
+  "identity": {
+    "transaction_id": "stable for one appointment lifecycle",
+    "operation_id": "stable for one logical external mutation and reused across retries",
+    "attempt_id": "unique per transport attempt",
+    "external_event_id": "used for trusted inbound event deduplication",
+    "external_object_id": "authoritative vendor object identifier when learned"
+  },
+  "adapter_descriptor_required_fields": [
+    "adapter_id",
+    "adapter_version",
+    "channel_type",
+    "capabilities",
+    "confirmation_model",
+    "requires_disclosure_grant"
+  ],
+  "required_capability_flags": [
+    "create",
+    "update",
+    "cancel",
+    "status_read",
+    "webhooks",
+    "incremental_sync",
+    "external_idempotency",
+    "optimistic_concurrency",
+    "hold",
+    "waitlist"
+  ],
+  "operation_required_fields": [
+    "transaction_id",
+    "operation_id",
+    "attempt_id",
+    "action",
+    "account_id",
+    "proposal_id",
+    "proposal_version",
+    "approval_id",
+    "approval_terms_digest",
+    "target",
+    "requested_terms",
+    "policy_snapshot_id",
+    "created_at"
+  ],
+  "operation_optional_sensitive_fields": [
+    "disclosure_grant_id",
+    "sensitive_payload_lease"
+  ],
+  "adapter_result_required_fields": [
+    "transaction_id",
+    "operation_id",
+    "attempt_id",
+    "adapter_id",
+    "result_class",
+    "raw_status",
+    "normalized_observation",
+    "reconciliation_required",
+    "observed_at"
+  ],
+  "result_classes": [
+    "SUCCEEDED",
+    "PENDING",
+    "RETRYABLE_FAILURE",
+    "FINAL_FAILURE",
+    "AMBIGUOUS"
+  ],
+  "normalized_states": [
+    "DRAFT",
+    "READY_FOR_EXECUTION",
+    "EXECUTING",
+    "REQUEST_SUBMITTED",
+    "AWAITING_EXTERNAL_CONFIRMATION",
+    "HOLD_ACTIVE",
+    "WAITLISTED",
+    "CONFIRMED_BOOKED",
+    "REAPPROVAL_REQUIRED",
+    "RESCHEDULE_PENDING",
+    "CANCELLATION_PENDING",
+    "CANCELLED",
+    "REJECTED",
+    "FAILED_RETRYABLE",
+    "FAILED_FINAL",
+    "RECONCILIATION_REQUIRED",
+    "HUMAN_RECOVERY_REQUIRED",
+    "SUPERSEDED",
+    "FULFILLED"
+  ],
+  "error_classes": {
+    "POLICY_BLOCK": {
+      "retry": "NO",
+      "handling": "stop_or_reapprove"
+    },
+    "AUTHENTICATION_FAILURE": {
+      "retry": "CONDITIONAL",
+      "handling": "credential_refresh_then_re-evaluate"
+    },
+    "AUTHORIZATION_FAILURE": {
+      "retry": "NO_BLIND_RETRY",
+      "handling": "operator_or_scope_remediation"
+    },
+    "VALIDATION_FAILURE": {
+      "retry": "NO",
+      "handling": "final_or_configuration_error"
+    },
+    "CAPABILITY_MISMATCH": {
+      "retry": "NO",
+      "handling": "alternate_approved_channel_or_human"
+    },
+    "AVAILABILITY_CONFLICT": {
+      "retry": "NEW_APPROVED_SELECTION_ONLY",
+      "handling": "not_booked"
+    },
+    "RATE_LIMITED": {
+      "retry": "BOUNDED",
+      "handling": "same_operation_with_provider_policy"
+    },
+    "TRANSIENT_TRANSPORT": {
+      "retry": "BOUNDED_IF_PRE_TRANSMIT",
+      "handling": "same_operation_new_attempt"
+    },
+    "AMBIGUOUS_TIMEOUT": {
+      "retry": "NO_MUTATION_RETRY",
+      "handling": "reconciliation_required"
+    },
+    "CONCURRENCY_CONFLICT": {
+      "retry": "NO_BLIND_RETRY",
+      "handling": "read_back_and_reconcile"
+    },
+    "DUPLICATE_EVENT": {
+      "retry": "N/A",
+      "handling": "dedupe_and_ignore_repeat_processing"
+    },
+    "OUT_OF_ORDER_EVENT": {
+      "retry": "N/A",
+      "handling": "do_not_rollback_reconcile_if_needed"
+    },
+    "WEBHOOK_AUTH_FAILURE": {
+      "retry": "NO",
+      "handling": "quarantine_and_security_event"
+    },
+    "SCHEMA_DRIFT": {
+      "retry": "NO_UNSAFE_MAPPING",
+      "handling": "quarantine_and_reconcile"
+    },
+    "EXTERNAL_SEMANTIC_UNKNOWN": {
+      "retry": "NO",
+      "handling": "pending_or_human_review"
+    },
+    "SENSITIVE_DATA_BLOCK": {
+      "retry": "NO",
+      "handling": "stop_or_get_new_disclosure_authorization"
+    },
+    "CALENDAR_PROJECTION_FAILURE": {
+      "retry": "BOUNDED",
+      "handling": "booking_state_unchanged"
+    },
+    "HUMAN_CHANNEL_AMBIGUITY": {
+      "retry": "NO_DUPLICATE_PRONE_RETRY",
+      "handling": "pending_or_human"
+    },
+    "EXTERNAL_IRREVERSIBLE_ACTION": {
+      "retry": "NO",
+      "handling": "critical_incident_and_human_recovery"
+    }
+  },
+  "calendar_projection": {
+    "authoritative_for_booking": false,
+    "stable_projection_identity_recommended": true,
+    "sync_cursor_required_if_supported": true,
+    "subscription_expiry_tracking_required_if_supported": true,
+    "external_edit_policy": "surface_divergence_and_require_explicit_booking_workflow_before_provider_mutation"
+  },
+  "reconciliation_triggers": [
+    "ambiguous_timeout",
+    "invalid_or_conflicting_notification",
+    "out_of_order_notification",
+    "subscription_renewal_failure",
+    "missed_notification_signal",
+    "stale_pending_transaction",
+    "external_version_conflict",
+    "user_or_provider_contradiction",
+    "periodic_open_transaction_safety_sweep"
+  ],
+  "human_recovery_required_fields": [
+    "transaction_id",
+    "approved_terms_digest",
+    "disclosure_grant_status",
+    "event_timeline",
+    "normalized_state",
+    "stop_reason",
+    "external_references",
+    "adapter_id",
+    "adapter_version",
+    "last_authoritative_readback",
+    "error_class",
+    "safe_actions",
+    "actions_requiring_reapproval",
+    "duplicate_risk"
+  ],
+  "conformance_test_groups": {
+    "authorization_disclosure": 5,
+    "idempotency_ambiguity": 5,
+    "ordering_concurrency": 3,
+    "confirmation_semantics": 5,
+    "cancellation_reschedule": 4,
+    "calendar": 5,
+    "human_recovery_security": 3
+  }
+}
