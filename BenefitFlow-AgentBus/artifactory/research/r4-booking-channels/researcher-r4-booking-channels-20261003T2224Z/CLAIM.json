@@ -1,0 +1,25 @@
+{
+  "schema": "benefitflow/research-claim/v1",
+  "project_id": "benefitflow",
+  "agent_id": "researcher-r4-booking-channels-20261003T2224Z",
+  "role": "researcher",
+  "manager_assignment": "R4",
+  "lane": "provider-discovery-booking",
+  "focus": [
+    "booking APIs and hosted booking pages",
+    "appointment request versus hold versus confirmed booking semantics",
+    "manual phone/email booking flows",
+    "cancellation, rescheduling, waitlist, and failure states",
+    "confirmation evidence, retries, idempotency, and human recovery"
+  ],
+  "status": "ACTIVE",
+  "basis": "User instructed this BenefitFlow-bound researcher to inspect the project Artifactory and start work after the R&D gate became ACTIVE_USER_STARTED.",
+  "constraints": [
+    "write only within boberino93-bit/benefitflow",
+    "evidence and proposals only",
+    "do not mutate accepted state",
+    "no external transactions",
+    "no member identifiers, plan identifiers, credentials, or sensitive user data"
+  ],
+  "started_at": "2026-10-03T22:24:00Z"
+}
