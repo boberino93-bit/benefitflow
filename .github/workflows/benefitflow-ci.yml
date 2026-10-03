@@ -1,0 +1,96 @@
+name: BenefitFlow CI and Role Packages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify-and-package:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Checkout exact source revision
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install dependencies
+        run: python -m pip install -r requirements.txt
+
+      - name: Verify recursive enhancement source parity
+        run: python tools/verify_role_package_enhancement_sync.py
+
+      - name: Run BenefitFlow tests
+        run: python -m pytest -q
+
+      - name: Run framework reference tests
+        run: python framework_reference/tests/run_all.py
+
+      - name: Generate and validate PRIMARY MANAGER RESEARCH packages
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p dist
+
+          PRIMARY_PACKAGE="$(python tools/generate_successor_package.py PRIMARY)"
+          MANAGER_PACKAGE="$(python tools/generate_successor_package.py MANAGER)"
+          RESEARCH_PACKAGE="$(python tools/generate_successor_package.py RESEARCH)"
+
+          python tools/verify_role_package_enhancement_sync.py \
+            --package "$PRIMARY_PACKAGE" \
+            --package "$MANAGER_PACKAGE" \
+            --package "$RESEARCH_PACKAGE"
+
+          python - "$PRIMARY_PACKAGE" "$MANAGER_PACKAGE" "$RESEARCH_PACKAGE" <<'PY'
+          import hashlib
+          import json
+          import os
+          import shutil
+          import sys
+          from pathlib import Path
+
+          roles = ("primary", "manager", "research")
+          packages = [Path(value) for value in sys.argv[1:]]
+          dist = Path("dist")
+          source_revision = os.environ.get("GITHUB_SHA", "UNAVAILABLE")
+          release = {
+              "schema": "benefitflow/ci-role-package-release/v1",
+              "source_revision": source_revision,
+              "foreign_source_mode": "READ_ONLY_FOREIGN_SOURCES",
+              "foreign_mutation_allowed": False,
+              "packages": [],
+          }
+
+          for role, package in zip(roles, packages):
+              archive_base = dist / f"benefitflow-{role}-successor-{source_revision[:12]}"
+              archive_path = Path(shutil.make_archive(str(archive_base), "zip", root_dir=package))
+              digest = hashlib.sha256(archive_path.read_bytes()).hexdigest()
+              release["packages"].append({
+                  "role": role.upper(),
+                  "source_directory": str(package),
+                  "archive": str(archive_path),
+                  "bytes": archive_path.stat().st_size,
+                  "sha256": digest,
+              })
+
+          (dist / "package-build.json").write_text(json.dumps(release, indent=2) + "\n", encoding="utf-8")
+          PY
+
+      - name: Upload verified role package ZIPs
+        uses: actions/upload-artifact@v4
+        with:
+          name: benefitflow-role-packages-${{ github.sha }}
+          path: |
+            dist/*.zip
+            dist/package-build.json
+          if-no-files-found: error
+          retention-days: 30
