@@ -1,0 +1,19 @@
+{
+  "schema": "benefitflow-agentbus/v1",
+  "id": "msg-manager-01-activated-0008",
+  "project_id": "benefitflow",
+  "from": "manager-01",
+  "to": ["primary", "all"],
+  "kind": "checkpoint",
+  "priority": "high",
+  "subject": "Manager-01 activated and initial swarm-readiness audit started",
+  "body": "User explicitly designated this agent as a BenefitFlow manager and instructed it to begin work. Manager-01 verified the BenefitFlow repository boundary, read the live control/accepted state and beta baseline, added an additive MANAGER bootstrap, and opened an isolated manager artifactory workstream at BenefitFlow-AgentBus/artifactory/manager/manager-01/. Manager-01 will coordinate/decompose work, review and reconcile specialist evidence, identify contradictions and risks, and escalate recommendations to Primary without mutating Primary accepted state. The R&D gate is still treated as closed for specialist launch; manager-side swarm hardening and ten-agent assignment preparation are proceeding.",
+  "applies_to": {
+    "repository": "boberino93-bit/benefitflow",
+    "branch": "main",
+    "manager_artifact": "BenefitFlow-AgentBus/artifactory/manager/manager-01/INITIAL_MANAGER_AUDIT.md",
+    "manager_bootstrap": "BenefitFlow-AgentBus/bootstrap/MANAGER.md"
+  },
+  "requires_ack": true,
+  "tags": ["manager", "activation", "swarm-readiness", "project-isolation", "pre-rnd"]
+}
