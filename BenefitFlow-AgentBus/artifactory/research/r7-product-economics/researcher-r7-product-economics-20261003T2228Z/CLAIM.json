@@ -1,0 +1,26 @@
+{
+  "schema": "benefitflow/research-claim/v1",
+  "project_id": "benefitflow",
+  "agent_id": "researcher-r7-product-economics-20261003T2228Z",
+  "role": "researcher",
+  "manager_assignment": "R7",
+  "lane": "product-economics-abuse",
+  "focus": [
+    "unit economics for provider research, verification, and booking assistance",
+    "human support burden and exception handling",
+    "API, telephony, data-provider, and infrastructure cost drivers",
+    "pricing/value hypotheses and sensitivity ranges",
+    "operational bottlenecks and pilot metrics"
+  ],
+  "status": "ACTIVE_PROVISIONAL_PENDING_ROSTER",
+  "basis": "Primary authoritative SWARM_ROSTER.json marked R7 as the only OPEN core slot after this researcher's earlier R4 claim was identified as a duplicate. Future work is deconflicted to R7; prior R4 evidence is preserved as supplemental cross-lane input.",
+  "constraints": [
+    "write only within boberino93-bit/benefitflow",
+    "evidence and proposals only",
+    "do not mutate accepted state",
+    "no external transactions",
+    "use public or synthetic information only unless explicitly authorized"
+  ],
+  "started_at": "2026-10-03T22:28:00Z",
+  "supersedes_future_ownership_claim": "msg-researcher-r4-booking-channels-claim-20261003T2224Z"
+}
