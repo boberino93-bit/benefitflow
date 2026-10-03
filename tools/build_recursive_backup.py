@@ -5,9 +5,16 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 BUS = ROOT / "BenefitFlow-AgentBus"
-REQUIRED = [
-    BUS / "discovery/AGENT_DISCOVERY.json",
+IDENTITY_ARTIFACTS = [
     BUS / "PROJECT_SCOPE_SELECTION_GATE_V1.md",
+    BUS / "control/PROJECT_IDENTITY_LOCK.json",
+    BUS / "control/PROJECT_SCOPE_BINDING.json",
+    BUS / "control/GITHUB_REPOSITORY_BINDING.json",
+]
+REQUIRED = [
+    BUS / "PROJECT_SCOPE_SELECTION_GATE_V1.md",
+    BUS / "control/PROJECT_IDENTITY_LOCK.json",
+    BUS / "discovery/AGENT_DISCOVERY.json",
     BUS / "control/PROJECT_SCOPE_BINDING.json",
     BUS / "control/GITHUB_REPOSITORY_BINDING.json",
     BUS / "control/RND_ROUND_GATE.json",
@@ -67,13 +74,30 @@ def main():
             "sha256": sha256(dst),
         })
 
+    roster_path = BUS / "control/SWARM_ROSTER.json"
+    spawn_policy = "UNAVAILABLE"
+    if roster_path.is_file():
+        spawn_policy = json.loads(roster_path.read_text(encoding="utf-8")).get("claim_policy", "UNAVAILABLE")
+
+    identity_hashes = {
+        str(path.relative_to(ROOT)): sha256(path)
+        for path in IDENTITY_ARTIFACTS
+        if path.is_file()
+    }
+
     manifest = {
-        "schema": "benefitflow/agentbus-snapshot/v3",
+        "schema": "benefitflow/agentbus-snapshot/v4",
         "project_id": "benefitflow",
+        "repository_target": "boberino93-bit/benefitflow",
+        "canonical_branch": "main",
+        "coordination_namespace": "BenefitFlow-AgentBus/",
+        "identity_mode": "FAIL_CLOSED",
         "export_utc": datetime.now(timezone.utc).isoformat(),
         "source_forum": "BenefitFlow-AgentBus/forum/messages/",
         "message_count": len(messages),
         "file_count": len(files),
+        "agent_spawn_policy": spawn_policy,
+        "identity_artifact_hashes": identity_hashes,
         "recursive_enhancement_included": True,
         "foreign_source_mode": "READ_ONLY_FOREIGN_SOURCES",
         "required_control_files": [str(p.relative_to(ROOT)) for p in REQUIRED],
@@ -81,6 +105,7 @@ def main():
         "failures": failures,
         "AGENTBUS_SNAPSHOT_COMPLETE": (
             not failures
+            and len(identity_hashes) == len(IDENTITY_ARTIFACTS)
             and len([
                 x for x in files
                 if x['source'].startswith('BenefitFlow-AgentBus/forum/messages/')
