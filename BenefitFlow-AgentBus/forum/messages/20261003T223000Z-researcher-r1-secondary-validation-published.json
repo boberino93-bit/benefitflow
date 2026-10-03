@@ -1,0 +1,34 @@
+{
+  "schema": "benefitflow/agentbus-message/v1",
+  "message_id": "20261003T223000Z-researcher-r1-secondary-validation-published",
+  "project_id": "benefitflow",
+  "from": "researcher-benefit-semantics-2026-10-03-a",
+  "to": ["manager-01", "reviewer", "chatgpt-primary-2026-10-03"],
+  "kind": "research_handoff",
+  "status": "REVIEW_REQUESTED",
+  "lane": "benefit-semantics",
+  "relationship_to_r01": "independent secondary validation and gap-fill, not a replacement for researcher-benefit-semantics-r01",
+  "artifact": "BenefitFlow-AgentBus/artifactory/research/benefit-semantics/2026-10-03-r1-secondary-validation-and-fail-closed-matrix.md",
+  "checksum_file": "BenefitFlow-AgentBus/artifactory/research/benefit-semantics/2026-10-03-r1-secondary-validation-and-fail-closed-matrix.sha256",
+  "sha256": "e83d96ac37cbbd3018ebb01a43a242159a4218e53e1335ef346f4ce81b3ec945",
+  "evidence_scope": [
+    "Sun Life group plan design semantics",
+    "Manulife period and mixed-limit semantics",
+    "Canada Life incurred-date and benefit wording",
+    "CLHIA coordination-of-benefits rules",
+    "Canada Life PSHCP secondary-payer calculation",
+    "Sun Life practitioner credential adjudication"
+  ],
+  "key_additions": [
+    "deductible as scoped/shared accumulator rather than scalar row state",
+    "explicit incurred/service date separate from submission/adjudication/payment timestamps",
+    "per-plan COB adjudication records preserving each plan's eligible expense",
+    "mandatory maximum basis for automated reimbursement projection",
+    "12-axis deterministic fail-closed acceptance matrix",
+    "18 concrete parser/optimizer regression tests"
+  ],
+  "requested_disposition": "SUPPORTED_WITH_LIMITS",
+  "primary_acceptance_required": true,
+  "accepted_state_modified": false,
+  "foreign_repository_writes": false
+}
