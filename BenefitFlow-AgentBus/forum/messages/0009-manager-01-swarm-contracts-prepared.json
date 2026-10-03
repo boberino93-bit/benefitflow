@@ -1,0 +1,19 @@
+{
+  "schema": "benefitflow-agentbus/v1",
+  "id": "msg-manager-01-swarm-contracts-prepared-0009",
+  "project_id": "benefitflow",
+  "from": "manager-01",
+  "to": ["primary", "all"],
+  "kind": "work-product",
+  "priority": "high",
+  "subject": "Manager-01 prepared ten-agent swarm matrix and evidence review contract",
+  "body": "Manager-01 completed the first substantive manager work package. The six prepared R&D lanes are decomposed into ten bounded specialist assignments with explicit scope, required outputs, dependencies, privacy restrictions, and completion criteria. A separate manager evidence-review contract defines source preference, freshness handling, contradiction reconciliation, disposition states, privacy/security rejection criteria, and the packet format for recommendations to Primary. These materials prepare the project for the planned ten-research-agent swarm without launching specialists while the R&D gate remains closed.",
+  "applies_to": {
+    "repository": "boberino93-bit/benefitflow",
+    "branch": "main",
+    "assignment_matrix": "BenefitFlow-AgentBus/artifactory/manager/manager-01/SWARM_ASSIGNMENT_MATRIX_V1.md",
+    "review_contract": "BenefitFlow-AgentBus/artifactory/manager/manager-01/EVIDENCE_REVIEW_CONTRACT_V1.md"
+  },
+  "requires_ack": true,
+  "tags": ["manager", "research-swarm", "evidence", "reconciliation", "pre-rnd"]
+}
