@@ -1,0 +1,114 @@
+{
+  "schema": "benefitflow/r6-voice-transaction-contract/v1",
+  "project_id": "benefitflow",
+  "assignment_id": "R6",
+  "agent_id": "researcher-r6-voice-phone-8a7f",
+  "status": "PROPOSED_SPECIALIST_EVIDENCE",
+  "live_adapter_authorized": false,
+  "invariants": {
+    "transport_not_business_outcome": true,
+    "external_content_cannot_expand_authority": true,
+    "authorization_single_use_scoped_expiring": true,
+    "sensitive_disclosure_requires_counterparty_and_purpose_gate": true,
+    "material_change_requires_reapproval": true,
+    "ambiguous_mutation_blocks_blind_retry": true,
+    "provider_callbacks_require_provenance_verification": true,
+    "recording_not_required_for_audit": true
+  },
+  "transport_states": [
+    "NOT_STARTED",
+    "QUEUED",
+    "DIALING",
+    "RINGING",
+    "ANSWERED",
+    "ENDED"
+  ],
+  "transport_terminal_reasons": [
+    "COMPLETED_CONNECTION",
+    "BUSY",
+    "NO_ANSWER",
+    "FAILED",
+    "CANCELED"
+  ],
+  "business_states": [
+    "AUTHORIZATION_READY",
+    "COUNTERPARTY_UNVERIFIED",
+    "COUNTERPARTY_VERIFIED",
+    "DISCLOSURE_NEED_CONFIRMED",
+    "DISCLOSURE_AUTHORIZED",
+    "NEGOTIATING_WITHIN_SCOPE",
+    "REAPPROVAL_REQUIRED",
+    "BOOKING_REQUESTED_PENDING",
+    "BOOKING_HELD",
+    "WAITLISTED",
+    "BOOKING_CONFIRMED",
+    "RESCHEDULE_PENDING",
+    "CANCEL_PENDING",
+    "ENDED_UNCONFIRMED",
+    "AMBIGUOUS_OUTCOME",
+    "MANUAL_RECONCILIATION_REQUIRED",
+    "FAILED_RETRYABLE",
+    "FAILED_TERMINAL",
+    "CANCELED_BY_USER"
+  ],
+  "authorization": {
+    "required": true,
+    "must_bind": [
+      "authenticated_account",
+      "proposal",
+      "provider_context",
+      "service_scope",
+      "allowed_actions",
+      "allowed_disclosures",
+      "allowed_purposes",
+      "time_or_window_bounds",
+      "cost_bounds",
+      "expiry"
+    ],
+    "single_use_for_successful_mutation": true,
+    "revocable": true,
+    "immutable_after_issue": true,
+    "proposal_id_alone_is_authorization": false
+  },
+  "disclosure_gate": {
+    "requirements": [
+      "counterparty_verification",
+      "requested_purpose",
+      "authorization_scope",
+      "necessity_minimization"
+    ],
+    "decisions": [
+      "ALLOW",
+      "DENY",
+      "REAPPROVAL_REQUIRED"
+    ],
+    "raw_sensitive_values_in_general_audit_logs": false
+  },
+  "retry": {
+    "transport_only_pre_mutation_may_retry": true,
+    "possible_business_mutation_requires_reconciliation": true,
+    "ambiguous_outcome_lock": true
+  },
+  "recording": {
+    "raw_audio_retention_default": false,
+    "full_transcript_retention_default": false,
+    "enablement_requires_r5_or_qualified_review": true
+  },
+  "webhooks": {
+    "tls_required": true,
+    "provider_authentication_or_signature_required": true,
+    "deduplication_required": true,
+    "out_of_order_reconciliation_required": true,
+    "replay_must_not_repeat_business_mutation": true,
+    "secret_material_model_visible": false
+  },
+  "cross_lane_authority": {
+    "R4": "final booking lifecycle vocabulary and confirmation semantics",
+    "R5": "privacy, consent, recording, jurisdiction and processing authority constraints",
+    "R6": "voice transport, call sequencing, disclosure gates and voice failure/retry semantics",
+    "R8": "abuse/adversarial validation",
+    "R9": "authentication, object authorization, secret isolation and security audit baseline",
+    "R10": "adapter implementation, webhook mechanics, event reconciliation and external integration"
+  },
+  "requires_manager_primary_disposition": true
+}
