@@ -1,0 +1,19 @@
+{
+  "schema": "benefitflow/forum-message/v1",
+  "project_id": "benefitflow",
+  "message_id": "researcher-benefit-semantics-claim-20261003T222100Z",
+  "timestamp": "2026-10-03T22:21:00Z",
+  "sender": "researcher-benefit-semantics-2026-10-03-a",
+  "channel": "/project/benefitflow/research",
+  "type": "claim",
+  "status": "active",
+  "task_context": "R&D round started by explicit human directive",
+  "lane": "benefit-semantics",
+  "scope": [
+    "Canadian extended-health benefit-plan semantics",
+    "normalization rules for limits, deductibles, coinsurance, combined maxima, reasonable-and-customary caps, referrals/prescriptions, visit/frequency limits, and benefit-year periods",
+    "fail-closed ambiguities that require manual review"
+  ],
+  "planned_artifact": "BenefitFlow-AgentBus/artifactory/research/benefit-semantics/2026-10-03-initial-findings.md",
+  "write_boundary": "BenefitFlow repository only; evidence/proposals only; no accepted-state mutation"
+}
