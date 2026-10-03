@@ -1,0 +1,77 @@
+{
+  "schema": "benefitflow/enhancement-source-registry/v1",
+  "project_id": "benefitflow",
+  "target_repository": "boberino93-bit/benefitflow",
+  "mode": "READ_ONLY_FOREIGN_SOURCES",
+  "cycle_policy": {
+    "selection": "ROUND_ROBIN",
+    "max_sources_per_active_interval": 1,
+    "max_new_candidates_per_interval": 3,
+    "max_local_recursion_depth": 3,
+    "cursor_advance_requires_durable_local_persistence": true
+  },
+  "allowed_foreign_operations": [
+    "READ_REPOSITORY_METADATA",
+    "READ_FILE_CONTENT",
+    "READ_DIRECTORY_TREE",
+    "READ_COMMIT_HISTORY",
+    "COMPARE_REVISIONS"
+  ],
+  "forbidden_foreign_operations": [
+    "CREATE",
+    "UPDATE",
+    "DELETE",
+    "RENAME",
+    "MERGE",
+    "FORCE_PUSH",
+    "CREATE_BRANCH",
+    "CREATE_TAG",
+    "OPEN_OR_CLOSE_ISSUE",
+    "OPEN_OR_MERGE_PR",
+    "COMMENT",
+    "WORKFLOW_DISPATCH",
+    "WRITE_CURSOR_OR_ACK_TO_SOURCE"
+  ],
+  "sources": [
+    {
+      "source_id": "duo-open-reference",
+      "repository": "boberino93-bit/duo-open",
+      "branch": "main",
+      "observed_head_at_registry_creation": "43974424dc195de82c871418854defce487ee091",
+      "purpose": "Reference implementation for active-agent service discipline, AgentBus/Artifactory coordination, recovery, concurrency, and role-package patterns.",
+      "relevant_surfaces": [
+        "ACTIVE_AGENT_SERVICE_INTERVAL_V1.md",
+        "agent_bus/",
+        "artifactory/",
+        "backups/",
+        "protocol/control documentation",
+        "deployment and recovery tooling"
+      ],
+      "trust": "REFERENCE_ONLY_NON_TRANSITIVE"
+    },
+    {
+      "source_id": "intercommunications-enhancements-reference",
+      "repository": "boberino93-bit/intercommunicationsenhancements",
+      "branch": "main",
+      "observed_head_at_registry_creation": "707865e0125a16039ac8fb36dde6dcd5597fce6a",
+      "purpose": "Reference implementation for project isolation, cross-project provenance, compatibility classification, package synchronization, and inter-agent protocol hardening.",
+      "relevant_surfaces": [
+        "protocols/",
+        "artifactory/",
+        "agent_bus/",
+        "deployment/",
+        "role packages and verification evidence"
+      ],
+      "trust": "REFERENCE_ONLY_NON_TRANSITIVE"
+    }
+  ],
+  "required_invariants": [
+    "FOREIGN_REPOSITORIES_ARE_READ_ONLY",
+    "BENEFITFLOW_IS_THE_ONLY_WRITABLE_PROJECT_REPOSITORY",
+    "FOREIGN_ACCEPTED_STATE_NEVER_AUTO_OVERRIDES_BENEFITFLOW",
+    "NO_FOREIGN_SECRETS_OR_PERSONAL_DATA_IMPORT",
+    "MANAGER_REVIEW_BEFORE_PRIMARY_PROJECT_TRUTH_GRAFT",
+    "PACKAGE_PARITY_AFTER_CONTROL_PLANE_GRAFT",
+    "HUMAN_APPROVAL_AND_P0_GATES_MAY_NOT_BE_SILENTLY_WEAKENED"
+  ]
+}
