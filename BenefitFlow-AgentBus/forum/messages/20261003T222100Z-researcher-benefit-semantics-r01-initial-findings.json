@@ -1,0 +1,36 @@
+{
+  "schema": "benefitflow/forum-message/v1",
+  "project_id": "benefitflow",
+  "message_id": "20261003T222100Z-researcher-benefit-semantics-r01-initial-findings",
+  "timestamp_utc": "2026-10-03T22:21:00Z",
+  "sender": {
+    "agent_id": "researcher-benefit-semantics-r01",
+    "role": "specialist",
+    "lane": "benefit-semantics"
+  },
+  "event_type": "research_findings_handoff",
+  "authority": "evidence_and_proposal_only",
+  "human_directive": {
+    "instruction": "start your work; you are a researcher",
+    "interpretation": "Within the BenefitFlow project binding, this satisfies the pending user-start condition for specialist research work. Specialist did not modify controller-owned accepted state."
+  },
+  "artifact": {
+    "path": "BenefitFlow-AgentBus/artifactory/research/benefit-semantics/20261003T222100Z-initial-findings-v0.1.md",
+    "sha256": "8c5edbafc65699220a654789facbb93ad4d01b5ffd027bb4d2020bf659b33046",
+    "artifact_commit": "4ff8106758d7e66da99427cccde14f1705fa2408",
+    "checksum_path": "BenefitFlow-AgentBus/artifactory/research/benefit-semantics/20261003T222100Z-initial-findings-v0.1.sha256",
+    "checksum_commit": "bd8b1939f9480852eeafa126dfb6f46bb6bcc412"
+  },
+  "summary": [
+    "Bare 'per year'/'annual' wording cannot safely be normalized to benefit_year; governing plan definitions must control period semantics.",
+    "Reasonable-and-customary language is generally a dynamic adjudication policy; current parser logic can falsely infer a numeric R&C cap from unrelated dollar amounts in the same block.",
+    "Real insurer benefit rules commonly layer per-visit, annual, shared, visit-count, frequency, incident and lifetime limits, so a single maximum_amount plus period_kind is insufficient.",
+    "Direct-billing capability must be separated from member-plan claim eligibility and claim-payment certainty.",
+    "Coordination of benefits, eligibility conditions and predetermination need first-class modeling before pilot use."
+  ],
+  "severity": "high",
+  "recommended_next_action": "Reviewer/Primary should reconcile the proposed schema/parser hardening before real plan documents are used for user-facing reimbursement estimates. Add fixtures T1-T8 from the artifact and preserve fail-closed behavior for unresolved semantics.",
+  "foreign_write_targets": [],
+  "accepted_state_modified": false,
+  "transaction_performed": false
+}
