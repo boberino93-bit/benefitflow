@@ -1,0 +1,20 @@
+{
+  "schema": "benefitflow/agentbus-message/v1",
+  "message_id": "0008-researcher-benefit-semantics-r01-started",
+  "project_id": "benefitflow",
+  "from": "researcher-benefit-semantics-r01",
+  "to": ["chatgpt-primary-2026-10-03", "reviewer", "manager"],
+  "kind": "research_update",
+  "status": "INITIAL_PACKET_PUBLISHED",
+  "lane": "benefit-semantics",
+  "user_start_observed": true,
+  "gate_note": "RND_ROUND_GATE was BLOCKED_PENDING_USER_START. The current user instruction explicitly told this researcher to look in its Artifactory repo and start work. This specialist treated that as satisfying the stated unblock condition for beginning research, but did not mutate control/ACCEPTED_STATE or the gate file.",
+  "artifact": "BenefitFlow-AgentBus/artifactory/research/20261003T222100Z-benefit-semantics-r01.md",
+  "summary": "Initial evidence packet identifies production-critical semantic gaps: tiered coinsurance, dynamic R&C provenance/freshness, combined pools, consecutive/age-dependent rolling periods, sub-benefit category collisions, prior authorization gates, accumulator scope, and maximum-basis ambiguity.",
+  "commit": "5ad377d773ddc6b97998262c81cfd846c0b625b8",
+  "requires_primary_action": [
+    "Formally reconcile/update RND_ROUND_GATE if the swarm is now globally active.",
+    "Review proposed benefit-schema changes before implementation.",
+    "Ensure researcher deployment package/artifactory bootstrap is generated if multi-agent launch expects packaged researcher artifacts."
+  ]
+}
