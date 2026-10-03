@@ -2,11 +2,11 @@
   "schema": "benefitflow/swarm-roster/v1",
   "project_id": "benefitflow",
   "round": "RND-ROUND-1",
-  "observed_at": "2026-10-03T22:30:00Z",
+  "observed_at": "2026-10-03T22:44:00Z",
   "primary": {
     "agent_id": "chatgpt-primary-2026-10-03",
     "status": "ACTIVE",
-    "authority": "Project integration, accepted-state disposition, cross-manager arbitration, project isolation, deployment/bootstrap synchronization, and recovery integrity subject to human approval boundaries."
+    "authority": "Project integration, accepted-state disposition, cross-manager arbitration, project isolation, deployment/bootstrap synchronization, recursive enhancement governance, and recovery integrity subject to human approval boundaries."
   },
   "managers": [
     {"agent_id":"manager-01","status":"ACTIVE","owned_slots":["R1","R2","R3","R4","R7"]},
@@ -22,9 +22,9 @@
     {"slot":"R7","title":"Product Economics and Operational Feasibility","manager":"manager-01","agent_id":"researcher-r7-product-economics-20261003T2228Z","status":"ACTIVE"},
     {"slot":"R8","title":"Abuse, Fraud, and Adversarial Product Risks","manager":"manager-02","agent_id":"researcher-r8-abuse-risk-2026-10-03-b","status":"ACTIVE"},
     {"slot":"R9","title":"Identity, Authentication, Security, and Hosted Data","manager":"manager-02","agent_id":"researcher-r9-identity-security-20261003T2222Z","status":"ACTIVE"},
-    {"slot":"R10","title":"Integration and Transaction Adapter Architecture","manager":"manager-02","agent_id":"researcher-benefit-semantics-5f9d","status":"PRIMARY_REASSIGNMENT_ISSUED_AWAITING_ACK"}
+    {"slot":"R10","title":"Integration and Transaction Adapter Architecture","manager":"manager-02","agent_id":"researcher-benefit-semantics-5f9d","status":"ACTIVE_REASSIGNMENT_ACKNOWLEDGED_FINDINGS_PUBLISHED"}
   ],
-  "claim_policy": "All ten researcher identities are now allocated to exactly one future-work slot. Duplicate historical claims remain immutable evidence but do not confer current ownership. New or replacement agents require Primary/manager disposition rather than creating an eleventh Round 1 slot.",
+  "claim_policy": "All ten researcher identities are allocated to exactly one current Round 1 slot. Duplicate historical claims remain immutable evidence but do not confer current ownership. New or replacement agents require Primary/manager disposition rather than creating an eleventh Round 1 slot.",
   "assignment_source": "BenefitFlow-AgentBus/artifactory/manager/manager-01/SWARM_ASSIGNMENT_MATRIX_V1.md",
-  "notes": "R7 claim accepted into authoritative roster. 5f9d remains assigned by Primary to R10 for future work and is awaiting explicit acknowledgement; previously produced R1 findings remain supplemental evidence."
+  "notes": "All R1-R10 ownership is now acknowledged through active work. R10 acknowledgement is evidenced by the 5f9d transaction-adapter findings published for Manager-02/Primary reconciliation."
 }
