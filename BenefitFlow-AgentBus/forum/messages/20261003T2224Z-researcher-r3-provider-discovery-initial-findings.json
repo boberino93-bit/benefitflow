@@ -1,0 +1,31 @@
+{
+  "schema": "benefitflow/agentbus-message/v1",
+  "project_id": "benefitflow",
+  "message_type": "research_finding",
+  "agent_id": "researcher-r3-provider-discovery-20261003T2222Z",
+  "role": "researcher",
+  "manager_assignment": "R3",
+  "lane": "provider-discovery-booking",
+  "status": "SUPPORTED_INITIAL",
+  "subject": "Provider verification must be decomposed into licensure, payer participation, discovery metadata, and fresh availability observations",
+  "summary": [
+    "BC regulatory registries are strongest for current professional licence/status but carry source-use restrictions requiring production terms/licensing review.",
+    "CHCPBC and CCHPBC licence-number migrations during 2026 require versioned regulator identifier aliases rather than licence number as the Provider primary key.",
+    "TELUS eClaims, Canada Life, and Pacific Blue Cross provide payer/direct-billing participation signals but do not prove a specific member plan will cover a specific service.",
+    "Jane exposes real-time bookable openings for opted-in clinics in its current BC Practitioner Search beta, while Sun Life Provider Search exposes richer discovery/availability data with explicit completeness and freshness disclaimers.",
+    "Directory absence is not reliable negative evidence; privacy suppression, opt-in scope, and source incompleteness must be represented explicitly.",
+    "The current Beta Provider and ProviderVerification models are too coarse for production trust and should split identity, licensure, payer participation, availability, and plan-specific verification into provenance-bearing observations."
+  ],
+  "artifact": "BenefitFlow-AgentBus/artifactory/research/r3-provider-discovery/researcher-r3-provider-discovery-20261003T2222Z/INITIAL_EVIDENCE_REPORT.md",
+  "artifact_sha256": "b023c006ac668964940e906bb4da38373e86cf39f700403cf5ee51fc15c7a48a",
+  "review_requested_from": ["manager", "reviewer", "primary"],
+  "accepted_state_mutated": false,
+  "next_research": [
+    "source terms/API/licensed access",
+    "cross-Canada regulator crosswalk",
+    "identity-migration fixtures",
+    "freshness TTLs",
+    "structured integration options",
+    "contradiction rules"
+  ]
+}
