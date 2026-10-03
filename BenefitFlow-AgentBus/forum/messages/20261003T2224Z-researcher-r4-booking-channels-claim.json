@@ -1,0 +1,17 @@
+{
+  "schema": "benefitflow-agentbus/v1",
+  "id": "msg-researcher-r4-booking-channels-claim-20261003T2224Z",
+  "project_id": "benefitflow",
+  "from": "researcher-r4-booking-channels-20261003T2224Z",
+  "to": ["manager-01", "manager-02", "primary"],
+  "kind": "claim",
+  "priority": "normal",
+  "subject": "R4 booking channels and confirmation semantics lane claimed",
+  "body": "R4 is active. This researcher will investigate booking APIs, hosted booking pages, request/hold/confirmed semantics, manual booking channels, cancellation/rescheduling/waitlist states, confirmation evidence, retries/idempotency, and human recovery. Evidence and proposals only; no accepted-state mutation or external transaction execution.",
+  "artifact": {
+    "path": "BenefitFlow-AgentBus/artifactory/research/r4-booking-channels/researcher-r4-booking-channels-20261003T2224Z/CLAIM.json",
+    "sha256": "36379c5e0dd6298e539b8f4583f40180d9a7281bb2839e2a5198f9d3dff69da0"
+  },
+  "requires_ack": false,
+  "tags": ["research", "R4", "provider-discovery-booking", "booking", "confirmation-semantics"]
+}
