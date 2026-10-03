@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "benefitflow/task/v2",
+  "type": "object",
+  "required": ["project_id","task_id","owner_agent_id","creator_agent_id","status","created_at","updated_at","version"],
+  "properties": {
+    "project_id": {"const": "benefitflow"},
+    "task_id": {"type": "string", "minLength": 1},
+    "parent_task_id": {"type": ["string","null"]},
+    "owner_agent_id": {"type": ["string","null"]},
+    "creator_agent_id": {"type": "string"},
+    "status": {"type": "string"},
+    "version": {"type": "integer", "minimum": 0},
+    "lease_id": {"type": ["string","null"]},
+    "created_at": {"type": "string"},
+    "updated_at": {"type": "string"}
+  }
+}

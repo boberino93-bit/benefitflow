@@ -6,10 +6,19 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 BUS = ROOT / "BenefitFlow-AgentBus"
 REQUIRED = [
+    ROOT / "PROJECT_MANIFEST.json",
+    ROOT / "ARCHITECTURE.md",
+    ROOT / "PROTOCOL_HARDENING_V2.md",
     BUS / "discovery/AGENT_DISCOVERY.json",
-    BUS / "PROJECT_SCOPE_SELECTION_GATE_V1.md",
+    BUS / "PROJECT_SCOPE_SELECTION_GATE_V2.md",
     BUS / "control/PROJECT_SCOPE_BINDING.json",
     BUS / "control/GITHUB_REPOSITORY_BINDING.json",
+    BUS / "control/PROTOCOL_STATE.json",
+    BUS / "control/PROTOCOL_MIGRATION_V1_TO_V2.json",
+    BUS / "control/AGENTBUS_MESSAGE_PROTOCOL_V2.md",
+    BUS / "control/CAPABILITY_POLICY.json",
+    BUS / "control/PACKAGE_DEPENDENCY_MAP.json",
+    BUS / "control/PACKAGE_REGISTRY.json",
     BUS / "control/RND_ROUND_GATE.json",
     BUS / "control/ACCEPTED_STATE.json",
     BUS / "control/AGENTBUS_MESSAGE_PERSISTENCE_CONTRACT_V1.md",
@@ -17,8 +26,8 @@ REQUIRED = [
     BUS / "control/CONTROLLER_SUCCESSION_V1.md",
     BUS / "control/RECURSIVE_BACKUP_AND_RECOVERY_V1.md",
     BUS / "bootstrap/PRIMARY.md",
-    BUS / "bootstrap/REVIEWER.md",
-    BUS / "bootstrap/SPECIALIST.md",
+    BUS / "bootstrap/MANAGER.md",
+    BUS / "bootstrap/RESEARCH.md",
 ]
 
 def sha256(p: Path) -> str:
@@ -28,7 +37,7 @@ def sha256(p: Path) -> str:
     return h.hexdigest()
 
 def main():
-    ts=datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%SZ')
+    ts=datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%S%fZ')
     out=BUS/'backups'/ts/'DEPLOYMENT_METADATA'/'AGENTBUS_SNAPSHOT'
     out.mkdir(parents=True, exist_ok=False)
     files=[]; failures=[]
@@ -44,8 +53,10 @@ def main():
         shutil.copy2(src,dst)
         files.append({"source":str(rel),"packaged":str(dst.relative_to(out)),"bytes":dst.stat().st_size,"sha256":sha256(dst)})
     manifest={
-        "schema":"benefitflow/agentbus-snapshot/v1",
+        "schema":"benefitflow/agentbus-snapshot/v2",
         "project_id":"benefitflow",
+        "protocol_version":"2.0.0-alpha.1",
+        "package_version":"0.4.0-beta.1",
         "export_utc":datetime.now(timezone.utc).isoformat(),
         "source_forum":"BenefitFlow-AgentBus/forum/messages/",
         "message_count":len(messages),

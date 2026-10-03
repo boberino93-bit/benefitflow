@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "benefitflow/agent-deployment-manifest/v2",
+  "type": "object",
+  "required": ["schema","project_id","repository_identity","deployment_role","authority_tier","project_version","framework_version","protocol_version","package_version","source_revision","built_at","included_components","component_hashes","capabilities"],
+  "properties": {
+    "schema": {"const": "benefitflow/agent-deployment-manifest/v2"},
+    "project_id": {"const": "benefitflow"},
+    "repository_identity": {"const": "boberino93-bit/benefitflow"},
+    "deployment_role": {"enum": ["PRIMARY","MANAGER","RESEARCH"]},
+    "authority_tier": {"enum": ["ORCHESTRATOR","REVIEWER","SPECIALIST"]},
+    "project_version": {"const": "0.4.0-beta.1"},
+    "framework_version": {"const": "1.1.0-alpha.1"},
+    "protocol_version": {"const": "2.0.0-alpha.1"},
+    "package_version": {"const": "0.4.0-beta.1"},
+    "source_revision": {"type": "string", "minLength": 7},
+    "built_at": {"type": "string"},
+    "included_components": {"type": "array", "items": {"type": "string"}},
+    "component_hashes": {"type": "object"},
+    "capabilities": {"type": "array", "items": {"type": "string"}}
+  }
+}

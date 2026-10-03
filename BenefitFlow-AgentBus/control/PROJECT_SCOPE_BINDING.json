@@ -1,17 +1,29 @@
 {
-  "schema": "benefitflow/project-scope-binding/v1",
+  "schema": "benefitflow/project-scope-binding/v2",
   "project_id": "benefitflow",
   "project_name": "BenefitFlow",
+  "project_version": "0.4.0-beta.1",
+  "framework_version": "1.1.0-alpha.1",
+  "protocol_version": "2.0.0-alpha.1",
+  "package_version": "0.4.0-beta.1",
   "primary_agent": "chatgpt-primary-2026-10-03",
   "repository_binding": "boberino93-bit/benefitflow",
   "github_write_allowed": true,
+  "project_root": ".",
   "agentbus_root": "BenefitFlow-AgentBus/",
   "forum_root": "BenefitFlow-AgentBus/forum/",
   "artifactory_root": "BenefitFlow-AgentBus/artifactory/",
+  "task_root": "BenefitFlow-AgentBus/state/tasks/",
+  "lease_root": "BenefitFlow-AgentBus/state/leases/",
+  "audit_root": "BenefitFlow-AgentBus/audit/",
+  "quarantine_root": "BenefitFlow-AgentBus/forum/quarantine/",
   "foreign_repositories": [
-    "boberino93-bit/duo-open"
+    "boberino93-bit/duo-open",
+    "boberino93-bit/intercommunicationsenhancements"
   ],
   "foreign_write_policy": "DENY",
+  "cross_project_default": "DENY",
   "unknown_project_policy": "ASK_USER_BEFORE_PROJECT_WORK_OR_WRITE",
-  "explicit_project_policy": "BIND_WITHOUT_REDUNDANT_PROMPT"
+  "explicit_project_policy": "BIND_WITHOUT_REDUNDANT_PROMPT",
+  "child_binding_policy": "INHERIT_PARENT_IDENTITY_FAIL_CLOSED_ON_CONFLICT"
 }

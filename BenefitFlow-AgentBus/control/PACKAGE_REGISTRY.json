@@ -1,0 +1,14 @@
+{
+  "schema": "benefitflow/package-registry/v1",
+  "project_id": "benefitflow",
+  "project_version": "0.4.0-beta.1",
+  "protocol_version": "2.0.0-alpha.1",
+  "package_version": "0.4.0-beta.1",
+  "release_set": "protocol-2-hardening-beta.1",
+  "roles": {
+    "PRIMARY": {"canonical_filename": "benefitflow-primary-agent-v0.4.0-beta.1.zip", "status": "BUILD_BY_EXACT_SHA_CI"},
+    "MANAGER": {"canonical_filename": "benefitflow-manager-agent-v0.4.0-beta.1.zip", "status": "BUILD_BY_EXACT_SHA_CI"},
+    "RESEARCH": {"canonical_filename": "benefitflow-research-agent-v0.4.0-beta.1.zip", "status": "BUILD_BY_EXACT_SHA_CI"}
+  },
+  "release_atomicity": "All protocol-2 role packages are one coordinated release set and must share source revision/framework/protocol/package versions."
+}

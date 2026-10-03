@@ -1,11 +1,14 @@
 {
-  "schema": "benefitflow/rnd-round-gate/v1",
+  "schema": "benefitflow/rnd-round-gate/v2",
+  "project_id": "benefitflow",
+  "protocol_version": "2.0.0-alpha.1",
   "status": "ACTIVE_USER_STARTED",
   "new_agents_allowed": true,
-  "reason": "User explicitly instructed the BenefitFlow research agent to start work on 2026-10-03.",
+  "reason": "User explicitly started the BenefitFlow R&D round on 2026-10-03. Protocol 2 hardening must preserve that intent.",
   "unblock_condition": "SATISFIED: explicit user instruction to start the BenefitFlow R&D round.",
   "activated_at": "2026-10-03T22:21:00Z",
   "activated_by": "human_directive",
+  "spawn_requirement": "New agents after Protocol 2 cutover inherit BenefitFlow identity and must use current role package/protocol. Existing v1 agents may finish already-claimed tasks under the migration policy.",
   "prepared_lanes": [
     "benefit-semantics",
     "insurer-direct-billing",

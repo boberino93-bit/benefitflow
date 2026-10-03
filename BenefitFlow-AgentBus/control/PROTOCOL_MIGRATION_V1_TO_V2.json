@@ -1,0 +1,19 @@
+{
+  "schema": "benefitflow/protocol-migration/v1",
+  "project_id": "benefitflow",
+  "from_protocol": "legacy benefitflow-agentbus/v1",
+  "to_protocol": "2.0.0-alpha.1",
+  "cutover_parent_commit": "93ed383f0b5f8542af5e33996d497e7fc49e8dc0",
+  "mode": "NON_DESTRUCTIVE_ACTIVE_RND_MIGRATION",
+  "legacy_policy": {
+    "historical_messages": "PRESERVE_IMMUTABLY",
+    "in_flight_agents": "MAY_FINISH_ALREADY_CLAIMED_TASKS",
+    "new_task_claims_after_cutover": "REQUIRE_PROTOCOL2_AGENT_PACKAGE",
+    "new_agent_launches_after_cutover": "REQUIRE_PROTOCOL2_AGENT_PACKAGE",
+    "legacy_findings": "REVIEW_AND_NORMALIZE_BEFORE_PROTOCOL2_ACCEPTED_STATE_PROMOTION",
+    "legacy_external_actions": "DENY"
+  },
+  "conflict_rule": "CURRENT_LIVE_GATE_AND_NEWER_IMMUTABLE_FORUM_EVIDENCE_OUTRANK_STALE_MESSAGES",
+  "current_rnd_gate": "ACTIVE_USER_STARTED",
+  "rollback": "Do not rewrite history. Supersede migration policy with a new immutable control/message record."
+}

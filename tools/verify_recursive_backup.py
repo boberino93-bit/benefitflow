@@ -10,6 +10,7 @@ def main():
     m=json.loads(manifest_path.read_text())
     assert m['project_id']=='benefitflow'
     assert m['AGENTBUS_SNAPSHOT_COMPLETE'] is True
+    assert m.get('protocol_version')=='2.0.0-alpha.1'
     for rec in m['files']:
         p=snap/rec['packaged']
         assert p.exists(), rec['packaged']

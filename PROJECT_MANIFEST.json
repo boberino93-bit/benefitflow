@@ -1,0 +1,61 @@
+{
+  "schema": "benefitflow/project-manifest/v2",
+  "project_id": "benefitflow",
+  "project_name": "BenefitFlow",
+  "project_version": "0.4.0-beta.1",
+  "framework_version": "1.1.0-alpha.1",
+  "protocol_version": "2.0.0-alpha.1",
+  "package_version": "0.4.0-beta.1",
+  "repository_identity": "boberino93-bit/benefitflow",
+  "project_root": ".",
+  "agent_namespace": "benefitflow::agent",
+  "artifact_namespace": "BenefitFlow-AgentBus/artifactory/benefitflow",
+  "message_namespace": "BenefitFlow-AgentBus/forum/messages/benefitflow",
+  "task_namespace": "BenefitFlow-AgentBus/state/tasks/benefitflow",
+  "lock_namespace": "BenefitFlow-AgentBus/state/leases/benefitflow",
+  "audit_namespace": "BenefitFlow-AgentBus/audit/benefitflow",
+  "quarantine_namespace": "BenefitFlow-AgentBus/forum/quarantine/benefitflow",
+  "created_at": "2026-10-03T22:15:21Z",
+  "primary_agent": "chatgpt-primary-2026-10-03",
+  "source_of_truth": {
+    "project_manifest": "PROJECT_MANIFEST.json",
+    "project_binding": "BenefitFlow-AgentBus/control/PROJECT_SCOPE_BINDING.json",
+    "research_gate": "BenefitFlow-AgentBus/control/RND_ROUND_GATE.json",
+    "message_log": "BenefitFlow-AgentBus/forum/messages/",
+    "accepted_state": "BenefitFlow-AgentBus/control/ACCEPTED_STATE.json",
+    "package_registry": "BenefitFlow-AgentBus/control/PACKAGE_REGISTRY.json"
+  },
+  "upstream_protocol_reference": {
+    "repository": "boberino93-bit/intercommunicationsenhancements",
+    "baseline_commit": "707865e0125a16039ac8fb36dde6dcd5597fce6a",
+    "import_policy": "COPY_BY_VALUE_WITH_PROVENANCE_NO_SHARED_MUTABLE_STATE"
+  },
+  "project_isolation": {
+    "default": "DENY_CROSS_PROJECT",
+    "foreign_repositories": [
+      "boberino93-bit/duo-open",
+      "boberino93-bit/intercommunicationsenhancements"
+    ],
+    "unknown_project_policy": "ASK_USER_BEFORE_PROJECT_WORK_OR_WRITE",
+    "cross_project_exchange": "EXPLICIT_CAPABILITY_AND_APPROVAL_ONLY"
+  },
+  "agent_lifecycle": ["CREATED","UNBOUND","PROJECT_RESOLUTION","BOUND","INITIALIZED","ACTIVE","DRAINING","PAUSED","TERMINATED"],
+  "deployment_roles": {
+    "PRIMARY": {"authority_tier": "ORCHESTRATOR"},
+    "MANAGER": {"authority_tier": "REVIEWER"},
+    "RESEARCH": {"authority_tier": "SPECIALIST"}
+  },
+  "approval_boundaries": {
+    "research_may_not_transact": true,
+    "manager_may_not_transact": true,
+    "human_confirmation_required_before_booking": true,
+    "human_confirmation_required_before_financial_action": true,
+    "human_confirmation_required_before_full_member_identifier_disclosure": true,
+    "claims_submission_enabled": false
+  },
+  "rnd": {
+    "gate": "BenefitFlow-AgentBus/control/RND_ROUND_GATE.json",
+    "status_at_protocol2_cutover": "ACTIVE_USER_STARTED",
+    "migration_rule": "IN_FLIGHT_V1_MAY_FINISH_EXISTING_CLAIMS_NEW_AGENTS_USE_PROTOCOL2"
+  }
+}

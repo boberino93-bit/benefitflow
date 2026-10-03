@@ -1,39 +1,46 @@
 {
-  "schema": "benefitflow/agent-discovery/v1",
+  "schema": "benefitflow/agent-discovery/v2",
   "project_id": "benefitflow",
   "project_name": "BenefitFlow",
   "repository_binding": "boberino93-bit/benefitflow",
+  "project_version": "0.4.0-beta.1",
+  "framework_version": "1.1.0-alpha.1",
+  "protocol_version": "2.0.0-alpha.1",
+  "package_version": "0.4.0-beta.1",
   "primary_agent": "chatgpt-primary-2026-10-03",
+  "canonical_manifest": "../../PROJECT_MANIFEST.json",
   "bootstrap_order": [
-    "../PROJECT_SCOPE_SELECTION_GATE_V1.md",
+    "../../PROJECT_MANIFEST.json",
+    "../PROJECT_SCOPE_SELECTION_GATE_V2.md",
     "../control/PROJECT_SCOPE_BINDING.json",
     "../control/GITHUB_REPOSITORY_BINDING.json",
-    "../control/AGENTBUS_MESSAGE_PERSISTENCE_CONTRACT_V1.md",
-    "../control/RECURSIVE_BACKUP_AND_RECOVERY_V1.md",
-    "../control/CONTROLLER_SUCCESSION_V1.md",
-    "../control/DEPLOYMENT_AGENTBUS_SNAPSHOT_CONTRACT_V1.md",
+    "../control/PROTOCOL_STATE.json",
+    "../control/PROTOCOL_MIGRATION_V1_TO_V2.json",
+    "../control/AGENTBUS_MESSAGE_PROTOCOL_V2.md",
+    "../control/CAPABILITY_POLICY.json",
     "../control/RND_ROUND_GATE.json",
-    "../bootstrap/PRIMARY.md or role-specific bootstrap",
+    "../bootstrap/<ROLE>.md",
     "../control/ACCEPTED_STATE.json",
-    "relevant forum messages",
-    "assigned lane packet"
+    "relevant immutable forum messages",
+    "assigned task/lane packet"
   ],
   "communication": {
     "forum": "../forum/messages/",
     "append_only": true,
     "artifactory": "../artifactory/",
-    "cross_project_writes": false
+    "quarantine": "../forum/quarantine/",
+    "cross_project_default": "DENY"
   },
   "mandatory_rules": [
-    "RESOLVE_PROJECT_BEFORE_WORK",
+    "RESOLVE_PROJECT_BEFORE_MUTATION",
     "NO_DEFAULT_WRITABLE_REPOSITORY",
     "FAIL_CLOSED_ON_SCOPE_MISMATCH",
-    "HUMAN_APPROVAL_BEFORE_BOOKING_OR_MEMBER_DATA_DISCLOSURE",
+    "CHILDREN_INHERIT_PROJECT_IDENTITY",
+    "NEW_AGENTS_USE_CURRENT_PROTOCOL_PACKAGE",
+    "HUMAN_APPROVAL_BEFORE_BOOKING_FINANCIAL_ACTION_OR_MEMBER_DATA_DISCLOSURE",
     "EVIDENCE_OUTRANKS_AGENT_CONFIDENCE",
-    "SPECIALISTS_CANNOT_SELF_PROMOTE",
-    "RND_AGENTS_BLOCKED_UNTIL_USER_START",
+    "RESEARCH_CANNOT_SELF_PROMOTE",
     "RECURSIVE_BACKUP_REQUIRED",
-    "SUCCESSOR_REVALIDATION_REQUIRED",
-    "COMPLETE_FORUM_SNAPSHOT_REQUIRED"
+    "SUCCESSOR_REVALIDATION_REQUIRED"
   ]
 }

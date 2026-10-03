@@ -1,0 +1,14 @@
+{
+  "schema": "benefitflow/capability-policy/v1",
+  "project_id": "benefitflow",
+  "default": "DENY",
+  "roles": {
+    "PRIMARY": ["read_source", "write_source", "read_artifacts", "write_artifacts", "publish_message", "claim_task", "review_change", "approve_change", "build_package", "replace_package"],
+    "MANAGER": ["read_source", "read_artifacts", "write_artifacts", "publish_message", "claim_task", "review_change"],
+    "RESEARCH": ["read_source", "read_artifacts", "write_artifacts", "publish_message", "claim_task"]
+  },
+  "not_granted_by_role_package": ["external_action", "cross_project_exchange", "deploy"],
+  "external_action_policy": "SEPARATE_BOUNDED_CAPABILITY_PLUS_EXPLICIT_HUMAN_APPROVAL",
+  "cross_project_exchange_policy": "TRUSTED_PROJECT_OWNED_GRANT_PLUS_EXPLICIT_APPROVAL",
+  "claims_submission": "DISABLED"
+}

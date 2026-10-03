@@ -1,18 +1,21 @@
 {
-  "schema": "benefitflow/github-repository-binding/v1",
+  "schema": "benefitflow/github-repository-binding/v2",
   "project_id": "benefitflow",
   "target_repository": "boberino93-bit/benefitflow",
   "status": "VERIFIED_BOUND",
   "github_write_allowed": true,
   "foreign_repositories": [
-    "boberino93-bit/duo-open"
+    "boberino93-bit/duo-open",
+    "boberino93-bit/intercommunicationsenhancements"
   ],
   "foreign_write_policy": "DENY",
+  "repository_identity_is_authorization_boundary": true,
+  "implicit_repository_fallback": false,
   "activation_requirements": [
+    "project_bound",
     "repository_exists",
     "repository_identity_verified",
-    "initial_commit_sha_recorded",
-    "binding_message_published",
+    "branch_task_association_known",
     "project_isolation_tests_pass"
   ],
   "repository_verified": true,

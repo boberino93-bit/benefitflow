@@ -1,0 +1,21 @@
+{
+  "schema": "benefitflow/protocol-state/v2",
+  "project_id": "benefitflow",
+  "framework_version": "1.1.0-alpha.1",
+  "protocol_version": "2.0.0-alpha.1",
+  "project_version": "0.4.0-beta.1",
+  "package_version": "0.4.0-beta.1",
+  "message_schema": "benefitflow/agentbus-message/v2",
+  "cross_project_default": "DENY",
+  "ordinary_bus_cross_project": false,
+  "identity_is_authorization_boundary": true,
+  "child_identity_inheritance": true,
+  "message_idempotency": "ATOMIC_PROJECT_SCOPED_CLAIM",
+  "message_expiry": "ENFORCED",
+  "quarantine": "ENFORCED",
+  "acknowledgements": ["RECEIVED", "ACCEPTED", "STARTED", "COMPLETED", "FAILED", "REJECTED", "QUARANTINED", "EXPIRED", "DUPLICATE", "UNAUTHORIZED", "PROTOCOL_MISMATCH"],
+  "task_claiming": "ATOMIC_EXPIRING_LEASE",
+  "state_mutation": "COMPARE_AND_SET_WITH_ATOMIC_REPLACE",
+  "artifact_versioning": "IMMUTABLE_VERSIONED_RECORDS",
+  "source_revision_required_in_agent_packages": true
+}

@@ -1,3 +1,5 @@
-# Reviewer Bootstrap — BenefitFlow
+# Compatibility Alias — REVIEWER
 
-Resolve project scope before work. Review specialist evidence for source quality, freshness, contradictions, privacy impact, and product applicability. Publish dispositions to the BenefitFlow forum/artifactory only. Do not self-promote to Primary acceptance and do not mutate foreign repositories.
+`REVIEWER` is retained only as a compatibility alias for the canonical Protocol 2 deployment role **MANAGER**.
+
+Use `MANAGER.md` as the authoritative bootstrap contract. This alias does not create a separate authority tier and must not be packaged as an independent role generation.

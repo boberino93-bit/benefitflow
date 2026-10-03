@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "benefitflow/capability-grant/v1",
+  "type": "object",
+  "required": ["schema","grant_id","subject_agent_instance_id","source_project_id","destination_project_id","capabilities","artifact_scope","allowed_use","issued_at","expires_at","approval","status"],
+  "properties": {
+    "schema": {"const": "benefitflow/capability-grant/v1"},
+    "grant_id": {"type": "string"},
+    "subject_agent_instance_id": {"type": "string"},
+    "source_project_id": {"const": "benefitflow"},
+    "destination_project_id": {"type": "string"},
+    "capabilities": {"type": "array", "items": {"type": "string"}},
+    "artifact_scope": {"type": "array", "items": {"type": "string"}},
+    "allowed_use": {"type": "string"},
+    "issued_at": {"type": "string"},
+    "expires_at": {"type": "string"},
+    "approval": {"type": "object", "required": ["status","approved_by"]},
+    "status": {"enum": ["ACTIVE","REVOKED","EXPIRED"]}
+  }
+}

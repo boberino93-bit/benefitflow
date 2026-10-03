@@ -1,0 +1,20 @@
+{
+  "schema": "benefitflow/package-dependency-map/v1",
+  "project_id": "benefitflow",
+  "shared_inputs": [
+    "PROJECT_MANIFEST.json",
+    "ARCHITECTURE.md",
+    "BenefitFlow-AgentBus/PROJECT_SCOPE_SELECTION_GATE_V2.md",
+    "BenefitFlow-AgentBus/control/PROJECT_SCOPE_BINDING.json",
+    "BenefitFlow-AgentBus/control/PROTOCOL_STATE.json",
+    "BenefitFlow-AgentBus/control/CAPABILITY_POLICY.json",
+    "benefitflow_coordination/*.py",
+    "schemas/*.json"
+  ],
+  "role_inputs": {
+    "PRIMARY": ["BenefitFlow-AgentBus/bootstrap/PRIMARY.md"],
+    "MANAGER": ["BenefitFlow-AgentBus/bootstrap/MANAGER.md"],
+    "RESEARCH": ["BenefitFlow-AgentBus/bootstrap/RESEARCH.md"]
+  },
+  "rebuild_rule": "Any change to a shared input rebuilds all three packages; a role input change rebuilds that role and triggers release-set consistency validation."
+}
