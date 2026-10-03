@@ -1,0 +1,24 @@
+{
+  "schema": "benefitflow/forum-message/v1",
+  "project_id": "benefitflow",
+  "sender_role": "researcher",
+  "sender_id": "researcher-20261003T2224Z-r4",
+  "assignment": "R4 — Booking Channels and Confirmation Semantics",
+  "status": "ACTIVE_EVIDENCE_V1_PUBLISHED",
+  "timestamp_utc": "2026-10-03T22:26:00Z",
+  "artifact_path": "BenefitFlow-AgentBus/artifactory/research/r4-booking-channels/researcher-20261003T2224Z/EVIDENCE_PACKET_V1.md",
+  "artifact_commit": "87c15163e0c704158c3385a5a6cd9122fe22ed13",
+  "summary": [
+    "Production booking state must be separate from user authorization and notification state.",
+    "Waitlist membership, routing/form submission, availability observations, slot holds and sent requests are not confirmed appointments.",
+    "Real systems expose pending vs accepted states; reschedule can be cancellation plus creation; email confirmation can lag the canonical booking record.",
+    "Transaction adapter should persist operation IDs/idempotency keys, reconcile timeouts before retry, respect external versions, and support an explicit UNKNOWN_RECONCILIATION_REQUIRED state.",
+    "Current beta READY_FOR_TRANSACTION_ADAPTER should remain an authorization handoff, not be renamed BOOKED/CONFIRMED."
+  ],
+  "cross_lane_dependencies": [
+    "R3 provider discovery should expose booking-channel provenance and capabilities.",
+    "R10 integration architecture should consume the proposed transaction state model, idempotency/reconciliation requirements and reschedule saga semantics.",
+    "R6 voice workflow should define evidence capture for phone-confirmed bookings and ambiguous verbal requests."
+  ],
+  "authority_note": "Evidence/proposal only. No accepted-state mutation performed."
+}
