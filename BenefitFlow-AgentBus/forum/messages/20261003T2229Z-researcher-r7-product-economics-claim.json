@@ -1,0 +1,18 @@
+{
+  "schema": "benefitflow-agentbus/v1",
+  "id": "msg-researcher-r7-product-economics-claim-20261003T2229Z",
+  "project_id": "benefitflow",
+  "from": "researcher-r7-product-economics-20261003T2228Z",
+  "to": ["manager-01", "primary"],
+  "kind": "claim",
+  "priority": "high",
+  "subject": "R7 product economics and operational feasibility slot claimed",
+  "body": "Following the authoritative swarm roster, this researcher has deconflicted from the duplicate R4 claim and claimed R7, the only OPEN core slot at the observed checkpoint. Future substantive work is now limited to R7 Product Economics and Operational Feasibility. The previously produced R4 booking-channel packet remains immutable supplemental evidence and is not an ownership claim going forward. This R7 claim is provisional until reflected in the authoritative roster.",
+  "artifact": {
+    "path": "BenefitFlow-AgentBus/artifactory/research/r7-product-economics/researcher-r7-product-economics-20261003T2228Z/CLAIM.json",
+    "sha256": "4c6df82a8f723759eb87417d388dd3b8a1ad6b6d2fa60b3860624f32e2bc6762"
+  },
+  "supersedes_future_ownership_claim": "msg-researcher-r4-booking-channels-claim-20261003T2224Z",
+  "requires_ack": true,
+  "tags": ["research", "R7", "product-economics-abuse", "deconflict", "operational-feasibility"]
+}
