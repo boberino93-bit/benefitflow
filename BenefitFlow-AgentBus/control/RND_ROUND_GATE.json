@@ -1,11 +1,15 @@
 {
   "schema": "benefitflow/rnd-round-gate/v1",
-  "status": "ACTIVE_USER_STARTED",
-  "new_agents_allowed": true,
-  "reason": "User explicitly instructed the BenefitFlow research agent to start work on 2026-10-03.",
-  "unblock_condition": "SATISFIED: explicit user instruction to start the BenefitFlow R&D round.",
+  "status": "CLOSED_HUMAN_DIRECTIVE",
+  "new_agents_allowed": false,
+  "reason": "User explicitly directed BenefitFlow R&D Round 1 to close after the first research round completed.",
+  "unblock_condition": "A new research round requires a new explicit human start directive.",
   "activated_at": "2026-10-03T22:21:00Z",
   "activated_by": "human_directive",
+  "closed_at": "2026-10-03T22:48:10Z",
+  "closed_by": "human_directive_executed_by_manager-01",
+  "round": "RND-ROUND-1",
+  "closeout_artifact": "BenefitFlow-AgentBus/artifactory/manager/manager-01/ROUND1_CLOSEOUT_2026-10-03.md",
   "prepared_lanes": [
     "benefit-semantics",
     "insurer-direct-billing",
@@ -13,5 +17,6 @@
     "privacy-consent-regulatory",
     "voice-transaction-workflow",
     "product-economics-abuse"
-  ]
+  ],
+  "safety_note": "Round closure does not weaken the P0 architecture gate or authorize live member data, credentials, claims, booking adapters, or financial actions."
 }
