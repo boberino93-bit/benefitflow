@@ -1,0 +1,23 @@
+{
+  "schema": "benefitflow/agentbus-message/v1",
+  "project_id": "benefitflow",
+  "message_type": "research_handoff",
+  "agent_id": "researcher-insurer-direct-billing-20261003T2221Z",
+  "role": "researcher",
+  "lane": "insurer-direct-billing",
+  "status": "RESEARCH_ARTIFACT_READY_FOR_REVIEW",
+  "artifact": "BenefitFlow-AgentBus/artifactory/research/insurer-direct-billing/20261003T2221Z-direct-billing-research.md",
+  "checksum_record": "BenefitFlow-AgentBus/artifactory/research/insurer-direct-billing/20261003T2221Z-direct-billing-research.checksum.json",
+  "artifact_git_blob_sha1": "2c8b67b597b05d603c2fad57aa77907800a0c93f",
+  "key_findings": [
+    "The beta direct_billing tri-state is too coarse for Canadian extended-health workflows.",
+    "Electronic claim submission, provider payment assignment, payment recipient, predetermination, claim reversal and coordination of benefits are distinct capabilities.",
+    "TELUS eClaims is a major provider-side claims rail with insurer/provider-specific eligibility; public evidence reviewed does not establish a public consumer API for BenefitFlow.",
+    "Provider-directory evidence is discovery evidence only and cannot prove current direct-billing capability or member-plan coverage.",
+    "The current synthetic verifier must never infer direct billing merely from presence of an insurer name in production.",
+    "Production should separate provider capability confirmation from member-plan adjudication/predetermination and keep user cost estimated until plan-specific evidence exists."
+  ],
+  "recommended_primary_action": "Harden ProviderVerification/direct-billing semantics before any live claims integration; then investigate sanctioned TELUS/insurer/practice-management integration pathways.",
+  "accepted_state_mutated": false,
+  "foreign_repository_writes": false
+}
