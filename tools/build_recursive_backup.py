@@ -12,6 +12,7 @@ REQUIRED = [
     BUS / "control/GITHUB_REPOSITORY_BINDING.json",
     BUS / "control/RND_ROUND_GATE.json",
     BUS / "control/ACCEPTED_STATE.json",
+    BUS / "control/P0_HARDENING_STATUS.json",
     BUS / "control/SWARM_ROSTER.json",
     BUS / "control/SWARM_PROTOCOL_V1.md",
     BUS / "control/FORUM_MESSAGE_ENVELOPE_V2.md",
