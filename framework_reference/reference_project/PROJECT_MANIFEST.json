@@ -1,0 +1,108 @@
+{
+  "agent_roles": [
+    {
+      "authority_tier": "ORCHESTRATOR",
+      "profile": "Process integrator",
+      "role_id": "orchestrator-rhea"
+    },
+    {
+      "authority_tier": "REVIEWER",
+      "profile": "Evidence gatekeeper",
+      "role_id": "reviewer-quinn"
+    },
+    {
+      "authority_tier": "SPECIALIST",
+      "profile": "Baseline analyst",
+      "role_id": "specialist-ava"
+    },
+    {
+      "authority_tier": "SPECIALIST",
+      "profile": "Process analyst",
+      "role_id": "specialist-noel"
+    }
+  ],
+  "allowed_tools": [
+    "spreadsheet analysis",
+    "document review"
+  ],
+  "approval_gates": [
+    "Human approval required before changing operating procedure."
+  ],
+  "artifact_policy": {
+    "canonical_detail_home": "artifact",
+    "checksums": true,
+    "immutability": true
+  },
+  "assumptions": [
+    "Historical records are sufficiently complete for an initial baseline."
+  ],
+  "authoritative_sources": [
+    "sot-process-guide",
+    "sot-kpi-owner",
+    "sot-operational-records"
+  ],
+  "communication_policy": {
+    "append_only": true,
+    "messages_point_to_evidence": true,
+    "supersession_not_deletion": true
+  },
+  "completion_definition": "Baseline phase is complete when the definition, baseline, contradiction record, continuity check, and phase reconciliation are approved.",
+  "constraints": [
+    "Existing approval controls remain in force."
+  ],
+  "data_handling_rules": [
+    "Use only the fictional reference data in this example."
+  ],
+  "deliverable_types": [
+    "baseline analysis",
+    "process recommendation",
+    "validation plan"
+  ],
+  "desired_outcome": "Establish a verified baseline and an approved improvement plan for supplier intake cycle time.",
+  "external_dependencies": [],
+  "framework_version": "1.0.0",
+  "human_required_actions": [
+    "Approve any operating-procedure change."
+  ],
+  "integration_authority": "ORCHESTRATOR",
+  "learning_policy": {
+    "may_not_expand_authority": true,
+    "review_required": true
+  },
+  "non_goals": [
+    "Changing financial approval limits."
+  ],
+  "organization_domain": "supplier operations",
+  "parallelism_limits": {
+    "max_active_specialists": 2,
+    "status": "CONFIRMED"
+  },
+  "problem_statement": "Reduce supplier onboarding delays without weakening approval controls.",
+  "prohibited_actions": [
+    "No external communication or system changes."
+  ],
+  "project_id": "fictional-supplier-intake-001",
+  "project_name": "Supplier Intake Cycle Improvement",
+  "project_slug": "supplier-intake-cycle-improvement",
+  "project_type": "PROCESS_IMPROVEMENT_PROJECT",
+  "review_authority": "REVIEWER",
+  "schema": "org-agent-mesh/project-manifest/v1",
+  "security_classification": "INTERNAL",
+  "source_systems": [
+    "operational record export",
+    "approved process guide"
+  ],
+  "stakeholders": [
+    "Process Owner",
+    "Procurement Lead"
+  ],
+  "success_criteria": [
+    "Baseline definition approved",
+    "Contradictory measures reconciled without discarding valid evidence",
+    "Continuity impacts identified"
+  ],
+  "validation_methods": [
+    "independent calculation",
+    "process-owner validation"
+  ]
+}

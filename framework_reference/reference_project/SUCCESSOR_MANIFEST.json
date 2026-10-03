@@ -1,0 +1,21 @@
+{
+  "framework_version": "1.0.0",
+  "history_policy": "CANONICAL_POINTERS_PLUS_GOVERNED_AUDIT_ARCHIVE",
+  "included_files": [
+    "PROJECT_MANIFEST.json",
+    "SOURCE_OF_TRUTH_MAP.json",
+    "DECISION.json",
+    "CONTINUITY_MATRIX.json",
+    "FINAL_RECONCILIATION.json"
+  ],
+  "operational_state": {
+    "accepted_state": "baseline-v2",
+    "active_lanes": [],
+    "latest_reviewed_lessons": [
+      "lesson-001"
+    ],
+    "unresolved_blockers": []
+  },
+  "project_id": "fictional-supplier-intake-001",
+  "schema": "org-agent-mesh/successor-package/v1"
+}

@@ -1,0 +1,27 @@
+{
+  "applies_to_state": "baseline-v1",
+  "artifacts": [
+    "artifacts/lane-baseline/specialist-ava/"
+  ],
+  "evidence": [
+    "ev-a-method",
+    "ev-a-data"
+  ],
+  "from_agent": "specialist-ava",
+  "from_role": "SPECIALIST",
+  "id": "msg-002",
+  "kind": "FINDING",
+  "priority": "normal",
+  "project_id": "fictional-supplier-intake-001",
+  "reply_to": null,
+  "requires_ack": false,
+  "schema": "org-agent-mesh/message/v1",
+  "subject": "Baseline median is 8 business days",
+  "summary": "Using request-received through approval as the interval, the sampled median is 8 business days.",
+  "supersedes": [],
+  "tags": [],
+  "timestamp_utc": "2026-01-15T10:02:00Z",
+  "to": [
+    "reviewer-quinn"
+  ]
+}

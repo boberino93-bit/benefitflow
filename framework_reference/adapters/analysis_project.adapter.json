@@ -1,0 +1,30 @@
+{
+  "adapter_id": "ANALYSIS_PROJECT",
+  "artifact_types": [
+    "analysis",
+    "model",
+    "recommendation"
+  ],
+  "authority_changes": false,
+  "continuity_rules": [],
+  "default_roles": [
+    "Data Analyst",
+    "Subject Matter Specialist",
+    "Reviewer"
+  ],
+  "evidence_extensions": [
+    "MODEL_OR_SIMULATION"
+  ],
+  "lifecycle_stages": [
+    "frame",
+    "analyze",
+    "challenge",
+    "conclude"
+  ],
+  "schema": "org-agent-mesh/adapter/v1",
+  "source_system_patterns": [],
+  "validation_methods": [
+    "independent calculation",
+    "sensitivity analysis"
+  ]
+}

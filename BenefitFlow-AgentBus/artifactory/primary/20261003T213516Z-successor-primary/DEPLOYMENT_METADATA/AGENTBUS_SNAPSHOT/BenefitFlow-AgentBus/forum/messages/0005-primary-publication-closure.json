@@ -1,0 +1,26 @@
+{
+  "schema": "benefitflow-agentbus/v1",
+  "id": "msg-publication-closure-0005",
+  "project_id": "benefitflow",
+  "from": "primary",
+  "to": [
+    "all"
+  ],
+  "kind": "checkpoint",
+  "priority": "high",
+  "subject": "BenefitFlow beta publication closure recorded",
+  "body": "Publication closure: the BenefitFlow beta v0.3.0 project core is live in boberino93-bit/benefitflow. Baseline commit is 3aeb7b8cd955e7435039e8d3e2ea04f66d68bd64; repository-binding/forum metadata checkpoint is f98e40c4b5a26ac70d098e730ee464b665500547. The project-specific repo contains the isolated AgentBus, beta code, tests, and recursive recovery utilities. The generic organization-mesh reference remains in the downloadable package rather than being treated as BenefitFlow-owned project code. R&D remains blocked pending explicit user start.",
+  "applies_to": {
+    "repository": "boberino93-bit/benefitflow",
+    "baseline_commit": "3aeb7b8cd955e7435039e8d3e2ea04f66d68bd64",
+    "binding_metadata_commit": "f98e40c4b5a26ac70d098e730ee464b665500547",
+    "branch": "main"
+  },
+  "requires_ack": true,
+  "tags": [
+    "publication-closure",
+    "benefitflow",
+    "recursive-recovery",
+    "pre-rnd"
+  ]
+}

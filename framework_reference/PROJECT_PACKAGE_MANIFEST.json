@@ -1,0 +1,13 @@
+{
+  "framework_version": "1.0.0",
+  "integrity_status": "PENDING",
+  "package_state": "INITIALIZED",
+  "project_id": "PROJECT_ID",
+  "required_files": [
+    "PROJECT_MANIFEST.json",
+    "ORG_AGENT_MESH/discovery/AGENT_DISCOVERY.json",
+    "SOURCE_OF_TRUTH_MAP.json"
+  ],
+  "sanitization_status": "PROJECT_INSTANCE_POLICY_APPLIES",
+  "schema": "org-agent-mesh/project-package-manifest/v1"
+}

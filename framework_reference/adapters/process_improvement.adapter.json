@@ -1,0 +1,30 @@
+{
+  "adapter_id": "PROCESS_IMPROVEMENT",
+  "artifact_types": [
+    "process map",
+    "recommendation"
+  ],
+  "authority_changes": false,
+  "continuity_rules": [],
+  "default_roles": [
+    "Process Analyst",
+    "Business Analyst",
+    "Reviewer"
+  ],
+  "evidence_extensions": [
+    "OPERATIONAL_VALIDATION"
+  ],
+  "lifecycle_stages": [
+    "baseline",
+    "analyze",
+    "design",
+    "validate",
+    "adopt"
+  ],
+  "schema": "org-agent-mesh/adapter/v1",
+  "source_system_patterns": [],
+  "validation_methods": [
+    "process walk-through",
+    "before/after measurement"
+  ]
+}

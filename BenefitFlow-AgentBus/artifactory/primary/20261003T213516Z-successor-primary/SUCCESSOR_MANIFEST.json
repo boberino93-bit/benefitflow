@@ -1,0 +1,11 @@
+{
+  "schema": "benefitflow/successor-package/v1",
+  "project_id": "benefitflow",
+  "role": "PRIMARY",
+  "created_utc": "2026-10-03T21:35:16.048679+00:00",
+  "repository_target": "boberino93-bit/benefitflow",
+  "repository_binding_status": "BOUND",
+  "requires_revalidation": true,
+  "authority_granted": false,
+  "snapshot": "BenefitFlow-AgentBus/artifactory/primary/20261003T213516Z-successor-primary/DEPLOYMENT_METADATA/AGENTBUS_SNAPSHOT/SNAPSHOT_MANIFEST.json"
+}

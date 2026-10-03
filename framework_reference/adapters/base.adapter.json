@@ -1,0 +1,12 @@
+{
+  "adapter_id": "BASE",
+  "artifact_types": [],
+  "authority_changes": false,
+  "continuity_rules": [],
+  "default_roles": [],
+  "evidence_extensions": [],
+  "lifecycle_stages": [],
+  "schema": "org-agent-mesh/adapter/v1",
+  "source_system_patterns": [],
+  "validation_methods": []
+}

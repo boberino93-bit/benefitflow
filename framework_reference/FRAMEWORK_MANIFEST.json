@@ -1,0 +1,57 @@
+{
+  "authority_tiers": [
+    "ORCHESTRATOR",
+    "REVIEWER",
+    "SPECIALIST"
+  ],
+  "control_plane": "domain-neutral",
+  "default_review_pipeline": [
+    "SPECIALIST",
+    "REVIEWER",
+    "ORCHESTRATOR"
+  ],
+  "expected_distribution_file_count": 129,
+  "framework_name": "Organization Agent Mesh",
+  "framework_version": "1.0.0",
+  "integrity_rules": {
+    "fail_closed": true,
+    "sanitization_required": true,
+    "verify_declared_dependency_closure": true,
+    "verify_hashes": true
+  },
+  "mandatory_directories": [
+    "schemas",
+    "protocols",
+    "roles",
+    "bootstrap",
+    "adapters",
+    "org_agent_mesh",
+    "initializer",
+    "tools",
+    "synthetic_examples",
+    "reference_project",
+    "tests"
+  ],
+  "mandatory_files": [
+    "START_HERE.md",
+    "ARCHITECTURE.md",
+    "PROJECT_TEMPLATE.json",
+    "PROJECT_TEMPLATE.yaml",
+    "PROJECT_PACKAGE_MANIFEST.json",
+    "AGENT_DISCOVERY_TEMPLATE.json",
+    "FRAMEWORK_MANIFEST.json",
+    "SANITIZATION_ATTESTATION.json",
+    "SHA256SUMS.txt",
+    "VERSION",
+    "LICENSE_NOTICE.md"
+  ],
+  "package_status": "COMPLETE",
+  "schema": "org-agent-mesh/framework-manifest/v1",
+  "source_snapshot_id": "1e5fa76b9e6c100e5283c301",
+  "test_status": {
+    "errors": 0,
+    "failures": 0,
+    "status": "PASS",
+    "tests_run": 18
+  }
+}

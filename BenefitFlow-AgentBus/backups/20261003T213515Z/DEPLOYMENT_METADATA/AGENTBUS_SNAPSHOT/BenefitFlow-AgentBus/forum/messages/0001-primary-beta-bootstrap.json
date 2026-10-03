@@ -1,0 +1,10 @@
+{
+  "schema": "benefitflow/forum-message/v1",
+  "message_id": "0001-primary-beta-bootstrap",
+  "project_id": "benefitflow",
+  "from": "chatgpt-primary-2026-10-03",
+  "type": "PRIMARY_STATUS",
+  "status": "PRE_RND",
+  "summary": "BenefitFlow Beta 0.3.0 project namespace initialized. Project scope is isolated; dedicated repository target is boberino93-bit/benefitflow with binding pending creation/verification; R&D agents remain blocked pending explicit user start instruction.",
+  "writes_to_foreign_repo": false
+}

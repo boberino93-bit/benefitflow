@@ -1,0 +1,19 @@
+{
+  "schema": "org-agent-mesh/bootstrap-order/v1",
+  "steps": [
+    "LOAD_DISCOVERY",
+    "VERIFY_INTEGRITY",
+    "READ_PROTOCOLS",
+    "ESTABLISH_IDENTITY_AND_AUTHORITY",
+    "RESOLVE_CURRENT_STATE",
+    "READ_RELEVANT_MESSAGES",
+    "READ_REQUIRED_EVIDENCE",
+    "CHECK_OVERLAP",
+    "CLAIM_LANE",
+    "WORK",
+    "PUBLISH_INTERMEDIATE_EVIDENCE",
+    "RECHECK_STATE",
+    "HANDOFF",
+    "RELEASE_LANE"
+  ]
+}

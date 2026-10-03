@@ -1,0 +1,29 @@
+{
+  "adapter_id": "SOFTWARE_PROJECT",
+  "artifact_types": [
+    "implementation",
+    "test report"
+  ],
+  "authority_changes": false,
+  "continuity_rules": [],
+  "default_roles": [
+    "Developer",
+    "Tester",
+    "Security Reviewer"
+  ],
+  "evidence_extensions": [
+    "AUTOMATED_VALIDATION"
+  ],
+  "lifecycle_stages": [
+    "requirements",
+    "build",
+    "validate",
+    "release"
+  ],
+  "schema": "org-agent-mesh/adapter/v1",
+  "source_system_patterns": [],
+  "validation_methods": [
+    "automated tests",
+    "integration validation"
+  ]
+}

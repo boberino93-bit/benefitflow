@@ -1,0 +1,17 @@
+{
+  "claim_a": "Median is 8 business days from request receipt.",
+  "claim_b": "Median is 5 business days from complete packet.",
+  "contradiction_id": "contradiction-001",
+  "resolution": "Both calculations are numerically valid for different intervals. KPI authority defines complete-packet through approval as the approved KPI. The other measure is retained as end-to-end wait time.",
+  "resolution_method": [
+    "COMPARE_APPLICABILITY_AND_PROJECT_STATE",
+    "COMPARE_PROVENANCE",
+    "COMPARE_EVIDENCE_CLASS",
+    "COMPARE_FRESHNESS",
+    "INSPECT_RAW_EVIDENCE",
+    "RUN_CHEAPEST_DECISIVE_VALIDATION_IF_AVAILABLE",
+    "REVIEWER_RECONCILIATION",
+    "ORCHESTRATOR_CONFIRMATION_FOR_ACCEPTED_STATE_CHANGE"
+  ],
+  "voting_used": false
+}

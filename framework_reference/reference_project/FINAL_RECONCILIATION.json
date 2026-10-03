@@ -1,0 +1,24 @@
+{
+  "completed_lanes": [
+    "lane-baseline",
+    "lane-definition"
+  ],
+  "continuity_items_requiring_revalidation": [
+    "draft-training-metric-definition"
+  ],
+  "deferred_findings": [],
+  "dependency_changes": [],
+  "known_assumptions": [
+    "Historical sample represents the baseline period only."
+  ],
+  "outstanding_contradictions": [],
+  "project_state": "baseline-v2",
+  "reviewer_dispositions": [
+    "READY_FOR_INTEGRATION"
+  ],
+  "status": "PHASE_CLOSED",
+  "unresolved_blockers": [],
+  "validation_evidence": [
+    "ev-final-validation"
+  ]
+}

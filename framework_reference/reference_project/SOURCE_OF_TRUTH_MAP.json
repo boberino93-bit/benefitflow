@@ -1,0 +1,44 @@
+{
+  "sources": [
+    {
+      "authority_scope": "process steps and control requirements",
+      "freshness_expectation": "current approved revision",
+      "location_reference": "fictional://approved/process-guide",
+      "read_authority": [
+        "project agents"
+      ],
+      "source_id": "sot-process-guide",
+      "type": "policy document",
+      "verification_method": "revision and owner confirmation",
+      "write_authority": [
+        "Process Owner"
+      ]
+    },
+    {
+      "authority_scope": "KPI semantic definition",
+      "freshness_expectation": "confirmation for current phase",
+      "location_reference": "fictional://role/kpi-owner",
+      "read_authority": [
+        "project agents"
+      ],
+      "source_id": "sot-kpi-owner",
+      "type": "human stakeholder",
+      "verification_method": "documented human validation",
+      "write_authority": [
+        "KPI Owner"
+      ]
+    },
+    {
+      "authority_scope": "event timestamps",
+      "freshness_expectation": "baseline extraction date",
+      "location_reference": "fictional://records/sample",
+      "read_authority": [
+        "authorized project agents"
+      ],
+      "source_id": "sot-operational-records",
+      "type": "operational dataset",
+      "verification_method": "record-count and field checks",
+      "write_authority": []
+    }
+  ]
+}
