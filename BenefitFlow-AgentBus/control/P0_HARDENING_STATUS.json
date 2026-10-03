@@ -1,49 +1,50 @@
 {
   "schema": "benefitflow/p0-hardening-status/v1",
   "project_id": "benefitflow",
-  "updated_at": "2026-10-03T22:55:00Z",
+  "updated_at": "2026-10-03T22:59:00Z",
   "gate": "P0_ARCHITECTURE_GATE_ACTIVE",
   "live_integration_allowed": false,
-  "current_phase": "ALPHA_0_4_POC_IMPLEMENTATION",
+  "current_phase": "ALPHA_0_4_POC_VERIFIED",
+  "verified_source_revision": "381240ebeb0dd30cef5d7ed8c2df159378b87f18",
+  "ci": {
+    "workflow_run_id": 37160197178,
+    "conclusion": "success",
+    "benefitflow_tests": 51,
+    "framework_tests": 18,
+    "role_package_parity": "PASS",
+    "role_packages_generated": ["PRIMARY", "MANAGER", "RESEARCH"],
+    "artifact_id": 11287247155,
+    "artifact_sha256": "0a87fc19a2f6b2dbd1c738d3d9b4605371c91ce267e0452e81de4f13d64970a3"
+  },
   "slices": {
     "typed_benefit_semantics_and_provenance": {
-      "status": "IMPLEMENTED_AWAITING_CI_VERIFICATION",
-      "files": [
-        "benefitflow_beta/models.py",
-        "benefitflow_beta/parser.py",
-        "benefitflow_beta/optimizer.py",
-        "tests/test_parser.py",
-        "tests/test_optimizer.py"
-      ],
-      "notes": "Typed limit/evidence primitives and fail-closed manual-review semantics remain in force."
+      "status": "POC_VERIFIED",
+      "files": ["benefitflow_beta/models.py", "benefitflow_beta/parser.py", "benefitflow_beta/optimizer.py", "tests/test_parser.py", "tests/test_optimizer.py"],
+      "notes": "Typed limit/evidence primitives and fail-closed manual-review semantics passed CI. Production semantics remain subject to further plan-format and edge-case expansion."
     },
     "authorization_privacy_security_primitives": {
-      "status": "POC_IMPLEMENTED_AWAITING_CI_VERIFICATION",
-      "files": [
-        "benefitflow_beta/workflow.py",
-        "benefitflow_beta/app.py",
-        "tests/test_workflow.py",
-        "tests/test_api.py"
-      ],
-      "notes": "Alpha 0.4 adds irreversible per-proposal decisions, explicit authorization/disclosure categories, no raw proposal identifier persistence, demo input bounds, and sanitized audit behavior. Production IAM/secret-store/legal-role controls remain incomplete."
+      "status": "POC_VERIFIED_PARTIAL_P0",
+      "files": ["benefitflow_beta/workflow.py", "benefitflow_beta/app.py", "tests/test_workflow.py", "tests/test_api.py"],
+      "notes": "Alpha 0.4 verifies irreversible per-proposal decisions, explicit authorization/disclosure categories, no raw proposal identifier persistence, demo input bounds, and sanitized audit behavior. Production IAM, secret-store, retention, jurisdiction/legal-role, and multi-user controls remain incomplete."
     },
     "provider_direct_billing_evidence_model": {
-      "status": "SYNTHETIC_POC_IMPLEMENTED_AWAITING_CI_VERIFICATION",
+      "status": "SYNTHETIC_POC_VERIFIED",
       "files": ["benefitflow_beta/providers.py", "templates/index.html"],
       "notes": "Assertion-level provenance/freshness is demonstrated with synthetic sources only. No live directory, insurer, or regulator automation is authorized."
     },
     "transaction_state_machine": {
-      "status": "SYNTHETIC_POC_IMPLEMENTED_AWAITING_CI_VERIFICATION",
+      "status": "SYNTHETIC_POC_VERIFIED",
       "files": ["benefitflow_beta/simulation.py", "tests/test_simulation.py"],
-      "notes": "Local simulator demonstrates stable transaction/operation/attempt identities, confirmation semantics, idempotency, waitlist/rejection states, retry-safe failure, reconciliation-required ambiguous outcomes, and calendar projection only after confirmation. It is not a live adapter."
+      "notes": "Verified local simulator demonstrates stable transaction/operation/attempt identities, idempotency, confirmation semantics, waitlist/rejection, retry-safe failure, reconciliation-required ambiguity, and calendar projection only after confirmation. It is not a live adapter."
     },
     "live_integration_experiments": {
       "status": "BLOCKED_BY_P0_GATE"
     }
   },
+  "next_gate": "CLOSED_PILOT_READINESS_REQUIRES_REMAINING_P0_CONTROLS_AND_PRIMARY_DISPOSITION",
   "package_state": {
-    "source_bootstrap_parity": "UPDATED_FOR_RECURSIVE_ENHANCEMENT",
-    "generator_parity_guards": "IMPLEMENTED",
-    "concrete_primary_manager_research_package_regeneration": "CI_REQUIRED_AFTER_ALPHA_0_4_COMMIT"
+    "source_bootstrap_parity": "VERIFIED",
+    "generator_parity_guards": "VERIFIED",
+    "concrete_primary_manager_research_package_regeneration": "VERIFIED_BY_CI"
   }
 }
