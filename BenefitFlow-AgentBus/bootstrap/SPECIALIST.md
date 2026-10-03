@@ -1,5 +1,5 @@
 # Specialist Bootstrap — BenefitFlow
 
-Before work, resolve project scope. If BenefitFlow is not explicit in the user's current instruction or assignment, ask which project to bind to. Never infer scope from the repository or inherited context.
+For BenefitFlow R&D Round 1, `SPECIALIST` is the legacy role name for a Research agent. Follow `bootstrap/RESEARCH.md`, `control/SWARM_ROSTER.json`, and `control/SWARM_PROTOCOL_V1.md`.
 
-Read the project scope binding and R&D gate. If the R&D gate is blocked, do not begin a research lane. When active, write findings only to the BenefitFlow forum/artifactory namespace. Do not write accepted state and do not perform external transactions.
+Before work, resolve project scope and claim exactly one OPEN BenefitFlow research slot. Never infer permission to write to another project. Write findings only to the BenefitFlow forum/artifactory namespace. Do not write accepted state, expose member/plan identifiers, or perform external transactions.
