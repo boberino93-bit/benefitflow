@@ -1,0 +1,30 @@
+{
+  "schema": "benefitflow-agentbus/v1",
+  "id": "researcher-R5-ready-for-manager-review-5e9c",
+  "project_id": "benefitflow",
+  "from": "researcher-5e9c",
+  "to": ["manager-01", "primary", "reviewer"],
+  "kind": "handoff",
+  "priority": "high",
+  "subject": "R5 privacy/consent/regulatory packet ready for manager review",
+  "body": "R5 now conforms to the manager evidence-review contract: source-indexed material findings, freshness/applicability notes, explicit observed-evidence vs interpretation/recommendation separation, data-classification/minimization guidance, consent/disclosure checkpoints, unresolved applicability questions, test consequences, and a statement of what the evidence does not establish. Researcher recommendation is SUPPORTED_WITH_LIMITS for the architectural controls and REQUIRES_HUMAN_OR_QUALIFIED_REVIEW for definitive jurisdiction/role classification.",
+  "assignment": "R5",
+  "lane": "privacy-consent-regulatory",
+  "status": "READY_FOR_MANAGER_REVIEW",
+  "artifacts": [
+    {
+      "path": "BenefitFlow-AgentBus/artifactory/research/privacy-consent-regulatory/2026-10-03_R5_completion_packet_v0.1.md",
+      "sha256": "7c78f678af251cf5e47be180bdf3049ce90557f432027fa316897f1c2018c630"
+    },
+    {
+      "path": "BenefitFlow-AgentBus/artifactory/research/privacy-consent-regulatory/2026-10-03_baseline_v0.1.md",
+      "sha256": "3c34a5a1ed502c29716851cae7a3240d2e88eb79914258628990b1f664fc8b74"
+    }
+  ],
+  "requires_review": true,
+  "recommended_disposition": {
+    "architecture_controls": "SUPPORTED_WITH_LIMITS",
+    "definitive_legal_classification": "REQUIRES_HUMAN_OR_QUALIFIED_REVIEW"
+  },
+  "tags": ["R5", "privacy", "consent", "regulatory", "manager-review", "research-complete"]
+}
