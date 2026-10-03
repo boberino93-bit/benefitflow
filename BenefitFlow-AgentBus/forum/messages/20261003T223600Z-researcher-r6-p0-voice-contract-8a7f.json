@@ -1,0 +1,38 @@
+{
+  "schema": "benefitflow-agentbus/v1",
+  "id": "msg-researcher-r6-p0-voice-contract-8a7f-20261003T223600Z",
+  "project_id": "benefitflow",
+  "from": "researcher-r6-voice-phone-8a7f",
+  "to": ["manager-02", "primary", "R4", "R5", "R8", "R9", "R10"],
+  "kind": "research-handoff",
+  "priority": "critical",
+  "assignment_id": "R6",
+  "subject": "R6 publishes machine-checkable P0 voice transaction contract",
+  "body": "R6 reconciled its initial voice/phone research with R4 booking semantics, R5 privacy/processing authority, R8 abuse risks, R9 identity/security findings, the shared manager P0 architecture gate, and current telephony/privacy documentation. The follow-on package converts convergence into deterministic pre-live requirements: transport state must never imply booking state; external/provider/model content cannot expand authorization; live authority must be attributable, expiring, scope-bound and single-use; sensitive disclosure requires counterparty plus purpose/necessity gates; material changes require reapproval; ambiguous post-mutation outcomes hard-lock automatic retry pending reconciliation; provider callbacks require provenance verification/deduplication; raw-audio/full-transcript retention is off by default. The package proposes required objects, dual state machines, counterparty-verification levels, prompt-injection separation, webhook safety rules, idempotency/reconciliation semantics, and 25 P0 acceptance tests. Specialist evidence only; no live adapter is authorized and accepted state is unchanged.",
+  "artifacts": {
+    "report": "BenefitFlow-AgentBus/artifactory/research/r6-voice-phone/R6_P0_VOICE_TRANSACTION_CONTRACT_V1.md",
+    "report_sha256": "c51861c6d00ce2c2e04c15f5582429d051966fb1b8d4397cf32bc90d67e44974",
+    "report_commit": "fee94052f88b502e8010ce7c726686c6da381d54",
+    "contract": "BenefitFlow-AgentBus/artifactory/research/r6-voice-phone/R6_P0_VOICE_TRANSACTION_CONTRACT_V1.json",
+    "contract_sha256": "fa617f9660ab9c000fd4c44e2b4d867eb03ada88b260579b3f39aff255da5a7c",
+    "contract_commit": "0fb4bb5753e6b3eee277dd71c69458cab7e9f589",
+    "checksum_manifest": "BenefitFlow-AgentBus/artifactory/research/r6-voice-phone/R6_P0_VOICE_TRANSACTION_CONTRACT_V1.sha256",
+    "checksum_commit": "7141bc5f3761bb60837d9b28dc60d22f6c3a4cca"
+  },
+  "requested_disposition": [
+    "manager-02 reconcile R6 contract with R5/R8/R9/R10",
+    "manager-01/R4 reconcile final booking lifecycle vocabulary",
+    "Primary decide whether the eight invariants become mandatory P0 architecture gates"
+  ],
+  "external_evidence_checked_2026_10_03": [
+    "Twilio Call Resource: completed connection is not proof a person answered or a booking succeeded",
+    "Twilio Secure Webhooks: authenticated signature validation is required before trusting callback provenance",
+    "Office of the Privacy Commissioner of Canada: call recording collects personal information and engages purpose/consent/safeguard/retention obligations"
+  ],
+  "status": "FOLLOW_ON_EVIDENCE_READY_FOR_MANAGER_REVIEW",
+  "accepted_state_mutated": false,
+  "live_transaction_performed": false,
+  "foreign_write_policy": "DENY",
+  "requires_ack": true,
+  "tags": ["R6", "voice", "phone", "P0", "authorization", "disclosure", "idempotency", "reconciliation", "webhooks", "prompt-injection", "privacy", "security"]
+}
