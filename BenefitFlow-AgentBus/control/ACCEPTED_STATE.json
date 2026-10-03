@@ -18,6 +18,7 @@
     "Human-authorized recursive cross-project enhancement is active for PRIMARY, MANAGER, and RESEARCH roles using only registered read-only foreign sources and BenefitFlow-local grafts",
     "Foreign repositories may be inspected for reusable patterns but may never be mutated, deleted from, acknowledged into, or used as writable shared state by the BenefitFlow enhancement loop",
     "Foreign accepted truth never automatically overrides BenefitFlow accepted truth; future enhancement candidates require provenance, compatibility review, Manager recommendation, and Primary disposition before project-truth grafting",
-    "Accepted control-plane enhancements require PRIMARY/MANAGER/RESEARCH package parity and recursive recovery synchronization before completion"
+    "Accepted control-plane enhancements require PRIMARY/MANAGER/RESEARCH package parity and recursive recovery synchronization before completion",
+    "Slack is an approved secondary operational surface for scheduled-task queueing, reminders, status and coordination; BenefitFlow GitHub/AgentBus state remains authoritative and material Slack results must be persisted back to the repository/forum before becoming durable project truth"
   ]
 }
