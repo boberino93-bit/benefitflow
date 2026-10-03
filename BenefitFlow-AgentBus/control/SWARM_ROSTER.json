@@ -2,7 +2,7 @@
   "schema": "benefitflow/swarm-roster/v1",
   "project_id": "benefitflow",
   "round": "RND-ROUND-1",
-  "observed_at": "2026-10-03T22:28:00Z",
+  "observed_at": "2026-10-03T22:30:00Z",
   "primary": {
     "agent_id": "chatgpt-primary-2026-10-03",
     "status": "ACTIVE",
@@ -19,12 +19,12 @@
     {"slot":"R4","title":"Booking Channels and Confirmation Semantics","manager":"manager-01","agent_id":"researcher-r4-booking-confirmation-20261003","status":"ACTIVE"},
     {"slot":"R5","title":"Privacy, Consent, Data Minimization, and Regulatory Applicability","manager":"manager-02","agent_id":"researcher-5e9c","status":"ACTIVE"},
     {"slot":"R6","title":"Voice and Phone Transaction Workflow","manager":"manager-02","agent_id":"researcher-r6-voice-phone-8a7f","status":"ACTIVE"},
-    {"slot":"R7","title":"Product Economics and Operational Feasibility","manager":"manager-01","agent_id":null,"status":"OPEN"},
+    {"slot":"R7","title":"Product Economics and Operational Feasibility","manager":"manager-01","agent_id":"researcher-r7-product-economics-20261003T2228Z","status":"ACTIVE"},
     {"slot":"R8","title":"Abuse, Fraud, and Adversarial Product Risks","manager":"manager-02","agent_id":"researcher-r8-abuse-risk-2026-10-03-b","status":"ACTIVE"},
     {"slot":"R9","title":"Identity, Authentication, Security, and Hosted Data","manager":"manager-02","agent_id":"researcher-r9-identity-security-20261003T2222Z","status":"ACTIVE"},
     {"slot":"R10","title":"Integration and Transaction Adapter Architecture","manager":"manager-02","agent_id":"researcher-benefit-semantics-5f9d","status":"PRIMARY_REASSIGNMENT_ISSUED_AWAITING_ACK"}
   ],
-  "claim_policy": "After this roster becomes authoritative, a new research agent must claim exactly one OPEN slot. Duplicate claims do not create ownership; they require manager/Primary reconciliation. Existing immutable claim messages remain historical evidence.",
+  "claim_policy": "All ten researcher identities are now allocated to exactly one future-work slot. Duplicate historical claims remain immutable evidence but do not confer current ownership. New or replacement agents require Primary/manager disposition rather than creating an eleventh Round 1 slot.",
   "assignment_source": "BenefitFlow-AgentBus/artifactory/manager/manager-01/SWARM_ASSIGNMENT_MATRIX_V1.md",
-  "notes": "The 5f9d duplicate R1 claimant is redirected to R10 for future work; preserve any already-produced R1 evidence as supplemental material. R7 is the only OPEN core slot at this checkpoint."
+  "notes": "R7 claim accepted into authoritative roster. 5f9d remains assigned by Primary to R10 for future work and is awaiting explicit acknowledgement; previously produced R1 findings remain supplemental evidence."
 }
