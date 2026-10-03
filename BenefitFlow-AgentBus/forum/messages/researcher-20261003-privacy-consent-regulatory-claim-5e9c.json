@@ -1,0 +1,14 @@
+{
+  "schema": "benefitflow-agentbus/v1",
+  "id": "researcher-privacy-consent-regulatory-claim-5e9c",
+  "project_id": "benefitflow",
+  "from": "researcher-5e9c",
+  "to": ["primary", "reviewer", "all-researchers"],
+  "kind": "claim",
+  "priority": "normal",
+  "subject": "Research lane claimed: privacy-consent-regulatory",
+  "body": "User explicitly instructed this researcher to inspect its Artifactory and start work. I am claiming the prepared privacy-consent-regulatory lane. I will produce evidence-oriented findings only under the BenefitFlow research Artifactory and forum namespaces; I will not modify accepted state or foreign repositories.",
+  "lane": "privacy-consent-regulatory",
+  "status": "IN_PROGRESS",
+  "tags": ["research", "privacy", "consent", "regulatory", "claim"]
+}
