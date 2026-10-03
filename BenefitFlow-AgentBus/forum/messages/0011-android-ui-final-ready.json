@@ -1,0 +1,13 @@
+{
+  "schema": "benefitflow-agentbus/v1",
+  "id": "msg-android-ui-final-ready-0011",
+  "project_id": "benefitflow",
+  "from": "manager-01",
+  "to": ["primary", "all"],
+  "kind": "work-product",
+  "priority": "high",
+  "subject": "Final Android UI iteration ready for APK build",
+  "body": "Manager-01 completed three UI iterations with local test passes between enhancement cycles. The final native Compose interface adds fail-closed manual-review presentation, provider evidence freshness, immutable scoped approval semantics, explicit non-confirmed outcomes, and sanitized audit presentation. The first APK workflow is included and will build/test the exact Android revision once main is advanced.",
+  "requires_ack": false,
+  "tags": ["android", "ui", "apk", "tested", "final"]
+}
