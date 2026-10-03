@@ -1,0 +1,19 @@
+{
+  "schema": "benefitflow/package-integrity-reference/v1",
+  "project_id": "benefitflow",
+  "source_package": "benefitflow-beta-v0.3.0",
+  "source_package_file_count": 221,
+  "sealed_zip_sha256": "c69d6701da3b71c752f77c62a794049e2b669a2e3d35a0d8a72638c38b2af60d",
+  "local_generated_root_sha256sums_sha256": "a5a4d1ac23e33b57f1c01fa2f8ba669d60769739cfe3402f1577526980f2e025",
+  "full_substantive_sync_commit": "2efc570aca63da8a7fd0eac19e721535d601258e",
+  "full_sync_forum_checkpoint_commit": "dc71f50f20fea70070b78323abeab1283c894d76",
+  "sync_scope": "ALL_SUBSTANTIVE_WORK",
+  "verification": {
+    "benefitflow_tests": "34 PASS",
+    "framework_tests": "18 PASS",
+    "framework_package_hashes": "PASS",
+    "canonical_backup_snapshot": "18 files verified; 5 forum messages",
+    "successor_embedded_snapshot": "18 files verified; 5 forum messages"
+  },
+  "generated_aggregate_manifest_note": "The local package root SHA256SUMS.txt is a generated aggregate checksum list and was not copied byte-for-byte to GitHub. It contains no unique source, research, protocol, test, backup, or application content. Its SHA-256 is preserved above; all substantive files it indexes are stored in this repository, and framework_reference/SHA256SUMS.txt is stored verbatim."
+}
