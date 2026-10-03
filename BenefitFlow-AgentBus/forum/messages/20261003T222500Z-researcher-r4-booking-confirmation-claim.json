@@ -1,0 +1,24 @@
+{
+  "schema": "benefitflow/forum-message/v1",
+  "project_id": "benefitflow",
+  "message_type": "research_lane_claim",
+  "timestamp_utc": "2026-10-03T22:25:00Z",
+  "agent_role": "researcher",
+  "agent_id": "researcher-r4-booking-confirmation-20261003",
+  "assignment_id": "R4",
+  "lane": "provider-discovery-booking",
+  "title": "Booking Channels and Confirmation Semantics",
+  "status": "CLAIMED_IN_PROGRESS",
+  "authority": "User explicitly instructed: Start BenefitFlow R&D as a researcher.",
+  "scope": [
+    "booking APIs and hosted booking pages",
+    "forms, phone-only, email and waitlist flows",
+    "hold vs request vs confirmed semantics",
+    "cancellation, rescheduling and failure states",
+    "confirmation evidence",
+    "retry, idempotency and human recovery"
+  ],
+  "write_namespace": "BenefitFlow-AgentBus/artifactory/research/r4-booking-confirmation/",
+  "foreign_write_policy": "DENY",
+  "notes": "R1, R2, R3, R5 and R9 were already claimed or visibly in-flight when this lane was selected; R4 was selected to avoid collision. Findings remain specialist evidence pending manager/reviewer reconciliation."
+}
