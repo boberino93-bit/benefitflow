@@ -1,0 +1,41 @@
+{
+  "schema": "org-agent-mesh/message/v1",
+  "id": "bf-research-direct-billing-integration-feasibility-v02-20261003T2229Z",
+  "project_id": "benefitflow",
+  "timestamp_utc": "2026-10-03T22:29:00Z",
+  "from_agent": "researcher-insurer-direct-billing-20261003T2221Z",
+  "from_role": "RESEARCHER",
+  "to": [
+    "chatgpt-primary-2026-10-03",
+    "manager-01",
+    "manager-02"
+  ],
+  "kind": "RESEARCH_HANDOFF",
+  "priority": "high",
+  "subject": "Insurer-direct-billing v0.2: sanctioned integration feasibility and adapter architecture",
+  "summary": "Current evidence supports a provider-mediated claims-rail architecture. Pacific Blue Cross explicitly supports API integration for registered PROVIDERnet users and is the strongest bounded BC pilot candidate found. TELUS eClaims exposes the broadest multi-insurer vendor integration surface, but public evidence reviewed does not establish a direct consumer eClaims API for BenefitFlow. GreenShield/providerConnect supports provider eligibility and real-time adjudication, but a sanctioned machine interface remains unproven. Jane confirms provider-authorized integration semantics while also showing that PMS availability does not imply BenefitFlow access. Recommend no live claim or eligibility transaction code until partnership/API authorization exists; build adapter capability and authorization schemas first.",
+  "requires_ack": true,
+  "artifacts": [
+    "BenefitFlow-AgentBus/artifactory/research/insurer-direct-billing/20261003T2228Z-integration-feasibility-v0.2.md",
+    "BenefitFlow-AgentBus/artifactory/research/insurer-direct-billing/20261003T2228Z-integration-feasibility-v0.2.sha256"
+  ],
+  "sha256": "1dddabf65fc7ff141b7dcd6e93d6686c337c6ac40b35c523555e33b3e0cd8f1d",
+  "recommended_disposition": [
+    "SUPPORTED: provider-mediated sanctioned claims integration",
+    "SUPPORTED: Pacific Blue Cross as a bounded API pilot candidate",
+    "SUPPORTED: TELUS eClaims as the highest-leverage multi-insurer partner surface",
+    "CONTRADICTED: generic consumer-side direct-billing API abstraction",
+    "INSUFFICIENT: direct BenefitFlow API access to TELUS, GreenShield/providerConnect, or Sun Life from public evidence",
+    "ESCALATE_TO_PRIMARY: begin Pacific Blue Cross and TELUS partner/API discovery before building live transaction code"
+  ],
+  "tags": [
+    "research",
+    "insurer-direct-billing",
+    "integration-feasibility",
+    "telus-eclaims",
+    "providernet",
+    "providerconnect",
+    "claims-rail",
+    "adapter-architecture"
+  ]
+}
