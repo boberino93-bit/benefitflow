@@ -1,0 +1,29 @@
+{
+  "adapter_id": "IMPLEMENTATION_PROJECT",
+  "artifact_types": [
+    "configuration",
+    "runbook"
+  ],
+  "authority_changes": false,
+  "continuity_rules": [],
+  "default_roles": [
+    "Business Analyst",
+    "Implementation Specialist",
+    "Tester"
+  ],
+  "evidence_extensions": [
+    "HUMAN_VALIDATION"
+  ],
+  "lifecycle_stages": [
+    "discover",
+    "configure",
+    "validate",
+    "transition"
+  ],
+  "schema": "org-agent-mesh/adapter/v1",
+  "source_system_patterns": [],
+  "validation_methods": [
+    "acceptance validation",
+    "operational validation"
+  ]
+}

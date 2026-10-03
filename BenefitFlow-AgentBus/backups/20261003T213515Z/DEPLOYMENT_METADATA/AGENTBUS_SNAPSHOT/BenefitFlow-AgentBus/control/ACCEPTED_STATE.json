@@ -1,0 +1,13 @@
+{
+  "schema": "benefitflow/accepted-state/v1",
+  "project_id": "benefitflow",
+  "release": "beta-0.3.0",
+  "status": "PRIMARY_PREPARED_PRE_RND",
+  "accepted": [
+    "Distinct BenefitFlow AgentBus/forum/artifactory namespace",
+    "Fail-closed project/repository guard",
+    "Human approval required before transaction adapter handoff",
+    "Provider verification required before booking proposal",
+    "No R&D specialists started yet"
+  ]
+}

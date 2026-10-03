@@ -1,0 +1,27 @@
+{
+  "adapter_id": "DOCUMENT_PROJECT",
+  "artifact_types": [
+    "document",
+    "source map"
+  ],
+  "authority_changes": false,
+  "continuity_rules": [],
+  "default_roles": [
+    "Requirements Analyst",
+    "Documentation Specialist",
+    "Reviewer"
+  ],
+  "evidence_extensions": [],
+  "lifecycle_stages": [
+    "scope",
+    "draft",
+    "review",
+    "approve"
+  ],
+  "schema": "org-agent-mesh/adapter/v1",
+  "source_system_patterns": [],
+  "validation_methods": [
+    "source traceability review",
+    "human validation"
+  ]
+}

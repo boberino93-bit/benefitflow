@@ -1,0 +1,18 @@
+{
+  "adapter_id": "CUSTOM_PROJECT",
+  "artifact_types": [],
+  "authority_changes": false,
+  "continuity_rules": [],
+  "default_roles": [],
+  "evidence_extensions": [],
+  "lifecycle_stages": [
+    "discover",
+    "plan",
+    "execute",
+    "review",
+    "close"
+  ],
+  "schema": "org-agent-mesh/adapter/v1",
+  "source_system_patterns": [],
+  "validation_methods": []
+}

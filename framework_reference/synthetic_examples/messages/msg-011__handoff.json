@@ -1,0 +1,28 @@
+{
+  "applies_to_state": "baseline-v2",
+  "artifacts": [
+    "artifacts/lane-definition/specialist-noel/"
+  ],
+  "evidence": [
+    "ev-b-method",
+    "ev-policy-owner-note"
+  ],
+  "from_agent": "specialist-noel",
+  "from_role": "SPECIALIST",
+  "id": "msg-011",
+  "kind": "HANDOFF",
+  "priority": "normal",
+  "project_id": "fictional-supplier-intake-001",
+  "reply_to": null,
+  "requires_ack": false,
+  "schema": "org-agent-mesh/message/v1",
+  "subject": "Definition lane handoff",
+  "summary": "Definition evidence, calculation method, unresolved caveats, and continuity impacts are packaged for integration.",
+  "supersedes": [],
+  "tags": [],
+  "timestamp_utc": "2026-01-15T10:11:00Z",
+  "to": [
+    "reviewer-quinn",
+    "orchestrator-rhea"
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "required": [
+    "frame_id",
+    "agent_id",
+    "timestamp_utc",
+    "declared_state",
+    "lease_seconds",
+    "project_state"
+  ],
+  "title": "Presence Frame",
+  "type": "object"
+}

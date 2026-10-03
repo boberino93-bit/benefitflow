@@ -1,0 +1,15 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "required": [
+    "lane_id",
+    "assignment",
+    "scope",
+    "starting_project_state",
+    "expected_output",
+    "dependencies",
+    "possible_overlap",
+    "current_status"
+  ],
+  "title": "Lane Claim",
+  "type": "object"
+}

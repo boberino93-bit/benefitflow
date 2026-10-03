@@ -1,0 +1,16 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "required": [
+    "evidence_id",
+    "source",
+    "applies_to_state",
+    "evidence_class",
+    "collection_method",
+    "confidence_limitations",
+    "reproducibility",
+    "artifact_reference",
+    "independently_verified"
+  ],
+  "title": "Evidence Record",
+  "type": "object"
+}

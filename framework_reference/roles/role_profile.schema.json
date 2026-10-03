@@ -1,0 +1,20 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "properties": {
+    "authority_tier": {
+      "enum": [
+        "ORCHESTRATOR",
+        "REVIEWER",
+        "SPECIALIST"
+      ]
+    }
+  },
+  "required": [
+    "role_name",
+    "authority_tier",
+    "responsibilities",
+    "capability_overrides"
+  ],
+  "title": "Role Profile",
+  "type": "object"
+}

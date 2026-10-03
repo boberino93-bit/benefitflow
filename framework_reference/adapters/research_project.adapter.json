@@ -1,0 +1,30 @@
+{
+  "adapter_id": "RESEARCH_PROJECT",
+  "artifact_types": [
+    "research report",
+    "evidence pack"
+  ],
+  "authority_changes": false,
+  "continuity_rules": [],
+  "default_roles": [
+    "Researcher",
+    "Subject Matter Specialist",
+    "Reviewer"
+  ],
+  "evidence_extensions": [
+    "EXTERNAL_EVIDENCE"
+  ],
+  "lifecycle_stages": [
+    "question",
+    "collect",
+    "analyze",
+    "review",
+    "conclude"
+  ],
+  "schema": "org-agent-mesh/adapter/v1",
+  "source_system_patterns": [],
+  "validation_methods": [
+    "source triangulation",
+    "replication"
+  ]
+}

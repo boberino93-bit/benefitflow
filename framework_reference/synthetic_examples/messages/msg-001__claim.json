@@ -1,0 +1,26 @@
+{
+  "applies_to_state": "baseline-v1",
+  "artifacts": [
+    "artifacts/lane-baseline/specialist-ava/"
+  ],
+  "evidence": [
+    "ev-baseline-source"
+  ],
+  "from_agent": "specialist-ava",
+  "from_role": "SPECIALIST",
+  "id": "msg-001",
+  "kind": "CLAIM",
+  "priority": "normal",
+  "project_id": "fictional-supplier-intake-001",
+  "reply_to": null,
+  "requires_ack": true,
+  "schema": "org-agent-mesh/message/v1",
+  "subject": "Claim supplier-cycle baseline lane",
+  "summary": "I am measuring current intake cycle time from the defined operational records.",
+  "supersedes": [],
+  "tags": [],
+  "timestamp_utc": "2026-01-15T10:01:00Z",
+  "to": [
+    "reviewer-quinn"
+  ]
+}

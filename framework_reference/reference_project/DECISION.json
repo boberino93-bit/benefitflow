@@ -1,0 +1,13 @@
+{
+  "applies_to_state": "baseline-v2",
+  "authority": "ORCHESTRATOR",
+  "decision": "Adopt complete-packet through approval as the approved KPI; baseline median is 5 business days. Retain 8-day result under end-to-end wait time.",
+  "decision_id": "decision-001",
+  "evidence_refs": [
+    "ev-policy-owner-note",
+    "ev-b-data"
+  ],
+  "project_id": "fictional-supplier-intake-001",
+  "supersedes": [],
+  "timestamp_utc": "2026-01-15T10:09:00Z"
+}

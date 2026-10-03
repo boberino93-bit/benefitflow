@@ -1,0 +1,70 @@
+{
+  "active_project_state": "UNKNOWN",
+  "active_protocol_versions": {
+    "authority": "v1",
+    "continuity": "v1",
+    "evidence": "v1",
+    "message": "v1"
+  },
+  "bootstrap_order": [
+    "AGENT_DISCOVERY",
+    "PROJECT_MANIFEST",
+    "INTEGRITY",
+    "AUTHORITY",
+    "SOURCE_OF_TRUTH",
+    "ASSIGNMENT",
+    "RELEVANT_MESSAGES",
+    "RELEVANT_EVIDENCE",
+    "OVERLAP_CHECK",
+    "LANE_CLAIM"
+  ],
+  "communication_locations": {
+    "messages": "../messages",
+    "presence": "../presence"
+  },
+  "configured_adapters": [],
+  "configured_tools": [],
+  "declared_dependencies": [
+    {
+      "reference": "PROJECT_MANIFEST.json",
+      "source_id": "project"
+    },
+    {
+      "reference": "SOURCE_OF_TRUTH_MAP.json",
+      "source_id": "project"
+    },
+    {
+      "reference": "INITIAL_WORK_BREAKDOWN.json",
+      "source_id": "project"
+    },
+    {
+      "reference": "INITIAL_AGENT_REGISTRY.json",
+      "source_id": "project"
+    }
+  ],
+  "evidence_locations": {
+    "artifacts": "../artifacts"
+  },
+  "framework_version": "1.0.0",
+  "integrity_snapshot": "REQUIRED",
+  "learning_protocol": "REVIEW_BEFORE_FRAMEWORK_CHANGE",
+  "mandatory_governance_rules": [
+    "LEAST_PRIVILEGE",
+    "NO_SELF_PROMOTION",
+    "APPEND_ONLY_HISTORY",
+    "NO_VOTING_AS_TRUTH",
+    "HUMAN_GATES_WHEN_CONFIGURED"
+  ],
+  "project_id": "PROJECT_ID",
+  "review_pipeline": [
+    "SPECIALIST",
+    "REVIEWER",
+    "ORCHESTRATOR"
+  ],
+  "role_hierarchy": [
+    "ORCHESTRATOR",
+    "REVIEWER",
+    "SPECIALIST"
+  ],
+  "schema": "org-agent-mesh/agent-discovery/v1"
+}

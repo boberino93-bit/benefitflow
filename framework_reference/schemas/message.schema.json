@@ -1,0 +1,53 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "properties": {
+    "kind": {
+      "enum": [
+        "CLAIM",
+        "FINDING",
+        "BLOCKER",
+        "REQUEST",
+        "REVIEW_REQUEST",
+        "REVIEW_DISPOSITION",
+        "CONTRADICTION",
+        "HANDOFF",
+        "DECISION",
+        "SUPERSESSION",
+        "SERVICE_CHECKPOINT",
+        "RELEASE_CLOSE"
+      ]
+    },
+    "priority": {
+      "enum": [
+        "normal",
+        "high",
+        "critical"
+      ]
+    },
+    "supersedes": {
+      "type": "array"
+    }
+  },
+  "required": [
+    "schema",
+    "id",
+    "project_id",
+    "timestamp_utc",
+    "from_agent",
+    "from_role",
+    "to",
+    "kind",
+    "priority",
+    "subject",
+    "summary",
+    "applies_to_state",
+    "evidence",
+    "artifacts",
+    "reply_to",
+    "supersedes",
+    "requires_ack",
+    "tags"
+  ],
+  "title": "Append-only Message",
+  "type": "object"
+}

@@ -1,0 +1,120 @@
+{
+  "schema": "benefitflow/agentbus-snapshot/v1",
+  "project_id": "benefitflow",
+  "export_utc": "2026-10-03T21:35:15.916210+00:00",
+  "source_forum": "BenefitFlow-AgentBus/forum/messages/",
+  "message_count": 5,
+  "file_count": 18,
+  "files": [
+    {
+      "source": "BenefitFlow-AgentBus/forum/messages/0001-primary-beta-bootstrap.json",
+      "packaged": "BenefitFlow-AgentBus/forum/messages/0001-primary-beta-bootstrap.json",
+      "bytes": 517,
+      "sha256": "002e6715876f93d155ea74535693ba826fd1582df434f95ba329b5e67b151720"
+    },
+    {
+      "source": "BenefitFlow-AgentBus/forum/messages/0002-primary-benefitflow-identity-and-recursive-backup.json",
+      "packaged": "BenefitFlow-AgentBus/forum/messages/0002-primary-benefitflow-identity-and-recursive-backup.json",
+      "bytes": 943,
+      "sha256": "ee845c0c6508a3c15757028e21209686d917c55f6e0b63851cc2dd160834518e"
+    },
+    {
+      "source": "BenefitFlow-AgentBus/forum/messages/0003-primary-github-repository-verified.json",
+      "packaged": "BenefitFlow-AgentBus/forum/messages/0003-primary-github-repository-verified.json",
+      "bytes": 833,
+      "sha256": "6b2fb779592217a8c1e8076b72ec804de1bd423d2d669e948c46145765e29d4c"
+    },
+    {
+      "source": "BenefitFlow-AgentBus/forum/messages/0004-primary-initial-remote-baseline.json",
+      "packaged": "BenefitFlow-AgentBus/forum/messages/0004-primary-initial-remote-baseline.json",
+      "bytes": 1035,
+      "sha256": "0a3e3fa076184acb0698cb3b779d43032fa67f639ba866f9c1ea96794ca8ee58"
+    },
+    {
+      "source": "BenefitFlow-AgentBus/forum/messages/0005-primary-publication-closure.json",
+      "packaged": "BenefitFlow-AgentBus/forum/messages/0005-primary-publication-closure.json",
+      "bytes": 1189,
+      "sha256": "57cc3185a6832669a4415d548290f41daf0a22f74ac6c7ff852bf6336eaab484"
+    },
+    {
+      "source": "BenefitFlow-AgentBus/discovery/AGENT_DISCOVERY.json",
+      "packaged": "BenefitFlow-AgentBus/discovery/AGENT_DISCOVERY.json",
+      "bytes": 1393,
+      "sha256": "7331e0f958b063ff26e3494c689d6343b656e56470967d95a82727b6832aabe3"
+    },
+    {
+      "source": "BenefitFlow-AgentBus/PROJECT_SCOPE_SELECTION_GATE_V1.md",
+      "packaged": "BenefitFlow-AgentBus/PROJECT_SCOPE_SELECTION_GATE_V1.md",
+      "bytes": 1295,
+      "sha256": "7192071cd35b32cbe8d56b521de8921de3bd005b1249419924f7541825269915"
+    },
+    {
+      "source": "BenefitFlow-AgentBus/control/PROJECT_SCOPE_BINDING.json",
+      "packaged": "BenefitFlow-AgentBus/control/PROJECT_SCOPE_BINDING.json",
+      "bytes": 632,
+      "sha256": "031e3e051656b31ca8819a252a7bd8aaa458165f5448854ecaa557d30570028f"
+    },
+    {
+      "source": "BenefitFlow-AgentBus/control/GITHUB_REPOSITORY_BINDING.json",
+      "packaged": "BenefitFlow-AgentBus/control/GITHUB_REPOSITORY_BINDING.json",
+      "bytes": 677,
+      "sha256": "60816c041da80e7b5092186d9200e485956986982d2df41aa1c492d59e2cb428"
+    },
+    {
+      "source": "BenefitFlow-AgentBus/control/RND_ROUND_GATE.json",
+      "packaged": "BenefitFlow-AgentBus/control/RND_ROUND_GATE.json",
+      "bytes": 544,
+      "sha256": "062e484d968bdc4f935e09187faafcf955e3c42ce3ac15a0d1914b7857e007a1"
+    },
+    {
+      "source": "BenefitFlow-AgentBus/control/ACCEPTED_STATE.json",
+      "packaged": "BenefitFlow-AgentBus/control/ACCEPTED_STATE.json",
+      "bytes": 441,
+      "sha256": "35e18fe01bb7b904515ea59f9ad8d392255ca6b89fd24e85e585fbcdb7170d6f"
+    },
+    {
+      "source": "BenefitFlow-AgentBus/control/AGENTBUS_MESSAGE_PERSISTENCE_CONTRACT_V1.md",
+      "packaged": "BenefitFlow-AgentBus/control/AGENTBUS_MESSAGE_PERSISTENCE_CONTRACT_V1.md",
+      "bytes": 933,
+      "sha256": "ff78c31b2cd56db473fc1e64861efd7d798d8a11fd60d74f5e30fef12c2a0105"
+    },
+    {
+      "source": "BenefitFlow-AgentBus/control/DEPLOYMENT_AGENTBUS_SNAPSHOT_CONTRACT_V1.md",
+      "packaged": "BenefitFlow-AgentBus/control/DEPLOYMENT_AGENTBUS_SNAPSHOT_CONTRACT_V1.md",
+      "bytes": 1085,
+      "sha256": "5868e2908b61d2864ae96f114888f118fb8b28a8efd3ed782ccaabb8b4ea7e8c"
+    },
+    {
+      "source": "BenefitFlow-AgentBus/control/CONTROLLER_SUCCESSION_V1.md",
+      "packaged": "BenefitFlow-AgentBus/control/CONTROLLER_SUCCESSION_V1.md",
+      "bytes": 1387,
+      "sha256": "2560c0f67ffe7434753eeee7c718abcd672620fff24c8010052aff9a2b2d42cf"
+    },
+    {
+      "source": "BenefitFlow-AgentBus/control/RECURSIVE_BACKUP_AND_RECOVERY_V1.md",
+      "packaged": "BenefitFlow-AgentBus/control/RECURSIVE_BACKUP_AND_RECOVERY_V1.md",
+      "bytes": 1968,
+      "sha256": "a0ef2266ea73246e38d8ce5eecb70ffa3caa2178f1dacaa05987d901e3c5e5f0"
+    },
+    {
+      "source": "BenefitFlow-AgentBus/bootstrap/PRIMARY.md",
+      "packaged": "BenefitFlow-AgentBus/bootstrap/PRIMARY.md",
+      "bytes": 723,
+      "sha256": "163d1a5adac896fc69ea5f55df144f496dd1b16e270002a538f66ca19b24e4aa"
+    },
+    {
+      "source": "BenefitFlow-AgentBus/bootstrap/REVIEWER.md",
+      "packaged": "BenefitFlow-AgentBus/bootstrap/REVIEWER.md",
+      "bytes": 336,
+      "sha256": "c3cdf8aa531fbae8749f0955fd05f407d8c8f5554314fa67494f99e05e4443cf"
+    },
+    {
+      "source": "BenefitFlow-AgentBus/bootstrap/SPECIALIST.md",
+      "packaged": "BenefitFlow-AgentBus/bootstrap/SPECIALIST.md",
+      "bytes": 501,
+      "sha256": "df8c84defaf5d796cd980990bc65f0ba88a7423444374d25da5956ef54ecbda9"
+    }
+  ],
+  "failures": [],
+  "AGENTBUS_SNAPSHOT_COMPLETE": true
+}

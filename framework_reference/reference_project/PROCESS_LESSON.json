@@ -1,0 +1,7 @@
+{
+  "authority_change": false,
+  "lesson_id": "lesson-001",
+  "observation": "Parallel baseline work exposed an ambiguous interval definition early.",
+  "reviewed_improvement": "Future process-analysis adapters should request metric boundary definitions during source-of-truth discovery.",
+  "status": "REVIEWED_FOR_FUTURE_FRAMEWORK_CONSIDERATION"
+}

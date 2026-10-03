@@ -1,0 +1,22 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "required": [
+    "schema",
+    "artifact_id",
+    "project_id",
+    "assignment",
+    "agent_id",
+    "starting_state",
+    "rechecked_state",
+    "evidence_classes",
+    "inputs",
+    "outputs",
+    "validation_performed",
+    "unresolved_unknowns",
+    "dependencies",
+    "accepted_state_mutation",
+    "checksums"
+  ],
+  "title": "Artifact Manifest",
+  "type": "object"
+}

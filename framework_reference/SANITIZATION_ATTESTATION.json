@@ -1,0 +1,12 @@
+{
+  "candidate_leaks_found": 0,
+  "candidate_leaks_resolved": 0,
+  "files_scanned": 129,
+  "framework_version": "1.0.0",
+  "scan_scope": "entire distributable tree; project-specific fingerprint list retained outside distribution",
+  "scan_timestamp": "2026-10-03T19:47:55.075766Z",
+  "schema": "org-agent-mesh/sanitization-attestation/v1",
+  "source_snapshot_id": "1e5fa76b9e6c100e5283c301",
+  "status": "PASS",
+  "unresolved_leaks": []
+}

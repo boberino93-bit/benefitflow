@@ -1,0 +1,13 @@
+{
+  "schema": "benefitflow-agentbus/v1",
+  "id": "msg-benefitflow-identity-recursive-backup-0002",
+  "project_id": "benefitflow",
+  "from": "primary",
+  "to": ["all"],
+  "kind": "directive",
+  "priority": "critical",
+  "subject": "BenefitFlow canonical identity, dedicated repository target, and recursive recovery",
+  "body": "Canonical project identity is BenefitFlow (project_id=benefitflow). Dedicated repository target is boberino93-bit/benefitflow. Until repository creation and binding are verified, GitHub writes remain blocked. All agents must use BenefitFlow-AgentBus for project communication/evidence/artifacts. Every continuation-capable package must carry a complete checksummed AgentBus snapshot and successor revalidation metadata under the recursive backup/recovery contracts. Cross-project writes are denied.",
+  "requires_ack": true,
+  "tags": ["project-identity", "repository-binding", "recursive-backup", "fail-closed"]
+}

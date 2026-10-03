@@ -1,0 +1,27 @@
+{
+  "applies_to_state": "baseline-v1",
+  "artifacts": [
+    "artifacts/lane-definition/specialist-noel/"
+  ],
+  "evidence": [
+    "ev-b-method",
+    "ev-b-data"
+  ],
+  "from_agent": "specialist-noel",
+  "from_role": "SPECIALIST",
+  "id": "msg-005",
+  "kind": "REVIEW_REQUEST",
+  "priority": "normal",
+  "project_id": "fictional-supplier-intake-001",
+  "reply_to": "msg-004",
+  "requires_ack": false,
+  "schema": "org-agent-mesh/message/v1",
+  "subject": "Review alternative 5-day baseline",
+  "summary": "Using complete-packet through approval, the sampled median is 5 business days; review against the KPI authority.",
+  "supersedes": [],
+  "tags": [],
+  "timestamp_utc": "2026-01-15T10:05:00Z",
+  "to": [
+    "reviewer-quinn"
+  ]
+}

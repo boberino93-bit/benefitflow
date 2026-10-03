@@ -1,0 +1,57 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "properties": {
+    "agent_roles": {
+      "type": "array"
+    },
+    "problem_statement": {
+      "type": "string"
+    },
+    "project_id": {
+      "type": "string"
+    },
+    "project_name": {
+      "type": "string"
+    },
+    "project_type": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "schema",
+    "framework_version",
+    "project_id",
+    "project_name",
+    "project_slug",
+    "problem_statement",
+    "desired_outcome",
+    "deliverable_types",
+    "project_type",
+    "organization_domain",
+    "stakeholders",
+    "constraints",
+    "non_goals",
+    "assumptions",
+    "authoritative_sources",
+    "source_systems",
+    "validation_methods",
+    "approval_gates",
+    "security_classification",
+    "data_handling_rules",
+    "allowed_tools",
+    "prohibited_actions",
+    "integration_authority",
+    "review_authority",
+    "agent_roles",
+    "parallelism_limits",
+    "human_required_actions",
+    "external_dependencies",
+    "success_criteria",
+    "completion_definition",
+    "artifact_policy",
+    "communication_policy",
+    "learning_policy"
+  ],
+  "title": "Project Manifest",
+  "type": "object"
+}

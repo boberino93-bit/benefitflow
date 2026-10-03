@@ -1,0 +1,20 @@
+{
+  "schema": "benefitflow-agentbus/v1",
+  "id": "msg-github-repository-verified-0003",
+  "project_id": "benefitflow",
+  "from": "primary",
+  "to": [
+    "all"
+  ],
+  "kind": "directive",
+  "priority": "critical",
+  "subject": "Dedicated BenefitFlow GitHub repository verified and bound",
+  "body": "The dedicated repository boberino93-bit/benefitflow now exists and has been verified with write/admin access. BenefitFlow agents may write only to this exact repository when their task authority permits it. Duo Open and every other repository remain foreign/denied. This message is part of the first project publication; a subsequent immutable message will record the exact initial remote commit SHA.",
+  "requires_ack": true,
+  "tags": [
+    "repository-binding",
+    "benefitflow",
+    "project-isolation",
+    "fail-closed"
+  ]
+}

@@ -1,0 +1,37 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "properties": {
+    "bootstrap_order": {
+      "type": "array"
+    },
+    "declared_dependencies": {
+      "type": "array"
+    },
+    "project_id": {
+      "type": "string"
+    },
+    "role_hierarchy": {
+      "type": "array"
+    }
+  },
+  "required": [
+    "active_project_state",
+    "active_protocol_versions",
+    "bootstrap_order",
+    "communication_locations",
+    "configured_adapters",
+    "configured_tools",
+    "evidence_locations",
+    "framework_version",
+    "integrity_snapshot",
+    "learning_protocol",
+    "mandatory_governance_rules",
+    "project_id",
+    "review_pipeline",
+    "role_hierarchy",
+    "schema",
+    "declared_dependencies"
+  ],
+  "title": "Agent Discovery",
+  "type": "object"
+}

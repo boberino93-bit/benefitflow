@@ -1,0 +1,14 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "required": [
+    "previous_item",
+    "change_id",
+    "potentially_affected",
+    "validation_required",
+    "result",
+    "invalidated_prior_evidence",
+    "replacement_evidence"
+  ],
+  "title": "Continuity Record",
+  "type": "object"
+}

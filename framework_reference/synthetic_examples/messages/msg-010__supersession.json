@@ -1,0 +1,28 @@
+{
+  "applies_to_state": "baseline-v2",
+  "artifacts": [
+    "artifacts/lane-baseline/specialist-ava/"
+  ],
+  "evidence": [
+    "ev-a-data"
+  ],
+  "from_agent": "specialist-ava",
+  "from_role": "SPECIALIST",
+  "id": "msg-010",
+  "kind": "SUPERSESSION",
+  "priority": "normal",
+  "project_id": "fictional-supplier-intake-001",
+  "reply_to": "msg-009",
+  "requires_ack": false,
+  "schema": "org-agent-mesh/message/v1",
+  "subject": "Correct earlier finding label",
+  "summary": "My earlier 8-day result is superseded only as the approved KPI label; its underlying calculation remains preserved as end-to-end wait time.",
+  "supersedes": [
+    "msg-002"
+  ],
+  "tags": [],
+  "timestamp_utc": "2026-01-15T10:10:00Z",
+  "to": [
+    "reviewer-quinn"
+  ]
+}

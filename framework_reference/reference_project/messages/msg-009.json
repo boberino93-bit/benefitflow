@@ -1,0 +1,27 @@
+{
+  "applies_to_state": "baseline-v2",
+  "artifacts": [
+    "decisions/decision-001.json"
+  ],
+  "evidence": [
+    "ev-policy-owner-note",
+    "ev-b-data"
+  ],
+  "from_agent": "orchestrator-rhea",
+  "from_role": "ORCHESTRATOR",
+  "id": "msg-009",
+  "kind": "DECISION",
+  "priority": "normal",
+  "project_id": "fictional-supplier-intake-001",
+  "reply_to": "msg-008",
+  "requires_ack": false,
+  "schema": "org-agent-mesh/message/v1",
+  "subject": "Accept KPI definition and baseline",
+  "summary": "Accepted state uses complete-packet through approval with a 5-business-day median. The 8-day measure is retained under a different metric label, not erased.",
+  "supersedes": [],
+  "tags": [],
+  "timestamp_utc": "2026-01-15T10:09:00Z",
+  "to": [
+    "*"
+  ]
+}

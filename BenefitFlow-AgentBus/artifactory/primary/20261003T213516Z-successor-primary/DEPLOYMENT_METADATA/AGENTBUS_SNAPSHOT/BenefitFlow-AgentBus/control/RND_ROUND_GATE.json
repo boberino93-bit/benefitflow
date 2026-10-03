@@ -1,0 +1,15 @@
+{
+  "schema": "benefitflow/rnd-round-gate/v1",
+  "status": "BLOCKED_PENDING_USER_START",
+  "new_agents_allowed": false,
+  "reason": "User requested primary agent to prepare Beta and confirm project isolation before starting the R&D round.",
+  "unblock_condition": "Explicit user instruction to start the BenefitFlow R&D round.",
+  "prepared_lanes": [
+    "benefit-semantics",
+    "insurer-direct-billing",
+    "provider-discovery-booking",
+    "privacy-consent-regulatory",
+    "voice-transaction-workflow",
+    "product-economics-abuse"
+  ]
+}

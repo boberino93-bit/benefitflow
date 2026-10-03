@@ -1,0 +1,15 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "required": [
+    "source_id",
+    "type",
+    "location_reference",
+    "authority_scope",
+    "freshness_expectation",
+    "verification_method",
+    "write_authority",
+    "read_authority"
+  ],
+  "title": "Source of Truth Entry",
+  "type": "object"
+}

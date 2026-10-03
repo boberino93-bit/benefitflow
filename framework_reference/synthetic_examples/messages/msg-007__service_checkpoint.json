@@ -1,0 +1,26 @@
+{
+  "applies_to_state": "baseline-v1",
+  "artifacts": [
+    "artifacts/lane-baseline/specialist-ava/"
+  ],
+  "evidence": [
+    "ev-a-data"
+  ],
+  "from_agent": "specialist-ava",
+  "from_role": "SPECIALIST",
+  "id": "msg-007",
+  "kind": "SERVICE_CHECKPOINT",
+  "priority": "normal",
+  "project_id": "fictional-supplier-intake-001",
+  "reply_to": null,
+  "requires_ack": false,
+  "schema": "org-agent-mesh/message/v1",
+  "subject": "Baseline lane active",
+  "summary": "Raw records and calculation workbook are published; waiting on interval-definition decision.",
+  "supersedes": [],
+  "tags": [],
+  "timestamp_utc": "2026-01-15T10:07:00Z",
+  "to": [
+    "reviewer-quinn"
+  ]
+}

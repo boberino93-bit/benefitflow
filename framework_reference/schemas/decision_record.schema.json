@@ -1,0 +1,15 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "required": [
+    "decision_id",
+    "project_id",
+    "decision",
+    "authority",
+    "applies_to_state",
+    "evidence_refs",
+    "timestamp_utc",
+    "supersedes"
+  ],
+  "title": "Decision Record",
+  "type": "object"
+}

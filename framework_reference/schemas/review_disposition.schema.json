@@ -1,0 +1,24 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "properties": {
+    "disposition": {
+      "enum": [
+        "READY_FOR_INTEGRATION",
+        "NEEDS_MORE_EVIDENCE",
+        "REJECTED",
+        "SUPERSEDED",
+        "BLOCKED"
+      ]
+    }
+  },
+  "required": [
+    "candidate_id",
+    "reviewer_id",
+    "disposition",
+    "rationale",
+    "evidence_refs",
+    "is_final_acceptance"
+  ],
+  "title": "Review Disposition",
+  "type": "object"
+}

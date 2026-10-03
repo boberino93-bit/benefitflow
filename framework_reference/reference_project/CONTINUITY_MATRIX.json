@@ -1,0 +1,22 @@
+[
+  {
+    "change_id": "decision-001",
+    "invalidated_prior_evidence": [
+      "draft-definition-v1"
+    ],
+    "potentially_affected": true,
+    "previous_item": "draft-training-metric-definition",
+    "replacement_evidence": [],
+    "result": "REVALIDATION_REQUIRED",
+    "validation_required": true
+  },
+  {
+    "change_id": "decision-001",
+    "invalidated_prior_evidence": [],
+    "potentially_affected": false,
+    "previous_item": "approval-control-map",
+    "replacement_evidence": [],
+    "result": "UNAFFECTED_BY_DECLARED_SCOPE",
+    "validation_required": false
+  }
+]

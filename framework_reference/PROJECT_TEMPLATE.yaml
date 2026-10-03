@@ -1,0 +1,43 @@
+schema: org-agent-mesh/project-manifest/v1
+framework_version: 1.0.0
+project_id: PROJECT_ID
+project_name: PROJECT_NAME
+project_slug: project-slug
+problem_statement: UNKNOWN
+desired_outcome: UNKNOWN
+deliverable_types: []
+project_type: CUSTOM_PROJECT
+organization_domain: UNKNOWN
+stakeholders: []
+constraints: []
+non_goals: []
+assumptions: []
+authoritative_sources: []
+source_systems: []
+validation_methods: []
+approval_gates: []
+security_classification: UNKNOWN
+data_handling_rules: []
+allowed_tools: []
+prohibited_actions: []
+integration_authority: ORCHESTRATOR
+review_authority: REVIEWER
+agent_roles: []
+parallelism_limits:
+  max_active_specialists: 3
+  status: ASSUMED
+human_required_actions: []
+external_dependencies: []
+success_criteria: []
+completion_definition: REQUIRES_HUMAN
+artifact_policy:
+  immutability: true
+  canonical_detail_home: artifact
+  checksums: true
+communication_policy:
+  append_only: true
+  supersession_not_deletion: true
+  messages_point_to_evidence: true
+learning_policy:
+  review_required: true
+  may_not_expand_authority: true

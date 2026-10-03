@@ -1,0 +1,26 @@
+[
+  {
+    "assignment": "Measure supplier intake cycle baseline",
+    "current_status": "COMPLETE",
+    "dependencies": [],
+    "expected_output": "Reproducible baseline calculation",
+    "lane_id": "lane-baseline",
+    "possible_overlap": [
+      "lane-definition"
+    ],
+    "scope": "Current-state timing",
+    "starting_project_state": "baseline-v1"
+  },
+  {
+    "assignment": "Resolve KPI interval definition",
+    "current_status": "COMPLETE",
+    "dependencies": [],
+    "expected_output": "Reviewed metric definition",
+    "lane_id": "lane-definition",
+    "possible_overlap": [
+      "lane-baseline"
+    ],
+    "scope": "Metric semantics and process authority",
+    "starting_project_state": "baseline-v1"
+  }
+]

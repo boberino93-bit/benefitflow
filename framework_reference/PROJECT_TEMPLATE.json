@@ -1,0 +1,49 @@
+{
+  "agent_roles": [],
+  "allowed_tools": [],
+  "approval_gates": [],
+  "artifact_policy": {
+    "canonical_detail_home": "artifact",
+    "checksums": true,
+    "immutability": true
+  },
+  "assumptions": [],
+  "authoritative_sources": [],
+  "communication_policy": {
+    "append_only": true,
+    "messages_point_to_evidence": true,
+    "supersession_not_deletion": true
+  },
+  "completion_definition": "REQUIRES_HUMAN",
+  "constraints": [],
+  "data_handling_rules": [],
+  "deliverable_types": [],
+  "desired_outcome": "UNKNOWN",
+  "external_dependencies": [],
+  "framework_version": "1.0.0",
+  "human_required_actions": [],
+  "integration_authority": "ORCHESTRATOR",
+  "learning_policy": {
+    "may_not_expand_authority": true,
+    "review_required": true
+  },
+  "non_goals": [],
+  "organization_domain": "UNKNOWN",
+  "parallelism_limits": {
+    "max_active_specialists": 3,
+    "status": "ASSUMED"
+  },
+  "problem_statement": "UNKNOWN",
+  "prohibited_actions": [],
+  "project_id": "PROJECT_ID",
+  "project_name": "PROJECT_NAME",
+  "project_slug": "project-slug",
+  "project_type": "CUSTOM_PROJECT",
+  "review_authority": "REVIEWER",
+  "schema": "org-agent-mesh/project-manifest/v1",
+  "security_classification": "UNKNOWN",
+  "source_systems": [],
+  "stakeholders": [],
+  "success_criteria": [],
+  "validation_methods": []
+}

@@ -1,0 +1,25 @@
+{
+  "applies_to_state": "baseline-v1",
+  "artifacts": [],
+  "evidence": [
+    "ev-process-guide"
+  ],
+  "from_agent": "reviewer-quinn",
+  "from_role": "REVIEWER",
+  "id": "msg-004",
+  "kind": "REQUEST",
+  "priority": "normal",
+  "project_id": "fictional-supplier-intake-001",
+  "reply_to": "msg-003",
+  "requires_ack": true,
+  "schema": "org-agent-mesh/message/v1",
+  "subject": "Reconcile cycle-time interval definitions",
+  "summary": "Provide raw interval definitions and identify which authority governs KPI semantics.",
+  "supersedes": [],
+  "tags": [],
+  "timestamp_utc": "2026-01-15T10:04:00Z",
+  "to": [
+    "specialist-ava",
+    "specialist-noel"
+  ]
+}
