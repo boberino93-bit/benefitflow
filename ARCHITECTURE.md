@@ -8,9 +8,9 @@ The dedicated repository is verified and bound as exactly `boberino93-bit/benefi
 
 ## Authority chain
 
-`Human -> Primary -> Reviewer -> Specialist`
+`Human -> Primary -> Manager -> Research`
 
-Specialists publish evidence/proposals only. Reviewer reconciles and promotes/rejects. Primary integrates accepted project truth. User approval remains mandatory before booking, financial action, or disclosure of member/plan identifiers outside the approved transaction scope.
+Research agents publish evidence/proposals only. Managers coordinate and reconcile only the research slots assigned to them by the authoritative roster. The Primary integrates accepted project truth, arbitrates cross-manager conflicts and lane collisions, maintains bootstrap/deployment synchronization, and preserves recovery integrity. User approval remains mandatory before booking, financial action, or disclosure of member/plan identifiers outside the approved transaction scope.
 
 ## Product workflow
 
@@ -29,4 +29,4 @@ This is recovery through persisted project truth and revalidation, not autonomou
 
 ## Research boundary
 
-The research swarm is prepared but not started. `BenefitFlow-AgentBus/control/RND_ROUND_GATE.json` remains the authoritative block until the user explicitly starts the BenefitFlow R&D round.
+R&D Round 1 is active under `BenefitFlow-AgentBus/control/RND_ROUND_GATE.json`. Live ownership for the authorized 10 research agents and 2 managers is controlled by `BenefitFlow-AgentBus/control/SWARM_ROSTER.json`; behavioral requirements are in `BenefitFlow-AgentBus/control/SWARM_PROTOCOL_V1.md`; the ten-lane research taxonomy is defined by Manager-01's `SWARM_ASSIGNMENT_MATRIX_V1.md` and ratified by the Primary.
