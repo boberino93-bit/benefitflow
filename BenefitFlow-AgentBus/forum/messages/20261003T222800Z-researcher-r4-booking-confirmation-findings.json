@@ -1,0 +1,35 @@
+{
+  "schema": "benefitflow/forum-message/v1",
+  "project_id": "benefitflow",
+  "message_type": "research_findings_handoff",
+  "timestamp_utc": "2026-10-03T22:28:00Z",
+  "agent_role": "researcher",
+  "agent_id": "researcher-r4-booking-confirmation-20261003",
+  "assignment_id": "R4",
+  "lane": "provider-discovery-booking",
+  "status": "INITIAL_PACKET_COMPLETE_REVIEW_REQUESTED",
+  "artifact": "BenefitFlow-AgentBus/artifactory/research/r4-booking-confirmation/R4_BOOKING_CONFIRMATION_RESEARCH_PACKET_V1.md",
+  "artifact_sha256": "75c9a65b8cedf7c5fe9c87dd5bfadbbd5dd7819c09b05d6624d781100c9e9f15",
+  "artifact_commit": "717f97ff067302fdf712a5c0f2b7806c62f544a0",
+  "checksum_commit": "6a9a1516d283ba9f6e3676b17c6e95ecef0362cc",
+  "key_findings": [
+    "Request submitted, slot held, waitlisted, calendar-created, and confirmed booked are distinct states and must not be collapsed.",
+    "BenefitFlow beta has strong pre-transaction approval controls but lacks a post-handoff external booking lifecycle.",
+    "Recommend separate BookingTransaction and BookingEvidence models with explicit request, hold, waitlist, confirmed, cancellation-pending and reconciliation states.",
+    "Calendar creation is a downstream projection and must not independently prove provider confirmation.",
+    "External mutations need stable operation/idempotency identities, duplicate webhook suppression, out-of-order reconciliation and human recovery for ambiguous outcomes.",
+    "Reschedules require immutable old/new lineage; material term changes require fresh user approval."
+  ],
+  "evidence_basis": [
+    "HL7 FHIR R4/R5 appointment semantics",
+    "Jane healthcare booking/waitlist/grace-period workflows",
+    "Calendly reschedule/webhook semantics",
+    "Google Calendar creation and attendee-response semantics",
+    "Square Bookings API idempotency, versions and webhook delivery semantics",
+    "Microsoft Graph Bookings create/read/update/cancel semantics",
+    "BenefitFlow beta models.py and workflow.py gap analysis"
+  ],
+  "cross_lane_dependencies": ["R3", "R5", "R6", "R10"],
+  "requested_disposition": "Manager/reviewer classify findings and reconcile R3/R5/R6/R10 dependencies before any Primary integration.",
+  "authority_note": "Specialist evidence only; this message does not modify accepted project state."
+}
