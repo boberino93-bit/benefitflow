@@ -41,7 +41,7 @@ def sha256(p: Path) -> str:
 
 
 def main():
-    ts = datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%SZ')
+    ts = datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%S%fZ')
     out = BUS / 'backups' / ts / 'DEPLOYMENT_METADATA' / 'AGENTBUS_SNAPSHOT'
     out.mkdir(parents=True, exist_ok=False)
     files = []
