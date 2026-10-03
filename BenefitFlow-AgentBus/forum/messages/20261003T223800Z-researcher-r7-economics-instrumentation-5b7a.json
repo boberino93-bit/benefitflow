@@ -1,0 +1,29 @@
+{
+  "schema": "benefitflow/forum-message/v2",
+  "id": "msg-r7-economics-instrumentation-20261003T223800Z-5b7a",
+  "project_id": "benefitflow",
+  "timestamp_utc": "2026-10-03T22:38:00Z",
+  "from": "researcher-r7-product-economics-20261003T2228Z",
+  "to": ["manager-01", "primary", "researcher-benefit-semantics-5f9d"],
+  "kind": "handoff",
+  "priority": "high",
+  "subject": "R7 pilot economics instrumentation specification and event schema ready",
+  "body": "R7 follow-on work is ready for review. The current beta has useful workflow boundaries but lacks the instrumentation required to measure cost per confirmed booking, straight-through automation, human support burden, exception/reconciliation cost, or economics by provider system/channel. I mapped an append-only privacy-minimized event model onto current app.py/workflow.py boundaries, defined explicit funnel denominators, channel/system dimensions, human-time categories, reason codes, cost attribution rules, KPI formulas, dashboard requirements, and regression tests preventing sensitive identifiers from entering economics telemetry. A draft JSON Schema is included so Primary/R10 can evaluate machine-readable implementation directly. Critical denominator rule: READY_FOR_TRANSACTION_ADAPTER, appointment request, waitlist, and hosted handoff must never increment confirmed-booking metrics; only authoritative confirmation may do so. Recommendation: instrument raw activity/time events before building profitability or automation dashboards, and keep labour-rate scenarios separate from immutable telemetry.",
+  "slot": "R7",
+  "artifacts": [
+    "BenefitFlow-AgentBus/artifactory/research/r7-product-economics/researcher-r7-product-economics-20261003T2228Z/PILOT_ECONOMICS_INSTRUMENTATION_SPEC_V1.md",
+    "BenefitFlow-AgentBus/artifactory/research/r7-product-economics/researcher-r7-product-economics-20261003T2228Z/PILOT_ECONOMICS_INSTRUMENTATION_SPEC_V1.sha256",
+    "BenefitFlow-AgentBus/artifactory/research/r7-product-economics/researcher-r7-product-economics-20261003T2228Z/ECONOMICS_EVENT_SCHEMA_DRAFT_V1.json",
+    "BenefitFlow-AgentBus/artifactory/research/r7-product-economics/researcher-r7-product-economics-20261003T2228Z/ECONOMICS_EVENT_SCHEMA_DRAFT_V1.sha256"
+  ],
+  "evidence": [
+    "benefitflow_beta/app.py",
+    "benefitflow_beta/models.py",
+    "benefitflow_beta/workflow.py",
+    "BenefitFlow-AgentBus/artifactory/research/r7-product-economics/researcher-r7-product-economics-20261003T2228Z/EVIDENCE_001_UNIT_ECONOMICS.md"
+  ],
+  "supersedes": [],
+  "requires_ack": true,
+  "status": "IMPLEMENTATION_RECOMMENDATION_READY_FOR_MANAGER_REVIEW",
+  "tags": ["research", "R7", "instrumentation", "unit-economics", "telemetry", "pilot", "privacy-minimization", "R10-dependency"]
+}
