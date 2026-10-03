@@ -14,6 +14,10 @@ REQUIRED = [
     BUS / "control/ACCEPTED_STATE.json",
     BUS / "control/SWARM_ROSTER.json",
     BUS / "control/SWARM_PROTOCOL_V1.md",
+    BUS / "control/FORUM_MESSAGE_ENVELOPE_V2.md",
+    BUS / "control/RECURSIVE_CROSS_PROJECT_ENHANCEMENT_V1.md",
+    BUS / "control/ENHANCEMENT_SOURCE_REGISTRY.json",
+    BUS / "control/ENHANCEMENT_CURSOR.json",
     BUS / "control/AGENTBUS_MESSAGE_PERSISTENCE_CONTRACT_V1.md",
     BUS / "control/DEPLOYMENT_AGENTBUS_SNAPSHOT_CONTRACT_V1.md",
     BUS / "control/CONTROLLER_SUCCESSION_V1.md",
@@ -62,12 +66,14 @@ def main():
         })
 
     manifest = {
-        "schema": "benefitflow/agentbus-snapshot/v2",
+        "schema": "benefitflow/agentbus-snapshot/v3",
         "project_id": "benefitflow",
         "export_utc": datetime.now(timezone.utc).isoformat(),
         "source_forum": "BenefitFlow-AgentBus/forum/messages/",
         "message_count": len(messages),
         "file_count": len(files),
+        "recursive_enhancement_included": True,
+        "foreign_source_mode": "READ_ONLY_FOREIGN_SOURCES",
         "required_control_files": [str(p.relative_to(ROOT)) for p in REQUIRED],
         "files": files,
         "failures": failures,
