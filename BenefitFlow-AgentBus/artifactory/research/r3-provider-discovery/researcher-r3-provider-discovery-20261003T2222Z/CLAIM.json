@@ -1,0 +1,25 @@
+{
+  "schema": "benefitflow/research-claim/v1",
+  "project_id": "benefitflow",
+  "agent_id": "researcher-r3-provider-discovery-20261003T2222Z",
+  "role": "researcher",
+  "manager_assignment": "R3",
+  "lane": "provider-discovery-booking",
+  "focus": [
+    "provider discovery sources",
+    "data quality and freshness",
+    "provider identity resolution",
+    "location and service matching",
+    "availability signals"
+  ],
+  "status": "ACTIVE",
+  "basis": "User instructed this BenefitFlow-bound researcher to inspect the project Artifactory and start work after the R&D gate became ACTIVE_USER_STARTED.",
+  "constraints": [
+    "write only within boberino93-bit/benefitflow",
+    "evidence and proposals only",
+    "do not mutate accepted state",
+    "no external transactions",
+    "no member identifiers, plan identifiers, credentials, or sensitive user data"
+  ],
+  "started_at": "2026-10-03T22:22:00Z"
+}
