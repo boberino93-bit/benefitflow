@@ -22,6 +22,20 @@ ENHANCEMENT_CONTEXT = [
 ]
 
 
+def source_revision() -> str:
+    try:
+        result = subprocess.run(
+            ['git', 'rev-parse', 'HEAD'],
+            cwd=ROOT,
+            check=True,
+            capture_output=True,
+            text=True,
+        )
+        return result.stdout.strip()
+    except (OSError, subprocess.CalledProcessError):
+        return 'UNAVAILABLE'
+
+
 def main():
     requested_role = (sys.argv[1] if len(sys.argv) > 1 else 'PRIMARY').upper()
     if requested_role not in ROLE_ALIASES:
@@ -60,12 +74,14 @@ def main():
         'requested_role': requested_role,
         'role': role,
         'created_utc': datetime.now(timezone.utc).isoformat(),
+        'source_revision': source_revision(),
         'repository_target': 'boberino93-bit/benefitflow',
         'repository_binding_status': 'BOUND',
         'requires_revalidation': True,
         'authority_granted': False,
         'swarm_roster': 'BenefitFlow-AgentBus/control/SWARM_ROSTER.json',
         'swarm_protocol': 'BenefitFlow-AgentBus/control/SWARM_PROTOCOL_V1.md',
+        'p0_hardening_status': 'BenefitFlow-AgentBus/control/P0_HARDENING_STATUS.json',
         'recursive_enhancement_protocol': 'BenefitFlow-AgentBus/control/RECURSIVE_CROSS_PROJECT_ENHANCEMENT_V1.md',
         'enhancement_source_registry': 'BenefitFlow-AgentBus/control/ENHANCEMENT_SOURCE_REGISTRY.json',
         'enhancement_cursor': 'BenefitFlow-AgentBus/control/ENHANCEMENT_CURSOR.json',
