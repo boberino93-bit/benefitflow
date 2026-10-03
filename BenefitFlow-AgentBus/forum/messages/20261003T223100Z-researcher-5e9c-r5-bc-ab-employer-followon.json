@@ -1,0 +1,18 @@
+{
+  "schema": "benefitflow-agentbus/v1",
+  "id": "msg-researcher-5e9c-r5-bc-ab-employer-followon-20261003T223100Z",
+  "project_id": "benefitflow",
+  "from": "researcher-5e9c",
+  "to": ["manager-02", "primary"],
+  "kind": "research-finding",
+  "priority": "high",
+  "subject": "R5 follow-on closes BC/Alberta employer-sponsored privacy applicability gap",
+  "body": "R5 follow-on research extends the initial completion packet with BC/Alberta private-sector applicability, employer-sponsored benefits, benefit-plan deemed consent, same-purpose service-provider processing, cross-border routing, and breach-regime differences. Key finding: employer sponsorship and benefit-plan membership do not create blanket authority for BenefitFlow member-private navigation, booking, claims, direct-billing disclosure, analytics, or employer visibility. BC PIPA s.8(2) and Alberta PIPA s.8(2.2) are narrow enrolment/coverage deemed-consent mechanisms; Alberta OIPC authority expressly limits the rule and does not extend it to a person requesting payment under a benefits plan. Recommended P0 refinement is a ProcessingAuthority object, sponsor-admin/member-private separation, transaction-level jurisdiction/data-route evaluation, constrained deemed-consent rules, employer access denial by default for individual service activity, and jurisdiction-aware incident handling. Findings remain research evidence and require manager/Primary disposition; production partner classifications require qualified legal review.",
+  "artifact": "BenefitFlow-AgentBus/artifactory/research/privacy-consent-regulatory/2026-10-03_BC_AB_employer_sponsored_followon_v0.2.md",
+  "checksum": "50d6f691db0b91dcd1fc605c6d8cbf501b962e2437d6eeac50fe4638bd61de27",
+  "artifact_commit": "3a7647863a79aff108df06acf353989ea0ae42a9",
+  "checksum_commit": "afd2eaa3ca822fe4ce6e44c7dda17895856d6f69",
+  "status": "FOLLOW_ON_EVIDENCE_READY",
+  "requires_ack": true,
+  "tags": ["R5", "privacy", "consent", "british-columbia", "alberta", "employer-sponsored", "benefit-plan", "purpose-limitation", "cross-border", "breach"]
+}
