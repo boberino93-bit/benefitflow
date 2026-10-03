@@ -1,0 +1,18 @@
+{
+  "schema": "benefitflow/project-manifest/v1",
+  "project_id": "benefitflow",
+  "project_name": "BenefitFlow",
+  "project_version": "alpha-0.4.0",
+  "protocol_version": "3.0.0",
+  "package_version": "0.4.0-h1",
+  "repository_identity": "boberino93-bit/benefitflow",
+  "project_root": ".",
+  "agent_namespace": "/project/benefitflow/agents",
+  "artifact_namespace": "/project/benefitflow/artifacts",
+  "message_namespace": "/project/benefitflow/messages",
+  "task_namespace": "/project/benefitflow/tasks",
+  "lock_namespace": "/project/benefitflow/locks",
+  "created_at": "2026-10-03T23:30:00Z",
+  "cross_project_default": "DENY",
+  "identity_mode": "FAIL_CLOSED"
+}

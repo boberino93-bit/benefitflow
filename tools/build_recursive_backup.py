@@ -10,10 +10,14 @@ IDENTITY_ARTIFACTS = [
     BUS / "control/PROJECT_IDENTITY_LOCK.json",
     BUS / "control/PROJECT_SCOPE_BINDING.json",
     BUS / "control/GITHUB_REPOSITORY_BINDING.json",
+    BUS / "control/PROJECT_MANIFEST.json",
 ]
 REQUIRED = [
     BUS / "PROJECT_SCOPE_SELECTION_GATE_V1.md",
     BUS / "control/PROJECT_IDENTITY_LOCK.json",
+    BUS / "control/PROJECT_MANIFEST.json",
+    BUS / "control/MULTI_PROJECT_PROTOCOL_V3.md",
+    ROOT / "benefitflow_beta/coordination.py",
     BUS / "discovery/AGENT_DISCOVERY.json",
     BUS / "control/PROJECT_SCOPE_BINDING.json",
     BUS / "control/GITHUB_REPOSITORY_BINDING.json",
@@ -34,7 +38,6 @@ REQUIRED = [
     BUS / "bootstrap/PRIMARY.md",
     BUS / "bootstrap/MANAGER.md",
     BUS / "bootstrap/RESEARCH.md",
-    # Legacy role aliases remain packaged for backward compatibility.
     BUS / "bootstrap/REVIEWER.md",
     BUS / "bootstrap/SPECIALIST.md",
 ]
@@ -84,10 +87,14 @@ def main():
         for path in IDENTITY_ARTIFACTS
         if path.is_file()
     }
+    project_manifest = json.loads((BUS / "control/PROJECT_MANIFEST.json").read_text(encoding="utf-8"))
 
     manifest = {
-        "schema": "benefitflow/agentbus-snapshot/v4",
+        "schema": "benefitflow/agentbus-snapshot/v5",
         "project_id": "benefitflow",
+        "project_version": project_manifest["project_version"],
+        "protocol_version": project_manifest["protocol_version"],
+        "package_version": project_manifest["package_version"],
         "repository_target": "boberino93-bit/benefitflow",
         "canonical_branch": "main",
         "coordination_namespace": "BenefitFlow-AgentBus/",
@@ -99,6 +106,7 @@ def main():
         "agent_spawn_policy": spawn_policy,
         "identity_artifact_hashes": identity_hashes,
         "recursive_enhancement_included": True,
+        "multi_project_protocol": "BenefitFlow-AgentBus/control/MULTI_PROJECT_PROTOCOL_V3.md",
         "foreign_source_mode": "READ_ONLY_FOREIGN_SOURCES",
         "required_control_files": [str(p.relative_to(ROOT)) for p in REQUIRED],
         "files": files,
@@ -106,16 +114,10 @@ def main():
         "AGENTBUS_SNAPSHOT_COMPLETE": (
             not failures
             and len(identity_hashes) == len(IDENTITY_ARTIFACTS)
-            and len([
-                x for x in files
-                if x['source'].startswith('BenefitFlow-AgentBus/forum/messages/')
-            ]) == len(messages)
+            and len([x for x in files if x['source'].startswith('BenefitFlow-AgentBus/forum/messages/')]) == len(messages)
         ),
     }
-    (out / 'SNAPSHOT_MANIFEST.json').write_text(
-        json.dumps(manifest, indent=2) + "\n",
-        encoding='utf-8',
-    )
+    (out / 'SNAPSHOT_MANIFEST.json').write_text(json.dumps(manifest, indent=2) + "\n", encoding='utf-8')
     print(out.parents[1])
     if not manifest['AGENTBUS_SNAPSHOT_COMPLETE']:
         raise SystemExit(2)

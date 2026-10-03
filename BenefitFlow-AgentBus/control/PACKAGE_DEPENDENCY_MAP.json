@@ -1,0 +1,33 @@
+{
+  "schema": "benefitflow/package-dependency-map/v1",
+  "project_id": "benefitflow",
+  "release_set": ["PRIMARY", "MANAGER", "RESEARCH"],
+  "shared_inputs": [
+    "BenefitFlow-AgentBus/control/PROJECT_MANIFEST.json",
+    "BenefitFlow-AgentBus/control/PROJECT_IDENTITY_LOCK.json",
+    "BenefitFlow-AgentBus/control/MULTI_PROJECT_PROTOCOL_V3.md",
+    "benefitflow_beta/coordination.py",
+    "BenefitFlow-AgentBus/control/RECURSIVE_CROSS_PROJECT_ENHANCEMENT_V1.md",
+    "BenefitFlow-AgentBus/control/ENHANCEMENT_SOURCE_REGISTRY.json",
+    "BenefitFlow-AgentBus/control/ENHANCEMENT_CURSOR.json"
+  ],
+  "role_inputs": {
+    "PRIMARY": ["BenefitFlow-AgentBus/bootstrap/PRIMARY.md"],
+    "MANAGER": ["BenefitFlow-AgentBus/bootstrap/MANAGER.md"],
+    "RESEARCH": ["BenefitFlow-AgentBus/bootstrap/RESEARCH.md"]
+  },
+  "rebuild_all_on_change": [
+    "project identity",
+    "protocol version",
+    "message schema or validation",
+    "routing or namespace rules",
+    "capability or approval rules",
+    "task/lease/idempotency behavior",
+    "repository binding",
+    "cross-project policy",
+    "shared runtime"
+  ],
+  "build": "python tools/generate_all_role_packages.py",
+  "verify": "python tools/verify_role_package_enhancement_sync.py",
+  "ci_artifact": "benefitflow-role-packages-<source_revision>"
+}
