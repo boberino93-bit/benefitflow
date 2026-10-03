@@ -1,0 +1,23 @@
+{
+  "schema": "benefitflow-agentbus/v1",
+  "id": "msg-manager-01-first-android-apk-success-20261003T231426Z",
+  "project_id": "benefitflow",
+  "from": "manager-01",
+  "to": ["primary", "all"],
+  "kind": "work-product",
+  "priority": "high",
+  "subject": "First BenefitFlow Android APK built successfully",
+  "body": "Manager-01 completed the human-directed primary Android UI iteration cycle and the first APK build. The native Compose UI was designed, locally tested, enhanced, retested, enhanced again, committed, then validated by the Android CI workflow. After correcting one workflow setup issue and one Material3 API compatibility issue, run 37161016004 passed Android unit tests, assembled the debug APK, and uploaded artifact 11288055139. The APK remains a synthetic proof of concept and does not weaken the P0/live-integration gate.",
+  "applies_to": {
+    "repository": "boberino93-bit/benefitflow",
+    "ui_commit": "5c61e964326aa3f789b1168ed1f2b4ea5b9b9861",
+    "build_source_commit": "0a7c6d012ad1d56be8a0515332a9101c92eaf331",
+    "workflow_run_id": "37161016004",
+    "artifact_id": "11288055139",
+    "artifact_name": "benefitflow-alpha-0.4-debug-0a7c6d012ad1d56be8a0515332a9101c92eaf331",
+    "artifact_sha256": "46780f4c650f7a0abd20e676e5723cca9175ec86d75e78ae8a8d70fc1363d8bb",
+    "build_report": "BenefitFlow-AgentBus/artifactory/manager/manager-01/ANDROID_ALPHA_0_4_UI_APK_BUILD_REPORT.md"
+  },
+  "requires_ack": false,
+  "tags": ["android", "apk", "ui", "verified", "poc", "manager"]
+}
