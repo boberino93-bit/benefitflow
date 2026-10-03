@@ -5,7 +5,63 @@ from typing import Literal
 from pydantic import BaseModel, Field
 
 Confidence = Literal["high", "medium", "low"]
-PeriodKind = Literal["calendar_year", "benefit_year", "rolling_months", "lifetime", "unknown"]
+PeriodKind = Literal[
+    "calendar_year",
+    "benefit_year",
+    "rolling_months",
+    "lifetime",
+    "annual_unspecified",
+    "unknown",
+]
+EvidenceSourceKind = Literal["plan_text", "manual", "insurer", "provider", "synthetic", "unknown"]
+LimitType = Literal["currency", "visits", "days", "units"]
+LimitBasis = Literal["eligible_expense", "insurer_payment", "billed_expense", "visit_count", "unknown"]
+LimitScope = Literal[
+    "per_service",
+    "per_visit",
+    "per_practitioner",
+    "per_category",
+    "shared_pool",
+    "per_person",
+    "family",
+    "unknown",
+]
+EligibleChargeMethod = Literal[
+    "fixed_cap",
+    "reasonable_customary",
+    "fee_guide",
+    "negotiated_schedule",
+    "unknown",
+]
+
+
+class FieldEvidence(BaseModel):
+    field: str
+    source_kind: EvidenceSourceKind = "unknown"
+    source_ref: str = ""
+    excerpt: str = ""
+    confidence: Confidence = "low"
+
+
+class BenefitLimit(BaseModel):
+    limit_type: LimitType
+    amount: float = Field(ge=0)
+    basis: LimitBasis = "unknown"
+    scope: LimitScope = "unknown"
+    period_kind: PeriodKind = "unknown"
+    period_months: int | None = Field(default=None, ge=1)
+    pool_id: str | None = None
+    evidence: list[FieldEvidence] = Field(default_factory=list)
+
+
+class EligibleChargeRule(BaseModel):
+    method: EligibleChargeMethod = "unknown"
+    fixed_amount: float | None = Field(default=None, ge=0)
+    jurisdiction: str = ""
+    service_code: str = ""
+    service_duration_minutes: int | None = Field(default=None, ge=1)
+    external_lookup_required: bool = False
+    evidence: list[FieldEvidence] = Field(default_factory=list)
 
 
 class BenefitRule(BaseModel):
@@ -24,6 +80,10 @@ class BenefitRule(BaseModel):
     requires_prescription: bool | None = None
     confidence: Confidence = "low"
     evidence_excerpt: str = ""
+    field_evidence: list[FieldEvidence] = Field(default_factory=list)
+    limits: list[BenefitLimit] = Field(default_factory=list)
+    eligible_charge_rules: list[EligibleChargeRule] = Field(default_factory=list)
+    manual_review_required: bool = False
     notes: list[str] = Field(default_factory=list)
 
 
