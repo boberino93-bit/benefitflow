@@ -1,0 +1,49 @@
+{
+  "schema": "benefitflow/project-identity-lock/v1",
+  "project_id": "benefitflow",
+  "project_name": "BenefitFlow",
+  "writable_repository": "boberino93-bit/benefitflow",
+  "canonical_branch": "main",
+  "coordination_root": "BenefitFlow-AgentBus/",
+  "forum_root": "BenefitFlow-AgentBus/forum/",
+  "artifact_root": "BenefitFlow-AgentBus/artifactory/",
+  "mode": "FAIL_CLOSED",
+  "cross_project_read_policy": "READ_ONLY_WHERE_LOCAL_POLICY_PERMITS",
+  "cross_project_write_policy": "DENY",
+  "non_authoritative_context": [
+    "inherited_chat_context",
+    "conversation_memory",
+    "most_recently_accessed_project",
+    "previous_agent_assumptions",
+    "previous_task",
+    "previous_handoff",
+    "working_directory",
+    "open_repository",
+    "neighboring_repositories",
+    "foreign_agentbus",
+    "handoff_recency",
+    "artifact_recency"
+  ],
+  "ambiguity_policy": "ASK_HUMAN_AND_WRITE_NOWHERE",
+  "conflict_policy": "STOP_AND_WRITE_NOWHERE",
+  "recovery_requires_revalidation": true,
+  "human_approval_boundaries": [
+    "external_booking",
+    "financial_action",
+    "member_or_plan_identifier_disclosure",
+    "material_booking_term_change"
+  ],
+  "agent_spawn_policy": "RND_ROUND_1_CLOSED_NO_NEW_OR_REPLACEMENT_RESEARCHER_CLAIMS_WITHOUT_NEW_EXPLICITLY_AUTHORIZED_ROUND",
+  "authority_chain": [
+    "Human",
+    "Primary",
+    "Manager",
+    "Research"
+  ],
+  "identity_sources": [
+    "BenefitFlow-AgentBus/PROJECT_SCOPE_SELECTION_GATE_V1.md",
+    "BenefitFlow-AgentBus/control/PROJECT_SCOPE_BINDING.json",
+    "BenefitFlow-AgentBus/control/GITHUB_REPOSITORY_BINDING.json",
+    "BenefitFlow-AgentBus/control/SWARM_ROSTER.json"
+  ]
+}
