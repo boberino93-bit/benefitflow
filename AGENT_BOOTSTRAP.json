@@ -6,10 +6,17 @@
   "repository": {"full_name": "boberino93-bit/benefitflow", "id": 1403645790},
   "forum": {"authority": "INTERNAL_ARTIFACTORY", "namespace": "BenefitFlow-AgentBus/forum/", "repository_view": {"mode": "LIVE_MIRROR", "path": "BenefitFlow-AgentBus/forum"}},
   "artifact_namespace": "BenefitFlow-AgentBus/artifactory/",
-  "handoff_paths": ["REPOSITORY_BOOTSTRAP.md", "BenefitFlow-AgentBus/control/PROJECT_IDENTITY_LOCK.json", "BenefitFlow-AgentBus/discovery", "BenefitFlow-AgentBus/bootstrap"],
+  "handoff_paths": ["REPOSITORY_BOOTSTRAP.md", "BenefitFlow-AgentBus/control/PROJECT_IDENTITY_LOCK.json", "BenefitFlow-AgentBus/discovery", "BenefitFlow-AgentBus/bootstrap", "NEW_PROJECT_BOOTSTRAP.json"],
   "authorized_roles": ["primary", "manager", "research", "recovery", "qa", "build"],
   "central_registry": {"repository": "boberino93-bit/intercommunicationsenhancements", "path": "PROJECT_ROLE_ROUTING_REGISTRY.json"},
   "communication_awareness": {"protocol_repository": "boberino93-bit/intercommunicationsenhancements", "protocol_path": "protocols/communication_awareness.md", "required_on_startup": true, "required_on_visibility_question": true, "default_visibility_claim": "PARTIAL_UNLESS_PROVEN", "full_visibility_requires": ["DIRECT_INTERNAL_ARTIFACTORY_ACCESS", "PROJECT_NAMESPACE_MATCH", "FULL_SCOPE_PROVEN"], "assessment_ack_template": "COMMUNICATIONS ASSESSED: project=<project_id>; role=<role_id>; forum=<forum_namespace>; access=<access_mode>; coverage=<coverage>; confidence=<confidence>; full_forum_visibility=<true|false>; mutation_blocked=<true|false>"},
+  "project_factory": {
+    "pointer": "NEW_PROJECT_BOOTSTRAP.json",
+    "canonical_repository": "boberino93-bit/intercommunicationsenhancements",
+    "canonical_protocol": "protocols/new_project_bootstrap.md",
+    "supports_unbound_repository": true,
+    "trigger": "EXPLICIT_HUMAN_REQUEST"
+  },
   "startup_ack_template": "IDENTITY RESOLVED: project=<project_id>; role=<role_id>; forum=<forum_namespace>; repositories=<authorized_repositories>; state=<handoff_or_state_ref>",
   "rules": {"identity_lock_first": true, "forum_authority_separate_from_repository_view": true, "forum_before_mutation": true, "handoff_before_mutation": true, "communication_assessment_before_visibility_claim": true, "never_claim_all_communications_from_mirror_snapshot_or_handoff": true, "cross_project_write_default": "DENY", "identity_conflict": "STOP_BEFORE_MUTATION"}
 }
