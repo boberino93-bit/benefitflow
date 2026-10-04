@@ -5,9 +5,11 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 BUS = ROOT / "BenefitFlow-AgentBus"
+
 IDENTITY_ARTIFACTS = [
     ROOT / "AGENT_BOOTSTRAP.json",
     ROOT / "AGENT_BOOTSTRAP.md",
+    ROOT / "NEW_PROJECT_BOOTSTRAP.json",
     ROOT / "REPOSITORY_BOOTSTRAP.md",
     BUS / "PROJECT_SCOPE_SELECTION_GATE_V1.md",
     BUS / "control/PROJECT_IDENTITY_LOCK.json",
@@ -15,17 +17,24 @@ IDENTITY_ARTIFACTS = [
     BUS / "control/GITHUB_REPOSITORY_BINDING.json",
     BUS / "control/PROJECT_MANIFEST.json",
 ]
+
 REQUIRED = [
     ROOT / "AGENT_BOOTSTRAP.json",
     ROOT / "AGENT_BOOTSTRAP.md",
+    ROOT / "NEW_PROJECT_BOOTSTRAP.json",
     ROOT / "REPOSITORY_BOOTSTRAP.md",
     BUS / "PROJECT_SCOPE_SELECTION_GATE_V1.md",
     BUS / "control/PROJECT_IDENTITY_LOCK.json",
     BUS / "control/PROJECT_MANIFEST.json",
     BUS / "control/MULTI_PROJECT_PROTOCOL_V3.md",
     BUS / "control/MESSAGE_ENVELOPE_SCHEMA.json",
+    BUS / "control/DURABLE_COORDINATION_V1.md",
+    BUS / "control/GITHUB_WRITE_SECURITY_POLICY.json",
     ROOT / "benefitflow_beta/coordination.py",
+    ROOT / "benefitflow_beta/durable_store.py",
+    ROOT / "benefitflow_beta/durable_coordination.py",
     ROOT / "benefitflow_beta/project_guard.py",
+    ROOT / "tools/prove_multi_project_isolation.py",
     BUS / "discovery/AGENT_DISCOVERY.json",
     BUS / "control/PROJECT_SCOPE_BINDING.json",
     BUS / "control/GITHUB_REPOSITORY_BINDING.json",
@@ -50,12 +59,14 @@ REQUIRED = [
     BUS / "bootstrap/SPECIALIST.md",
 ]
 
+
 def sha256(p: Path) -> str:
     h = hashlib.sha256()
     with p.open('rb') as f:
         for chunk in iter(lambda: f.read(1024 * 1024), b''):
             h.update(chunk)
     return h.hexdigest()
+
 
 def main():
     ts = datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%S%fZ')
@@ -77,7 +88,12 @@ def main():
         dst = out / rel
         dst.parent.mkdir(parents=True, exist_ok=True)
         shutil.copy2(src, dst)
-        files.append({"source": str(rel), "packaged": str(dst.relative_to(out)), "bytes": dst.stat().st_size, "sha256": sha256(dst)})
+        files.append({
+            "source": str(rel),
+            "packaged": str(dst.relative_to(out)),
+            "bytes": dst.stat().st_size,
+            "sha256": sha256(dst),
+        })
 
     roster_path = BUS / "control/SWARM_ROSTER.json"
     spawn_policy = "UNAVAILABLE"
@@ -86,7 +102,7 @@ def main():
     identity_hashes = {str(path.relative_to(ROOT)): sha256(path) for path in IDENTITY_ARTIFACTS if path.is_file()}
     project_manifest = json.loads((BUS / "control/PROJECT_MANIFEST.json").read_text(encoding="utf-8"))
     manifest = {
-        "schema": "benefitflow/agentbus-snapshot/v6",
+        "schema": "benefitflow/agentbus-snapshot/v7",
         "project_id": "benefitflow",
         "project_version": project_manifest["project_version"],
         "protocol_version": project_manifest["protocol_version"],
@@ -105,7 +121,14 @@ def main():
         "recursive_enhancement_included": True,
         "multi_project_protocol": "BenefitFlow-AgentBus/control/MULTI_PROJECT_PROTOCOL_V3.md",
         "message_schema": "BenefitFlow-AgentBus/control/MESSAGE_ENVELOPE_SCHEMA.json",
+        "durable_coordination": "BenefitFlow-AgentBus/control/DURABLE_COORDINATION_V1.md",
+        "coordination_backend": project_manifest.get("coordination_backend"),
+        "append_only_audit_included": True,
+        "append_only_outbox_included": True,
+        "multi_project_proving_harness_included": True,
+        "github_write_security_policy_included": True,
         "communication_awareness_bootstrap_included": True,
+        "new_project_factory_pointer_included": True,
         "foreign_source_mode": "READ_ONLY_FOREIGN_SOURCES",
         "required_control_files": [str(p.relative_to(ROOT)) for p in REQUIRED],
         "files": files,

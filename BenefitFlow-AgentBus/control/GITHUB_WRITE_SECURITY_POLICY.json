@@ -1,0 +1,34 @@
+{
+  "schema": "benefitflow/github-write-security-policy/v1",
+  "project_id": "benefitflow",
+  "repository": {
+    "full_name": "boberino93-bit/benefitflow",
+    "id": 1403645790,
+    "canonical_branch": "main"
+  },
+  "runtime_binding": {
+    "validate_full_name": true,
+    "validate_stable_repository_id": true,
+    "foreign_repository_write_default": "DENY",
+    "cross_project_bridge_does_not_grant_repository_write": true
+  },
+  "ci": {
+    "workflow": ".github/workflows/benefitflow-ci.yml",
+    "token_permissions": {
+      "contents": "read"
+    },
+    "package_build_requires_write_token": false
+  },
+  "interactive_agent_credentials": {
+    "required_scope": "REPOSITORY_SCOPED_GITHUB_APP_OR_EQUIVALENT",
+    "least_privilege_required": true,
+    "credential_scope_exclusivity_status": "EXTERNAL_CONFIGURATION_NOT_VERIFIABLE_BY_RUNTIME",
+    "fail_closed_runtime_guard_required_even_when_server_side_scope_is_correct": true
+  },
+  "branch_rules": {
+    "ruleset_observed_at_hardening": "NONE",
+    "branch_protection_visibility": "NOT_ACCESSIBLE_TO_CONNECTED_GITHUB_APP",
+    "recommended_external_control": "Require reviewed/verified changes or an equivalent protected-main policy if the deployment model permits it."
+  },
+  "note": "Runtime/project-package hardening is enforced in-repo. Installation-wide GitHub App scope and branch-protection administration are server-side account settings and are not mutated by BenefitFlow code."
+}

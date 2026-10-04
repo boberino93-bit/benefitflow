@@ -1,238 +1,94 @@
 from __future__ import annotations
-
-import argparse
-import hashlib
-import json
-import subprocess
+import argparse, hashlib, json, subprocess
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parents[1]
-BUS = ROOT / "BenefitFlow-AgentBus"
-ROLES = ("PRIMARY", "MANAGER", "RESEARCH")
-EXPECTED_PROTOCOL_VERSION = "3.1.0"
-EXPECTED_REPOSITORY_ID = 1403645790
-EXPECTED_PACKAGE_SCHEMA = "benefitflow/successor-package/v7"
+ROOT=Path(__file__).resolve().parents[1]; BUS=ROOT/'BenefitFlow-AgentBus'
+ROLES=('PRIMARY','MANAGER','RESEARCH'); PROTOCOL='3.1.0'; REPO_ID=1403645790; PACKAGE_SCHEMA='benefitflow/successor-package/v8'
+IDENTITY=(ROOT/'AGENT_BOOTSTRAP.json',ROOT/'AGENT_BOOTSTRAP.md',ROOT/'NEW_PROJECT_BOOTSTRAP.json',ROOT/'REPOSITORY_BOOTSTRAP.md',BUS/'PROJECT_SCOPE_SELECTION_GATE_V1.md',BUS/'control/PROJECT_IDENTITY_LOCK.json',BUS/'control/PROJECT_SCOPE_BINDING.json',BUS/'control/GITHUB_REPOSITORY_BINDING.json',BUS/'discovery/AGENT_DISCOVERY.json')
+PROTOCOL_FILES=(BUS/'control/PROJECT_MANIFEST.json',BUS/'control/MULTI_PROJECT_PROTOCOL_V3.md',BUS/'control/MESSAGE_ENVELOPE_SCHEMA.json',BUS/'control/DURABLE_COORDINATION_V1.md',BUS/'control/GITHUB_WRITE_SECURITY_POLICY.json',ROOT/'benefitflow_beta/coordination.py',ROOT/'benefitflow_beta/durable_store.py',ROOT/'benefitflow_beta/durable_coordination.py',ROOT/'benefitflow_beta/project_guard.py',ROOT/'tools/prove_multi_project_isolation.py')
+CONTEXT=(BUS/'control/RECURSIVE_CROSS_PROJECT_ENHANCEMENT_V1.md',BUS/'control/ENHANCEMENT_SOURCE_REGISTRY.json',BUS/'control/ENHANCEMENT_CURSOR.json',ROOT/'SWARM_LAUNCH_KERNEL_V1.md',ROOT/'swarm_kernel/project.json',ROOT/'swarm_kernel/AGENT_BOOTSTRAP_OVERLAY.md',ROOT/'swarm_kernel/kernel.py')
 
-REQUIRED_IDENTITY = (
-    ROOT / "AGENT_BOOTSTRAP.json",
-    ROOT / "AGENT_BOOTSTRAP.md",
-    ROOT / "REPOSITORY_BOOTSTRAP.md",
-    BUS / "PROJECT_SCOPE_SELECTION_GATE_V1.md",
-    BUS / "control" / "PROJECT_IDENTITY_LOCK.json",
-    BUS / "control" / "PROJECT_SCOPE_BINDING.json",
-    BUS / "control" / "GITHUB_REPOSITORY_BINDING.json",
-    BUS / "discovery" / "AGENT_DISCOVERY.json",
-)
-REQUIRED_PROTOCOL = (
-    BUS / "control" / "PROJECT_MANIFEST.json",
-    BUS / "control" / "MULTI_PROJECT_PROTOCOL_V3.md",
-    BUS / "control" / "MESSAGE_ENVELOPE_SCHEMA.json",
-    ROOT / "benefitflow_beta" / "coordination.py",
-    ROOT / "benefitflow_beta" / "project_guard.py",
-)
-REQUIRED_CONTEXT = (
-    BUS / "control" / "RECURSIVE_CROSS_PROJECT_ENHANCEMENT_V1.md",
-    BUS / "control" / "ENHANCEMENT_SOURCE_REGISTRY.json",
-    BUS / "control" / "ENHANCEMENT_CURSOR.json",
-    ROOT / "SWARM_LAUNCH_KERNEL_V1.md",
-    ROOT / "swarm_kernel" / "project.json",
-    ROOT / "swarm_kernel" / "AGENT_BOOTSTRAP_OVERLAY.md",
-    ROOT / "swarm_kernel" / "kernel.py",
-)
+def sha(p): return hashlib.sha256(p.read_bytes()).hexdigest()
+def revision():
+    try:return subprocess.run(['git','rev-parse','HEAD'],cwd=ROOT,check=True,capture_output=True,text=True).stdout.strip()
+    except Exception:return 'UNAVAILABLE'
+def expect(errors,label,actual,expected):
+    if actual!=expected: errors.append(f'{label}: {actual!r} != {expected!r}')
 
-
-def sha256(path: Path) -> str:
-    h = hashlib.sha256()
-    with path.open("rb") as f:
-        for chunk in iter(lambda: f.read(1024 * 1024), b""):
-            h.update(chunk)
-    return h.hexdigest()
-
-
-def current_revision() -> str:
-    try:
-        return subprocess.run(["git", "rev-parse", "HEAD"], cwd=ROOT, check=True, capture_output=True, text=True).stdout.strip()
-    except (OSError, subprocess.CalledProcessError):
-        return "UNAVAILABLE"
-
-
-def verify_source_parity() -> list[str]:
-    errors: list[str] = []
-    for path in (*REQUIRED_IDENTITY, *REQUIRED_PROTOCOL, *REQUIRED_CONTEXT):
-        if not path.is_file():
-            errors.append(f"missing required package context: {path.relative_to(ROOT)}")
-
-    lock_path = BUS / "control/PROJECT_IDENTITY_LOCK.json"
-    if lock_path.is_file():
-        lock = json.loads(lock_path.read_text(encoding="utf-8"))
-        expected = {"project_id": "benefitflow", "writable_repository": "boberino93-bit/benefitflow", "canonical_branch": "main", "coordination_root": "BenefitFlow-AgentBus/", "mode": "FAIL_CLOSED", "cross_project_write_policy": "DENY"}
-        for key, value in expected.items():
-            if lock.get(key) != value:
-                errors.append(f"identity lock mismatch for {key}: {lock.get(key)!r}")
-
-    binding_path = BUS / "control/GITHUB_REPOSITORY_BINDING.json"
-    if binding_path.is_file():
-        binding = json.loads(binding_path.read_text(encoding="utf-8"))
-        expected_binding = {"target_repository": "boberino93-bit/benefitflow", "target_repository_id": EXPECTED_REPOSITORY_ID, "canonical_branch": "main", "foreign_write_policy": "DENY", "cross_project_bridge_policy": "EXPLICIT_COPY_BY_VALUE_ONLY"}
-        for key, value in expected_binding.items():
-            if binding.get(key) != value:
-                errors.append(f"GitHub binding mismatch for {key}: {binding.get(key)!r}")
-
-    root_bootstrap = ROOT / "AGENT_BOOTSTRAP.json"
-    if root_bootstrap.is_file():
-        root_contract = json.loads(root_bootstrap.read_text(encoding="utf-8"))
-        if root_contract.get("project_id") != "benefitflow":
-            errors.append("root bootstrap project mismatch")
-        repo = root_contract.get("repository", {})
-        if repo.get("full_name") != "boberino93-bit/benefitflow" or repo.get("id") != EXPECTED_REPOSITORY_ID:
-            errors.append("root bootstrap repository mismatch")
-        awareness = root_contract.get("communication_awareness", {})
-        if awareness.get("default_visibility_claim") != "PARTIAL_UNLESS_PROVEN":
-            errors.append("root bootstrap communication-awareness contract missing/stale")
-        if root_contract.get("rules", {}).get("cross_project_write_default") != "DENY":
-            errors.append("root bootstrap cross-project default is not DENY")
-
-    kernel_cfg = ROOT / "swarm_kernel/project.json"
-    if kernel_cfg.is_file():
-        kernel = json.loads(kernel_cfg.read_text(encoding="utf-8"))
-        expected_kernel = {"kernel_version": "1.0.0", "project_id": "benefitflow", "repository": "boberino93-bit/benefitflow", "canonical_branch": "main", "coordination_root": "BenefitFlow-AgentBus/", "state_root": ".swarm", "cross_project_telemetry": "READ_ONLY"}
-        for key, value in expected_kernel.items():
-            if kernel.get(key) != value:
-                errors.append(f"swarm kernel mismatch for {key}: {kernel.get(key)!r}")
-
-    project_path = BUS / "control/PROJECT_MANIFEST.json"
-    if project_path.is_file():
-        project = json.loads(project_path.read_text(encoding="utf-8"))
-        expected = {"project_id": "benefitflow", "repository_identity": "boberino93-bit/benefitflow", "repository_id": EXPECTED_REPOSITORY_ID, "protocol_version": EXPECTED_PROTOCOL_VERSION, "cross_project_default": "DENY", "cross_project_bridge": "EXPLICIT_COPY_BY_VALUE_ONLY", "identity_mode": "FAIL_CLOSED", "message_schema": "BenefitFlow-AgentBus/control/MESSAGE_ENVELOPE_SCHEMA.json"}
-        for key, value in expected.items():
-            if project.get(key) != value:
-                errors.append(f"project manifest mismatch for {key}: {project.get(key)!r}")
-        for key in ("project_version", "package_version", "agent_namespace", "artifact_namespace", "message_namespace", "task_namespace", "lock_namespace"):
-            if not project.get(key):
-                errors.append(f"project manifest missing {key}")
-
-    schema_path = BUS / "control/MESSAGE_ENVELOPE_SCHEMA.json"
-    if schema_path.is_file():
-        schema = json.loads(schema_path.read_text(encoding="utf-8"))
-        if schema.get("$id") != "benefitflow/message-envelope/3.1.0":
-            errors.append("message schema id/version mismatch")
-        required = set(schema.get("required", []))
-        for field in ("sender", "destination", "task", "artifact_refs", "integrity"):
-            if field not in required:
-                errors.append(f"message schema missing required field: {field}")
-        task_required = set(schema.get("properties", {}).get("task", {}).get("required", []))
-        if not {"project_id", "task_id"}.issubset(task_required):
-            errors.append("message schema does not require task project ownership")
-        artifact_item_required = set(schema.get("properties", {}).get("artifact_refs", {}).get("items", {}).get("required", []))
-        if not {"project_id", "artifact_id"}.issubset(artifact_item_required):
-            errors.append("message schema does not require artifact project ownership")
-
-    discovery_path = BUS / "discovery/AGENT_DISCOVERY.json"
-    if discovery_path.is_file():
-        discovery = json.loads(discovery_path.read_text(encoding="utf-8"))
-        if discovery.get("bootstrap_order", [])[:2] != ["../PROJECT_SCOPE_SELECTION_GATE_V1.md", "../control/PROJECT_IDENTITY_LOCK.json"]:
-            errors.append("discovery bootstrap does not start with scope gate + identity lock")
-
+def source_errors():
+    e=[]
+    for p in (*IDENTITY,*PROTOCOL_FILES,*CONTEXT):
+        if not p.is_file(): e.append(f'missing required package context: {p.relative_to(ROOT)}')
+    if e:return e
+    lock=json.loads((BUS/'control/PROJECT_IDENTITY_LOCK.json').read_text())
+    for k,v in {'project_id':'benefitflow','writable_repository':'boberino93-bit/benefitflow','canonical_branch':'main','coordination_root':'BenefitFlow-AgentBus/','mode':'FAIL_CLOSED','cross_project_write_policy':'DENY'}.items(): expect(e,f'identity lock {k}',lock.get(k),v)
+    project=json.loads((BUS/'control/PROJECT_MANIFEST.json').read_text())
+    required={'project_id':'benefitflow','repository_identity':'boberino93-bit/benefitflow','repository_id':REPO_ID,'protocol_version':PROTOCOL,'project_version':'alpha-0.4.2','package_version':'0.4.2-h3','cross_project_default':'DENY','cross_project_bridge':'EXPLICIT_COPY_BY_VALUE_ONLY','identity_mode':'FAIL_CLOSED','coordination_backend':'SQLITE_WAL_DURABLE_V1','audit_model':'APPEND_ONLY_SHA256_HASH_CHAIN','outbox_model':'APPEND_ONLY_EVENT_WITH_DELIVERY_RECEIPT','durable_project_control':True,'multi_process_proving_required':True}
+    for k,v in required.items(): expect(e,f'project manifest {k}',project.get(k),v)
+    binding=json.loads((BUS/'control/GITHUB_REPOSITORY_BINDING.json').read_text())
+    expect(e,'repository binding name',binding.get('target_repository'),'boberino93-bit/benefitflow'); expect(e,'repository binding id',binding.get('target_repository_id'),REPO_ID)
+    security=json.loads((BUS/'control/GITHUB_WRITE_SECURITY_POLICY.json').read_text())
+    expect(e,'write-security repository',security.get('repository',{}).get('full_name'),'boberino93-bit/benefitflow'); expect(e,'write-security repository id',security.get('repository',{}).get('id'),REPO_ID); expect(e,'CI contents permission',security.get('ci',{}).get('token_permissions',{}).get('contents'),'read')
+    root=json.loads((ROOT/'AGENT_BOOTSTRAP.json').read_text()); expect(e,'root bootstrap project',root.get('project_id'),'benefitflow'); expect(e,'root bootstrap repository id',root.get('repository',{}).get('id'),REPO_ID); expect(e,'project factory pointer',root.get('project_factory',{}).get('pointer'),'NEW_PROJECT_BOOTSTRAP.json')
+    factory=json.loads((ROOT/'NEW_PROJECT_BOOTSTRAP.json').read_text()); expect(e,'new-project source project',factory.get('source_project',{}).get('project_id'),'benefitflow'); expect(e,'new-project no identity copy',factory.get('local_reference',{}).get('copy_identity_values'),False)
+    schema=json.loads((BUS/'control/MESSAGE_ENVELOPE_SCHEMA.json').read_text()); expect(e,'message schema id',schema.get('$id'),'benefitflow/message-envelope/3.1.0')
+    durable=(ROOT/'benefitflow_beta/durable_store.py').read_text()+'\n'+(ROOT/'benefitflow_beta/durable_coordination.py').read_text()
+    for token in ('BEGIN IMMEDIATE','journal_mode=WAL','audit_log_no_update','outbox_no_update','class DurableCoordinationStore','verify_integrity','set_project_mode'):
+        if token not in durable:e.append(f'durable runtime missing token: {token}')
+    prover=(ROOT/'tools/prove_multi_project_isolation.py').read_text()
+    for token in ('project-c','shared-idempotency-key','restart_idempotency_replay','benefitflow_safe_replays'):
+        if token not in prover:e.append(f'proving harness missing token: {token}')
     for role in ROLES:
-        bootstrap = BUS / "bootstrap" / f"{role}.md"
-        if not bootstrap.is_file():
-            errors.append(f"missing role bootstrap: {bootstrap.relative_to(ROOT)}")
-            continue
-        text = bootstrap.read_text(encoding="utf-8")
-        for token in ("RECENT CONTEXT IS NOT PROJECT AUTHORITY", "PROJECT_IDENTITY_LOCK.json", "RECURSIVE_CROSS_PROJECT_ENHANCEMENT_V1.md", "3.1.0", "MESSAGE_ENVELOPE_SCHEMA.json"):
-            if token not in text:
-                errors.append(f"{role} bootstrap missing required token: {token}")
-        if "read-only" not in text.lower():
-            errors.append(f"{role} bootstrap does not state foreign read-only boundary")
+        p=BUS/'bootstrap'/f'{role}.md'; text=p.read_text() if p.is_file() else ''
+        for token in ('RECENT CONTEXT IS NOT PROJECT AUTHORITY','PROJECT_IDENTITY_LOCK.json','3.1.0','MESSAGE_ENVELOPE_SCHEMA.json','DURABLE_COORDINATION_V1.md','DurableCoordinationStore','GITHUB_WRITE_SECURITY_POLICY.json','NEW_PROJECT_BOOTSTRAP.json'):
+            if token not in text:e.append(f'{role} bootstrap missing token: {token}')
+        if 'read-only' not in text.lower():e.append(f'{role} bootstrap missing foreign read-only boundary')
+    gen=(ROOT/'tools/generate_successor_package.py').read_text()
+    for token in ('benefitflow/successor-package/v8','NEW_PROJECT_BOOTSTRAP.json','durable_store.py','durable_coordination.py','DURABLE_COORDINATION_V1.md','GITHUB_WRITE_SECURITY_POLICY.json','prove_multi_project_isolation.py','multi_process_proving_required','SQLITE_WAL_DURABLE_V1'):
+        if token not in gen:e.append(f'package generator missing token: {token}')
+    return e
 
-    generator = ROOT / "tools/generate_successor_package.py"
-    if not generator.is_file():
-        errors.append("missing successor package generator")
+def verify_context(pkg,dirname,hashes,sources,e):
+    d=pkg/dirname
+    if not d.is_dir():e.append(f'package missing {dirname}');return
+    for src in sources:
+        p=d/src.name
+        if not p.is_file():e.append(f'package missing {dirname}/{src.name}');continue
+        rel=str(p.relative_to(pkg))
+        if hashes.get(rel)!=sha(p):e.append(f'manifest checksum mismatch: {rel}')
+        if sha(p)!=sha(src):e.append(f'package drift: {src.relative_to(ROOT)}')
+
+def package_errors(pkg):
+    e=[]; mp=pkg/'SUCCESSOR_MANIFEST.json'
+    if not mp.is_file():return [f'missing successor manifest: {mp}']
+    m=json.loads(mp.read_text()); project=json.loads((BUS/'control/PROJECT_MANIFEST.json').read_text())
+    expected={'schema':PACKAGE_SCHEMA,'project_id':'benefitflow','repository_target':'boberino93-bit/benefitflow','repository_id':REPO_ID,'canonical_branch':'main','coordination_namespace':'BenefitFlow-AgentBus/','artifact_namespace':'BenefitFlow-AgentBus/artifactory/','identity_mode':'FAIL_CLOSED','foreign_source_mode':'READ_ONLY_FOREIGN_SOURCES','foreign_mutation_allowed':False,'cross_project_default':'DENY','cross_project_bridge':'EXPLICIT_COPY_BY_VALUE_ONLY','agent_lifecycle_binding_required':True,'child_project_inheritance_required':True,'task_artifact_project_ownership_required':True,'durable_coordination_required':True,'durable_coordination_contract':'PROTOCOL_CONTEXT/DURABLE_COORDINATION_V1.md','durable_coordination_runtime':'PROTOCOL_CONTEXT/durable_coordination.py','coordination_backend':'SQLITE_WAL_DURABLE_V1','audit_model':'APPEND_ONLY_SHA256_HASH_CHAIN','outbox_model':'APPEND_ONLY_EVENT_WITH_DELIVERY_RECEIPT','multi_process_proving_required':True,'multi_project_proving_harness':'PROTOCOL_CONTEXT/prove_multi_project_isolation.py','github_write_security_policy':'PROTOCOL_CONTEXT/GITHUB_WRITE_SECURITY_POLICY.json','new_project_factory_pointer':'IDENTITY_CONTEXT/NEW_PROJECT_BOOTSTRAP.json','project_version':project['project_version'],'protocol_version':project['protocol_version'],'package_version':project['package_version'],'swarm_kernel_version':'1.0.0','swarm_kernel_required':True}
+    for k,v in expected.items():expect(e,f'package manifest {k}',m.get(k),v)
+    live=revision()
+    if not m.get('source_revision') or m.get('source_revision')=='UNAVAILABLE':e.append('package source_revision unavailable')
+    elif live!='UNAVAILABLE' and m.get('source_revision')!=live:e.append(f'package source revision {m.get("source_revision")} != {live}')
+    role=m.get('role')
+    if role not in ROLES:e.append(f'unexpected package role: {role!r}')
     else:
-        text = generator.read_text(encoding="utf-8")
-        for token in ("IDENTITY_CONTEXT", "PROTOCOL_CONTEXT", "AGENT_BOOTSTRAP.json", "MESSAGE_ENVELOPE_SCHEMA.json", "project_guard.py", "agent_lifecycle_binding_required", "child_project_inheritance_required", "task_artifact_project_ownership_required", "EXPLICIT_COPY_BY_VALUE_ONLY", "source_revision", "READ_ONLY_FOREIGN_SOURCES", "foreign_mutation_allowed", "verify_role_package_enhancement_sync.py"):
-            if token not in text:
-                errors.append(f"successor package generator missing required token: {token}")
-    return errors
+        b=pkg/f'{role}_BOOTSTRAP.md'
+        if not b.is_file():e.append(f'package missing {role}_BOOTSTRAP.md')
+        elif m.get('bootstrap_sha256')!=sha(b):e.append(f'packaged {role} bootstrap checksum mismatch')
+    verify_context(pkg,'IDENTITY_CONTEXT',m.get('identity_artifact_hashes',{}),IDENTITY,e); verify_context(pkg,'PROTOCOL_CONTEXT',m.get('protocol_artifact_hashes',{}),PROTOCOL_FILES,e)
+    snap=pkg/'DEPLOYMENT_METADATA/AGENTBUS_SNAPSHOT'
+    for src in (*IDENTITY,*PROTOCOL_FILES):
+        p=snap/src.relative_to(ROOT)
+        if not p.is_file():e.append(f'snapshot missing required artifact: {src.relative_to(ROOT)}')
+    ctx=pkg/'ENHANCEMENT_CONTEXT'
+    for src in CONTEXT:
+        p=ctx/src.name
+        if not p.is_file():e.append(f'package missing enhancement/kernel context: {src.name}')
+        elif sha(p)!=sha(src):e.append(f'package enhancement/kernel drift: {src.relative_to(ROOT)}')
+    return e
 
-
-def verify_hash_context(package: Path, context_dir: str, hashes: dict[str, str], sources: tuple[Path, ...], errors: list[str]) -> None:
-    context = package / context_dir
-    if not context.is_dir():
-        errors.append(f"package missing {context_dir}")
-        return
-    for source in sources:
-        packaged = context / source.name
-        if not packaged.is_file():
-            errors.append(f"package missing {context_dir} artifact: {source.name}")
-            continue
-        rel = str(packaged.relative_to(package))
-        if hashes.get(rel) != sha256(packaged):
-            errors.append(f"manifest checksum mismatch: {rel}")
-        if sha256(packaged) != sha256(source):
-            errors.append(f"package drift detected against source: {source.relative_to(ROOT)}")
-
-
-def verify_generated_package(package: Path) -> list[str]:
-    errors: list[str] = []
-    manifest_path = package / "SUCCESSOR_MANIFEST.json"
-    if not manifest_path.is_file():
-        return [f"missing successor manifest: {manifest_path}"]
-    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
-    project = json.loads((BUS / "control/PROJECT_MANIFEST.json").read_text(encoding="utf-8"))
-    expected_manifest = {"schema": EXPECTED_PACKAGE_SCHEMA, "project_id": "benefitflow", "repository_target": "boberino93-bit/benefitflow", "repository_id": EXPECTED_REPOSITORY_ID, "canonical_branch": "main", "coordination_namespace": "BenefitFlow-AgentBus/", "artifact_namespace": "BenefitFlow-AgentBus/artifactory/", "identity_mode": "FAIL_CLOSED", "foreign_source_mode": "READ_ONLY_FOREIGN_SOURCES", "foreign_mutation_allowed": False, "cross_project_default": "DENY", "cross_project_bridge": "EXPLICIT_COPY_BY_VALUE_ONLY", "agent_lifecycle_binding_required": True, "child_project_inheritance_required": True, "task_artifact_project_ownership_required": True, "message_schema": "PROTOCOL_CONTEXT/MESSAGE_ENVELOPE_SCHEMA.json", "project_version": project["project_version"], "protocol_version": project["protocol_version"], "package_version": project["package_version"], "swarm_kernel_version": "1.0.0", "swarm_kernel_required": True}
-    for key, value in expected_manifest.items():
-        if manifest.get(key) != value:
-            errors.append(f"package manifest mismatch for {key}: {manifest.get(key)!r}")
-
-    revision = manifest.get("source_revision")
-    live_revision = current_revision()
-    if not revision or revision == "UNAVAILABLE":
-        errors.append("package source_revision is unavailable")
-    elif live_revision != "UNAVAILABLE" and revision != live_revision:
-        errors.append(f"package source revision {revision} does not match live revision {live_revision}")
-
-    role = manifest.get("role")
-    if role not in ROLES:
-        errors.append(f"unexpected package role: {role!r}")
-    else:
-        role_bootstrap = package / f"{role}_BOOTSTRAP.md"
-        if not role_bootstrap.is_file():
-            errors.append(f"package missing {role}_BOOTSTRAP.md")
-        elif manifest.get("bootstrap_sha256") != sha256(role_bootstrap):
-            errors.append(f"packaged {role} bootstrap checksum mismatch")
-
-    verify_hash_context(package, "IDENTITY_CONTEXT", manifest.get("identity_artifact_hashes", {}), REQUIRED_IDENTITY, errors)
-    verify_hash_context(package, "PROTOCOL_CONTEXT", manifest.get("protocol_artifact_hashes", {}), REQUIRED_PROTOCOL, errors)
-
-    snapshot_root = package / "DEPLOYMENT_METADATA/AGENTBUS_SNAPSHOT"
-    for source in (*REQUIRED_IDENTITY, *REQUIRED_PROTOCOL):
-        packaged = snapshot_root / source.relative_to(ROOT)
-        if not packaged.is_file():
-            errors.append(f"snapshot missing required artifact: {source.relative_to(ROOT)}")
-
-    context = package / "ENHANCEMENT_CONTEXT"
-    for source in REQUIRED_CONTEXT:
-        packaged = context / source.name
-        if not packaged.is_file():
-            errors.append(f"package missing enhancement/kernel context: {packaged.name}")
-        elif sha256(packaged) != sha256(source):
-            errors.append(f"package enhancement/kernel drift: {source.relative_to(ROOT)}")
-    return errors
-
-
-def main() -> None:
-    parser = argparse.ArgumentParser(description="Verify BenefitFlow identity, protocol 3.1, lifecycle, ownership, enhancement, kernel, recovery, and package parity.")
-    parser.add_argument("--package", action="append", default=[])
-    args = parser.parse_args()
-    errors = verify_source_parity()
-    for package in args.package:
-        errors.extend(verify_generated_package(Path(package)))
-    if errors:
-        print(json.dumps({"valid": False, "errors": errors}, indent=2))
-        raise SystemExit(2)
-    print(json.dumps({"valid": True, "roles": list(ROLES), "identity_mode": "FAIL_CLOSED", "protocol_version": EXPECTED_PROTOCOL_VERSION, "repository_id": EXPECTED_REPOSITORY_ID, "package_schema": EXPECTED_PACKAGE_SCHEMA, "swarm_kernel_version": "1.0.0"}, indent=2))
-
-
-if __name__ == "__main__":
-    main()
+def main():
+    ap=argparse.ArgumentParser(); ap.add_argument('--package',action='append',default=[]); a=ap.parse_args(); e=source_errors()
+    for p in a.package:e.extend(package_errors(Path(p)))
+    if e:
+        print(json.dumps({'valid':False,'errors':e},indent=2)); raise SystemExit(2)
+    print(json.dumps({'valid':True,'roles':list(ROLES),'identity_mode':'FAIL_CLOSED','protocol_version':PROTOCOL,'repository_id':REPO_ID,'package_schema':PACKAGE_SCHEMA,'coordination_backend':'SQLITE_WAL_DURABLE_V1'},indent=2))
+if __name__=='__main__':main()

@@ -1,19 +1,30 @@
 {
-  "schema": "benefitflow/release-manifest/v2",
+  "schema": "benefitflow/release-manifest/v3",
   "project_id": "benefitflow",
-  "project_version": "alpha-0.4.1",
+  "project_version": "alpha-0.4.2",
   "protocol_version": "3.1.0",
-  "package_version": "0.4.1-h2",
+  "package_version": "0.4.2-h3",
   "repository_binding": "boberino93-bit/benefitflow",
   "repository_id": 1403645790,
   "canonical_branch": "main",
-  "release_set": ["PRIMARY", "MANAGER", "RESEARCH"],
+  "release_set": [
+    "PRIMARY",
+    "MANAGER",
+    "RESEARCH"
+  ],
   "package_build": "python tools/generate_all_role_packages.py",
   "package_verification": "python tools/verify_role_package_enhancement_sync.py",
+  "multi_project_proving": "python tools/prove_multi_project_isolation.py",
+  "durable_coordination": "SQLITE_WAL_DURABLE_V1",
+  "append_only_audit": true,
+  "append_only_outbox": true,
   "ci_required": true,
   "ci_workflow": ".github/workflows/benefitflow-ci.yml",
+  "ci_token_permissions": {
+    "contents": "read"
+  },
   "cross_project_default": "DENY",
   "cross_project_bridge": "EXPLICIT_COPY_BY_VALUE_ONLY",
   "recursive_backup_enabled": true,
-  "note": "Exact source revision, package hashes, and executable test results are produced by CI; this source manifest intentionally does not invent its own future commit SHA."
+  "note": "Exact source revision, package hashes, proving output, and executable test results are produced by CI; this source manifest intentionally does not invent its own future commit SHA."
 }

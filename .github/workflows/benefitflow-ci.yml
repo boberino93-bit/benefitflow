@@ -26,11 +26,14 @@ jobs:
       - name: Install dependencies
         run: python -m pip install -r requirements.txt
 
-      - name: Verify recursive enhancement source parity
+      - name: Verify source and package dependency parity
         run: python tools/verify_role_package_enhancement_sync.py
 
       - name: Run BenefitFlow tests
         run: python -m pytest -q
+
+      - name: Prove durable multi-project isolation
+        run: python tools/prove_multi_project_isolation.py
 
       - name: Run framework reference tests
         run: python framework_reference/tests/run_all.py
@@ -63,10 +66,14 @@ jobs:
           dist = Path("dist")
           source_revision = os.environ.get("GITHUB_SHA", "UNAVAILABLE")
           release = {
-              "schema": "benefitflow/ci-role-package-release/v1",
+              "schema": "benefitflow/ci-role-package-release/v2",
               "source_revision": source_revision,
               "foreign_source_mode": "READ_ONLY_FOREIGN_SOURCES",
               "foreign_mutation_allowed": False,
+              "coordination_backend": "SQLITE_WAL_DURABLE_V1",
+              "append_only_audit": True,
+              "append_only_outbox": True,
+              "multi_project_proving_required": True,
               "packages": [],
           }
 
@@ -82,7 +89,10 @@ jobs:
                   "sha256": digest,
               })
 
-          (dist / "package-build.json").write_text(json.dumps(release, indent=2) + "\n", encoding="utf-8")
+          (dist / "package-build.json").write_text(
+              json.dumps(release, indent=2) + "\n",
+              encoding="utf-8",
+          )
           PY
 
       - name: Upload verified role package ZIPs

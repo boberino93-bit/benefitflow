@@ -17,6 +17,7 @@ ROLE_ALIASES = {
 IDENTITY_CONTEXT = [
     ROOT / 'AGENT_BOOTSTRAP.json',
     ROOT / 'AGENT_BOOTSTRAP.md',
+    ROOT / 'NEW_PROJECT_BOOTSTRAP.json',
     ROOT / 'REPOSITORY_BOOTSTRAP.md',
     BUS / 'PROJECT_SCOPE_SELECTION_GATE_V1.md',
     BUS / 'control' / 'PROJECT_IDENTITY_LOCK.json',
@@ -29,8 +30,13 @@ PROTOCOL_CONTEXT = [
     BUS / 'control' / 'PROJECT_MANIFEST.json',
     BUS / 'control' / 'MULTI_PROJECT_PROTOCOL_V3.md',
     BUS / 'control' / 'MESSAGE_ENVELOPE_SCHEMA.json',
+    BUS / 'control' / 'DURABLE_COORDINATION_V1.md',
+    BUS / 'control' / 'GITHUB_WRITE_SECURITY_POLICY.json',
     ROOT / 'benefitflow_beta' / 'coordination.py',
+    ROOT / 'benefitflow_beta' / 'durable_store.py',
+    ROOT / 'benefitflow_beta' / 'durable_coordination.py',
     ROOT / 'benefitflow_beta' / 'project_guard.py',
+    ROOT / 'tools' / 'prove_multi_project_isolation.py',
 ]
 
 ENHANCEMENT_CONTEXT = [
@@ -76,6 +82,7 @@ def main():
     lock = json.loads((BUS / 'control/PROJECT_IDENTITY_LOCK.json').read_text(encoding='utf-8'))
     project = json.loads((BUS / 'control/PROJECT_MANIFEST.json').read_text(encoding='utf-8'))
     binding = json.loads((BUS / 'control/GITHUB_REPOSITORY_BINDING.json').read_text(encoding='utf-8'))
+    write_security = json.loads((BUS / 'control/GITHUB_WRITE_SECURITY_POLICY.json').read_text(encoding='utf-8'))
     expected_identity = {
         'project_id': 'benefitflow',
         'writable_repository': 'boberino93-bit/benefitflow',
@@ -92,6 +99,10 @@ def main():
         raise SystemExit('canonical project manifest does not match stable GitHub repository id')
     if binding.get('target_repository') != project.get('repository_identity') or binding.get('target_repository_id') != project.get('repository_id'):
         raise SystemExit('GitHub repository binding does not match canonical project manifest')
+    if write_security.get('repository', {}).get('full_name') != project.get('repository_identity') or write_security.get('repository', {}).get('id') != project.get('repository_id'):
+        raise SystemExit('GitHub write-security policy does not match canonical project manifest')
+    if project.get('coordination_backend') != 'SQLITE_WAL_DURABLE_V1':
+        raise SystemExit('canonical project manifest does not enable durable coordination')
 
     subprocess.run([sys.executable, str(ROOT / 'tools/build_recursive_backup.py')], check=True, capture_output=True, text=True)
     candidates = sorted(p for p in (BUS / 'backups').iterdir() if p.is_dir())
@@ -129,7 +140,7 @@ def main():
     roster = json.loads((BUS / 'control/SWARM_ROSTER.json').read_text(encoding='utf-8'))
     bootstrap = out / f'{role}_BOOTSTRAP.md'
     manifest = {
-        'schema': 'benefitflow/successor-package/v7',
+        'schema': 'benefitflow/successor-package/v8',
         'package_id': f"benefitflow:{role.lower()}:{project['package_version']}:{ts}",
         'project_id': project['project_id'],
         'project_name': project['project_name'],
@@ -155,6 +166,16 @@ def main():
         'child_project_inheritance_required': True,
         'task_artifact_project_ownership_required': True,
         'message_schema': 'PROTOCOL_CONTEXT/MESSAGE_ENVELOPE_SCHEMA.json',
+        'durable_coordination_required': True,
+        'durable_coordination_contract': 'PROTOCOL_CONTEXT/DURABLE_COORDINATION_V1.md',
+        'durable_coordination_runtime': 'PROTOCOL_CONTEXT/durable_coordination.py',
+        'coordination_backend': project['coordination_backend'],
+        'audit_model': project['audit_model'],
+        'outbox_model': project['outbox_model'],
+        'multi_process_proving_required': True,
+        'multi_project_proving_harness': 'PROTOCOL_CONTEXT/prove_multi_project_isolation.py',
+        'github_write_security_policy': 'PROTOCOL_CONTEXT/GITHUB_WRITE_SECURITY_POLICY.json',
+        'new_project_factory_pointer': 'IDENTITY_CONTEXT/NEW_PROJECT_BOOTSTRAP.json',
         'cross_project_bridge': 'EXPLICIT_COPY_BY_VALUE_ONLY',
         'cross_project_default': 'DENY',
         'bootstrap_sha256': sha256(bootstrap),

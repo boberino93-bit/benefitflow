@@ -1,19 +1,29 @@
 {
-  "schema": "benefitflow/package-dependency-map/v2",
+  "schema": "benefitflow/package-dependency-map/v3",
   "project_id": "benefitflow",
-  "release_set": ["PRIMARY", "MANAGER", "RESEARCH"],
+  "release_set": [
+    "PRIMARY",
+    "MANAGER",
+    "RESEARCH"
+  ],
   "shared_inputs": [
     "AGENT_BOOTSTRAP.json",
     "AGENT_BOOTSTRAP.md",
+    "NEW_PROJECT_BOOTSTRAP.json",
     "REPOSITORY_BOOTSTRAP.md",
     "BenefitFlow-AgentBus/control/PROJECT_MANIFEST.json",
     "BenefitFlow-AgentBus/control/PROJECT_IDENTITY_LOCK.json",
     "BenefitFlow-AgentBus/control/GITHUB_REPOSITORY_BINDING.json",
+    "BenefitFlow-AgentBus/control/GITHUB_WRITE_SECURITY_POLICY.json",
     "BenefitFlow-AgentBus/control/MULTI_PROJECT_PROTOCOL_V3.md",
     "BenefitFlow-AgentBus/control/MESSAGE_ENVELOPE_SCHEMA.json",
+    "BenefitFlow-AgentBus/control/DURABLE_COORDINATION_V1.md",
     "benefitflow_beta/coordination.py",
+    "benefitflow_beta/durable_store.py",
+    "benefitflow_beta/durable_coordination.py",
     "benefitflow_beta/project_guard.py",
     "tools/build_recursive_backup.py",
+    "tools/prove_multi_project_isolation.py",
     "BenefitFlow-AgentBus/control/RECURSIVE_CROSS_PROJECT_ENHANCEMENT_V1.md",
     "BenefitFlow-AgentBus/control/ENHANCEMENT_SOURCE_REGISTRY.json",
     "BenefitFlow-AgentBus/control/ENHANCEMENT_CURSOR.json",
@@ -22,9 +32,39 @@
     "swarm_kernel/AGENT_BOOTSTRAP_OVERLAY.md",
     "swarm_kernel/kernel.py"
   ],
-  "role_inputs": {"PRIMARY": ["BenefitFlow-AgentBus/bootstrap/PRIMARY.md"], "MANAGER": ["BenefitFlow-AgentBus/bootstrap/MANAGER.md"], "RESEARCH": ["BenefitFlow-AgentBus/bootstrap/RESEARCH.md"]},
-  "rebuild_all_on_change": ["project identity", "root routing or communication-awareness contract", "protocol version", "message schema or validation", "agent lifecycle or child inheritance", "task/artifact ownership", "routing or namespace rules", "capability or approval rules", "task/lease/idempotency behavior", "repository binding", "cross-project policy", "backup/snapshot contract", "swarm kernel version or configuration", "shared runtime"],
+  "role_inputs": {
+    "PRIMARY": [
+      "BenefitFlow-AgentBus/bootstrap/PRIMARY.md"
+    ],
+    "MANAGER": [
+      "BenefitFlow-AgentBus/bootstrap/MANAGER.md"
+    ],
+    "RESEARCH": [
+      "BenefitFlow-AgentBus/bootstrap/RESEARCH.md"
+    ]
+  },
+  "rebuild_all_on_change": [
+    "project identity",
+    "root routing, communication-awareness, or project-factory contract",
+    "protocol version",
+    "message schema or validation",
+    "agent lifecycle or child inheritance",
+    "task/artifact ownership",
+    "routing or namespace rules",
+    "capability or approval rules",
+    "durable coordination schema or transaction semantics",
+    "task/lease/idempotency behavior",
+    "audit/outbox behavior",
+    "project control behavior",
+    "repository binding or write-security policy",
+    "cross-project policy",
+    "backup/snapshot contract",
+    "multi-project proving harness",
+    "swarm kernel version or configuration",
+    "shared runtime"
+  ],
   "build": "python tools/generate_all_role_packages.py",
   "verify": "python tools/verify_role_package_enhancement_sync.py",
+  "prove": "python tools/prove_multi_project_isolation.py",
   "ci_artifact": "benefitflow-role-packages-<source_revision>"
 }
