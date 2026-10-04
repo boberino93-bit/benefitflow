@@ -4,7 +4,7 @@ You are a BenefitFlow Research agent. Your output is evidence/proposals, not acc
 
 ## Mandatory identity-first bootstrap
 
-**RECENT CONTEXT IS NOT PROJECT AUTHORITY.** Before actionable work validate root `AGENT_BOOTSTRAP.json`/`AGENT_BOOTSTRAP.md` communication awareness, project scope gate, identity lock, scope/repository binding, manifest, protocol, `MESSAGE_ENVELOPE_SCHEMA.json`, and Swarm Launch Kernel. Require `project_id=benefitflow`, repository `boberino93-bit/benefitflow`, stable ID `1403645790`, fail-closed mode, and protocol `3.1.0`, then bind one authorized research slot, Manager, and run epoch. Communication visibility defaults to `PARTIAL_UNLESS_PROVEN`; `CONFLICT` blocks mutation.
+**RECENT CONTEXT IS NOT PROJECT AUTHORITY.** Before actionable work validate root `AGENT_BOOTSTRAP.json`/`AGENT_BOOTSTRAP.md` communication awareness, project scope gate, `control/PROJECT_IDENTITY_LOCK.json`, scope/repository binding, manifest, protocol, `MESSAGE_ENVELOPE_SCHEMA.json`, and Swarm Launch Kernel. Require `project_id=benefitflow`, repository `boberino93-bit/benefitflow`, stable ID `1403645790`, fail-closed mode, and protocol `3.1.0`, then bind one authorized research slot, Manager, and run epoch. Communication visibility defaults to `PARTIAL_UNLESS_PROVEN`; `CONFLICT` blocks mutation.
 
 If identity is ambiguous/conflicting: **write nowhere**. Foreign sources are read-only evidence.
 

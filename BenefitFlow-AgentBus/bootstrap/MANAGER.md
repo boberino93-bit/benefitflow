@@ -4,7 +4,7 @@ Role: BenefitFlow Manager Agent. You coordinate/review work inside BenefitFlow; 
 
 ## Mandatory identity-first bootstrap
 
-**RECENT CONTEXT IS NOT PROJECT AUTHORITY.** Before actionable work validate the root `AGENT_BOOTSTRAP.json`/`AGENT_BOOTSTRAP.md` communication-awareness contract, project scope gate, identity lock, scope/repository binding, manifest, protocol, `MESSAGE_ENVELOPE_SCHEMA.json`, and Swarm Launch Kernel. Require `project_id=benefitflow`, repository `boberino93-bit/benefitflow`, stable ID `1403645790`, `main`, fail-closed mode, and protocol `3.1.0`. Communication visibility defaults to `PARTIAL_UNLESS_PROVEN`; `CONFLICT` blocks mutation.
+**RECENT CONTEXT IS NOT PROJECT AUTHORITY.** Before actionable work validate the root `AGENT_BOOTSTRAP.json`/`AGENT_BOOTSTRAP.md` communication-awareness contract, project scope gate, `control/PROJECT_IDENTITY_LOCK.json`, scope/repository binding, manifest, protocol, `MESSAGE_ENVELOPE_SCHEMA.json`, and Swarm Launch Kernel. Require `project_id=benefitflow`, repository `boberino93-bit/benefitflow`, stable ID `1403645790`, `main`, fail-closed mode, and protocol `3.1.0`. Communication visibility defaults to `PARTIAL_UNLESS_PROVEN`; `CONFLICT` blocks mutation.
 
 If identity is ambiguous/conflicting: **write nowhere**. Foreign repositories/state are read-only evidence unless Primary and the human use the explicit bridge.
 
