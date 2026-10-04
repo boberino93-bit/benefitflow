@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "benefitflow/message-envelope/3.1.0",
+  "title": "BenefitFlow AgentBus Message Envelope",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["protocol_version", "message_id", "correlation_id", "causation_id", "idempotency_key", "sender", "destination", "task", "message_type", "sequence", "created_at", "expires_at", "priority", "capabilities_required", "artifact_refs", "payload", "integrity"],
+  "properties": {
+    "protocol_version": {"const": "3.1.0"},
+    "message_id": {"type": "string", "minLength": 8},
+    "correlation_id": {"type": "string", "minLength": 1},
+    "causation_id": {"type": "string", "minLength": 1},
+    "idempotency_key": {"type": "string", "minLength": 1},
+    "sender": {"type": "object", "additionalProperties": false, "required": ["project_id", "agent_id", "agent_instance_id", "role"], "properties": {"project_id": {"const": "benefitflow"}, "agent_id": {"type": "string", "minLength": 1}, "agent_instance_id": {"type": "string", "minLength": 1}, "role": {"enum": ["PRIMARY", "MANAGER", "RESEARCH"]}}},
+    "destination": {"type": "object", "additionalProperties": false, "required": ["project_id", "channel"], "properties": {"project_id": {"const": "benefitflow"}, "agent_id": {"type": ["string", "null"]}, "channel": {"type": "string", "pattern": "^/project/benefitflow/"}}},
+    "task": {"type": "object", "additionalProperties": false, "required": ["project_id", "task_id"], "properties": {"project_id": {"const": "benefitflow"}, "task_id": {"type": "string", "minLength": 1}, "parent_task_id": {"type": ["string", "null"]}}},
+    "message_type": {"type": "string", "minLength": 1},
+    "sequence": {"type": "integer", "minimum": 0},
+    "created_at": {"type": "string", "format": "date-time"},
+    "expires_at": {"type": "string", "format": "date-time"},
+    "priority": {"type": "string", "minLength": 1},
+    "capabilities_required": {"type": "array", "items": {"type": "string", "minLength": 1}, "uniqueItems": true},
+    "artifact_refs": {"type": "array", "items": {"type": "object", "additionalProperties": false, "required": ["project_id", "artifact_id"], "properties": {"project_id": {"const": "benefitflow"}, "artifact_id": {"type": "string", "minLength": 1}, "version": {"type": ["string", "integer", "null"]}, "provenance": {"type": ["string", "null"]}}}},
+    "payload": {},
+    "integrity": {"type": "object", "additionalProperties": false, "required": ["payload_hash"], "properties": {"payload_hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"}}}
+  }
+}

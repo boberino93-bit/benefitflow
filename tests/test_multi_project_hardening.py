@@ -9,7 +9,7 @@ from benefitflow_beta.coordination import (
 )
 
 
-def message(*, sender_project="benefitflow", dest_project="benefitflow", expires_delta=60):
+def message(*, sender_project="benefitflow", dest_project="benefitflow", task_project="benefitflow", expires_delta=60):
     now = datetime(2026, 10, 3, 23, 30, tzinfo=timezone.utc)
     payload = {"work": "safe"}
     return {
@@ -20,7 +20,7 @@ def message(*, sender_project="benefitflow", dest_project="benefitflow", expires
         "idempotency_key": "idem-0123456789abcdef",
         "sender": {"project_id": sender_project, "agent_id": "manager-01", "agent_instance_id": "manager-01-instance-a", "role": "MANAGER"},
         "destination": {"project_id": dest_project, "agent_id": "primary", "channel": "/project/benefitflow/status"},
-        "task": {"task_id": "task-001", "parent_task_id": None},
+        "task": {"project_id": task_project, "task_id": "task-001", "parent_task_id": None},
         "message_type": "status", "sequence": 1,
         "created_at": now.isoformat(), "expires_at": (now + timedelta(seconds=expires_delta)).isoformat(),
         "priority": "normal", "capabilities_required": ["publish_message"],
@@ -49,6 +49,11 @@ def test_message_accepts_registered_sender():
 @pytest.mark.parametrize("sender_project,dest_project", [("duo-open", "benefitflow"), ("benefitflow", "duo-open")])
 def test_ordinary_cross_project_message_is_denied(sender_project, dest_project):
     msg, now = message(sender_project=sender_project, dest_project=dest_project)
+    assert validate_message(msg, now=now).outcome == "UNAUTHORIZED"
+
+
+def test_foreign_task_project_is_denied():
+    msg, now = message(task_project="duo-open")
     assert validate_message(msg, now=now).outcome == "UNAUTHORIZED"
 
 

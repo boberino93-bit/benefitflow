@@ -6,6 +6,9 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 BUS = ROOT / "BenefitFlow-AgentBus"
 IDENTITY_ARTIFACTS = [
+    ROOT / "AGENT_BOOTSTRAP.json",
+    ROOT / "AGENT_BOOTSTRAP.md",
+    ROOT / "REPOSITORY_BOOTSTRAP.md",
     BUS / "PROJECT_SCOPE_SELECTION_GATE_V1.md",
     BUS / "control/PROJECT_IDENTITY_LOCK.json",
     BUS / "control/PROJECT_SCOPE_BINDING.json",
@@ -13,11 +16,16 @@ IDENTITY_ARTIFACTS = [
     BUS / "control/PROJECT_MANIFEST.json",
 ]
 REQUIRED = [
+    ROOT / "AGENT_BOOTSTRAP.json",
+    ROOT / "AGENT_BOOTSTRAP.md",
+    ROOT / "REPOSITORY_BOOTSTRAP.md",
     BUS / "PROJECT_SCOPE_SELECTION_GATE_V1.md",
     BUS / "control/PROJECT_IDENTITY_LOCK.json",
     BUS / "control/PROJECT_MANIFEST.json",
     BUS / "control/MULTI_PROJECT_PROTOCOL_V3.md",
+    BUS / "control/MESSAGE_ENVELOPE_SCHEMA.json",
     ROOT / "benefitflow_beta/coordination.py",
+    ROOT / "benefitflow_beta/project_guard.py",
     BUS / "discovery/AGENT_DISCOVERY.json",
     BUS / "control/PROJECT_SCOPE_BINDING.json",
     BUS / "control/GITHUB_REPOSITORY_BINDING.json",
@@ -42,7 +50,6 @@ REQUIRED = [
     BUS / "bootstrap/SPECIALIST.md",
 ]
 
-
 def sha256(p: Path) -> str:
     h = hashlib.sha256()
     with p.open('rb') as f:
@@ -50,19 +57,19 @@ def sha256(p: Path) -> str:
             h.update(chunk)
     return h.hexdigest()
 
-
 def main():
     ts = datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%S%fZ')
     out = BUS / 'backups' / ts / 'DEPLOYMENT_METADATA' / 'AGENTBUS_SNAPSHOT'
     out.mkdir(parents=True, exist_ok=False)
-    files = []
-    failures = []
-    sources = []
+    files, failures = [], []
     messages = sorted((BUS / 'forum/messages').glob('*'))
-    sources.extend(messages)
-    sources.extend(REQUIRED)
-
+    sources = [*messages, *REQUIRED]
+    seen = set()
     for src in sources:
+        key = str(src)
+        if key in seen:
+            continue
+        seen.add(key)
         if not src.exists() or not src.is_file():
             failures.append(str(src.relative_to(ROOT)))
             continue
@@ -70,32 +77,22 @@ def main():
         dst = out / rel
         dst.parent.mkdir(parents=True, exist_ok=True)
         shutil.copy2(src, dst)
-        files.append({
-            "source": str(rel),
-            "packaged": str(dst.relative_to(out)),
-            "bytes": dst.stat().st_size,
-            "sha256": sha256(dst),
-        })
+        files.append({"source": str(rel), "packaged": str(dst.relative_to(out)), "bytes": dst.stat().st_size, "sha256": sha256(dst)})
 
     roster_path = BUS / "control/SWARM_ROSTER.json"
     spawn_policy = "UNAVAILABLE"
     if roster_path.is_file():
         spawn_policy = json.loads(roster_path.read_text(encoding="utf-8")).get("claim_policy", "UNAVAILABLE")
-
-    identity_hashes = {
-        str(path.relative_to(ROOT)): sha256(path)
-        for path in IDENTITY_ARTIFACTS
-        if path.is_file()
-    }
+    identity_hashes = {str(path.relative_to(ROOT)): sha256(path) for path in IDENTITY_ARTIFACTS if path.is_file()}
     project_manifest = json.loads((BUS / "control/PROJECT_MANIFEST.json").read_text(encoding="utf-8"))
-
     manifest = {
-        "schema": "benefitflow/agentbus-snapshot/v5",
+        "schema": "benefitflow/agentbus-snapshot/v6",
         "project_id": "benefitflow",
         "project_version": project_manifest["project_version"],
         "protocol_version": project_manifest["protocol_version"],
         "package_version": project_manifest["package_version"],
-        "repository_target": "boberino93-bit/benefitflow",
+        "repository_target": project_manifest["repository_identity"],
+        "repository_id": project_manifest.get("repository_id"),
         "canonical_branch": "main",
         "coordination_namespace": "BenefitFlow-AgentBus/",
         "identity_mode": "FAIL_CLOSED",
@@ -107,21 +104,18 @@ def main():
         "identity_artifact_hashes": identity_hashes,
         "recursive_enhancement_included": True,
         "multi_project_protocol": "BenefitFlow-AgentBus/control/MULTI_PROJECT_PROTOCOL_V3.md",
+        "message_schema": "BenefitFlow-AgentBus/control/MESSAGE_ENVELOPE_SCHEMA.json",
+        "communication_awareness_bootstrap_included": True,
         "foreign_source_mode": "READ_ONLY_FOREIGN_SOURCES",
         "required_control_files": [str(p.relative_to(ROOT)) for p in REQUIRED],
         "files": files,
         "failures": failures,
-        "AGENTBUS_SNAPSHOT_COMPLETE": (
-            not failures
-            and len(identity_hashes) == len(IDENTITY_ARTIFACTS)
-            and len([x for x in files if x['source'].startswith('BenefitFlow-AgentBus/forum/messages/')]) == len(messages)
-        ),
+        "AGENTBUS_SNAPSHOT_COMPLETE": not failures and len(identity_hashes) == len(IDENTITY_ARTIFACTS) and len([x for x in files if x['source'].startswith('BenefitFlow-AgentBus/forum/messages/')]) == len(messages),
     }
     (out / 'SNAPSHOT_MANIFEST.json').write_text(json.dumps(manifest, indent=2) + "\n", encoding='utf-8')
     print(out.parents[1])
     if not manifest['AGENTBUS_SNAPSHOT_COMPLETE']:
         raise SystemExit(2)
-
 
 if __name__ == '__main__':
     main()

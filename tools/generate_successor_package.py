@@ -15,6 +15,9 @@ ROLE_ALIASES = {
 }
 
 IDENTITY_CONTEXT = [
+    ROOT / 'AGENT_BOOTSTRAP.json',
+    ROOT / 'AGENT_BOOTSTRAP.md',
+    ROOT / 'REPOSITORY_BOOTSTRAP.md',
     BUS / 'PROJECT_SCOPE_SELECTION_GATE_V1.md',
     BUS / 'control' / 'PROJECT_IDENTITY_LOCK.json',
     BUS / 'control' / 'PROJECT_SCOPE_BINDING.json',
@@ -25,7 +28,9 @@ IDENTITY_CONTEXT = [
 PROTOCOL_CONTEXT = [
     BUS / 'control' / 'PROJECT_MANIFEST.json',
     BUS / 'control' / 'MULTI_PROJECT_PROTOCOL_V3.md',
+    BUS / 'control' / 'MESSAGE_ENVELOPE_SCHEMA.json',
     ROOT / 'benefitflow_beta' / 'coordination.py',
+    ROOT / 'benefitflow_beta' / 'project_guard.py',
 ]
 
 ENHANCEMENT_CONTEXT = [
@@ -70,6 +75,7 @@ def main():
 
     lock = json.loads((BUS / 'control/PROJECT_IDENTITY_LOCK.json').read_text(encoding='utf-8'))
     project = json.loads((BUS / 'control/PROJECT_MANIFEST.json').read_text(encoding='utf-8'))
+    binding = json.loads((BUS / 'control/GITHUB_REPOSITORY_BINDING.json').read_text(encoding='utf-8'))
     expected_identity = {
         'project_id': 'benefitflow',
         'writable_repository': 'boberino93-bit/benefitflow',
@@ -82,6 +88,10 @@ def main():
             raise SystemExit(f'identity lock mismatch for {key}: {lock.get(key)!r} != {expected!r}')
     if project.get('project_id') != 'benefitflow' or project.get('repository_identity') != 'boberino93-bit/benefitflow':
         raise SystemExit('canonical project manifest does not match BenefitFlow binding')
+    if project.get('repository_id') != 1403645790:
+        raise SystemExit('canonical project manifest does not match stable GitHub repository id')
+    if binding.get('target_repository') != project.get('repository_identity') or binding.get('target_repository_id') != project.get('repository_id'):
+        raise SystemExit('GitHub repository binding does not match canonical project manifest')
 
     subprocess.run([sys.executable, str(ROOT / 'tools/build_recursive_backup.py')], check=True, capture_output=True, text=True)
     candidates = sorted(p for p in (BUS / 'backups').iterdir() if p.is_dir())
@@ -119,7 +129,7 @@ def main():
     roster = json.loads((BUS / 'control/SWARM_ROSTER.json').read_text(encoding='utf-8'))
     bootstrap = out / f'{role}_BOOTSTRAP.md'
     manifest = {
-        'schema': 'benefitflow/successor-package/v6',
+        'schema': 'benefitflow/successor-package/v7',
         'package_id': f"benefitflow:{role.lower()}:{project['package_version']}:{ts}",
         'project_id': project['project_id'],
         'project_name': project['project_name'],
@@ -132,6 +142,7 @@ def main():
         'created_utc': datetime.now(timezone.utc).isoformat(),
         'source_revision': revision,
         'repository_target': project['repository_identity'],
+        'repository_id': project['repository_id'],
         'canonical_branch': 'main',
         'coordination_namespace': 'BenefitFlow-AgentBus/',
         'artifact_namespace': 'BenefitFlow-AgentBus/artifactory/',
@@ -140,6 +151,11 @@ def main():
         'requires_revalidation': True,
         'authority_granted': False,
         'agent_spawn_policy': roster.get('claim_policy'),
+        'agent_lifecycle_binding_required': True,
+        'child_project_inheritance_required': True,
+        'task_artifact_project_ownership_required': True,
+        'message_schema': 'PROTOCOL_CONTEXT/MESSAGE_ENVELOPE_SCHEMA.json',
+        'cross_project_bridge': 'EXPLICIT_COPY_BY_VALUE_ONLY',
         'cross_project_default': 'DENY',
         'bootstrap_sha256': sha256(bootstrap),
         'identity_artifact_hashes': identity_hashes,

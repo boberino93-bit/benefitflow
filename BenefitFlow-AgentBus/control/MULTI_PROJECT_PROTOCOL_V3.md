@@ -1,51 +1,35 @@
-# BenefitFlow Multi-Project Protocol V3
+# BenefitFlow Multi-Project Protocol V3.1
 
-Status: ACTIVE
-Project: `benefitflow`
-Protocol: `3.0.0`
+Status: ACTIVE  
+Project: `benefitflow`  
+Protocol: `3.1.0`
 
 ## Security boundary
 
-`project_id` is an authorization boundary, not descriptive metadata. BenefitFlow execution is bound to `boberino93-bit/benefitflow` and `/project/benefitflow/*`. Missing, conflicting, or foreign project identity fails closed. Ordinary AgentBus/forum channels never carry cross-project commands. Any future cross-project exchange must use a separately authorized, sanitized, copy-by-value bridge with provenance.
+`project_id` is an authorization boundary. BenefitFlow is bound to `boberino93-bit/benefitflow` (stable repository ID `1403645790`) and `/project/benefitflow/*`. Missing, conflicting, foreign, or ambiguous identity fails closed. Ordinary channels never carry cross-project commands.
 
-## Agent binding
+Cross-project exchange is denied by default and uses only an explicitly authorized sanitized **copy-by-value** snapshot with source/target project IDs, provenance, and payload integrity. Shared mutable cross-project state is prohibited. Primary plus explicit human approval are required; communication is never authorization.
 
-An operational agent has a logical `agent_id` and an execution-scoped `agent_instance_id`. Before mutation it MUST be bound to exactly one `project_id`. Child agents inherit the parent's project identity; conflicting child identity is rejected. Restarted instances do not inherit instance-owned locks or leases.
+## Agent lifecycle and binding
 
-## Message contract
+Executable lifecycle: `CREATED -> UNBOUND -> PROJECT_RESOLUTION -> BOUND(project_id) -> INITIALIZED -> ACTIVE -> DRAINING/PAUSED -> TERMINATED`. Only an `ACTIVE` project-bound execution may mutate. Child agents inherit the parent's `project_id`; conflicting identity fails closed. Logical `agent_id` and execution `agent_instance_id` are distinct; restarted instances do not inherit instance-owned leases.
 
-New executable messages use protocol `3.0.0` and include:
+## Message, task, and artifact contract
 
-- `protocol_version`, globally collision-resistant `message_id`, `correlation_id`, `causation_id`, and `idempotency_key`;
-- sender `project_id`, `agent_id`, `agent_instance_id`, and role;
-- destination `project_id`, optional agent, and project-qualified channel;
-- task identity;
-- message type and sequence;
-- timezone-aware creation and expiry timestamps;
-- priority and required capabilities;
-- project-qualified artifact references;
-- payload plus SHA-256 payload hash.
+Protocol `3.1.0` executable messages use `control/MESSAGE_ENVELOPE_SCHEMA.json`. They carry globally safe message/correlation/causation/idempotency identities, explicit sender and destination project identity, canonical `/project/benefitflow/...` routing, task `project_id`, artifact `project_id`, sequence, TTL, required capabilities, payload, and SHA-256 integrity. `benefitflow_beta/coordination.py` validates caller/session identity, project/task/artifact ownership, channel namespace, protocol, capabilities, timestamps, and integrity before execution. Malformed/foreign/stale/spoofed records are rejected or quarantined rather than repaired heuristically. Historical V1/V2/V3.0 records remain evidence, not automatically executable commands.
 
-The receiver validates caller/session identity, project ownership, protocol, required capabilities, TTL, structure, and integrity before execution. Outcomes are explicit: `ACCEPTED`, `REJECTED`, `QUARANTINED`, `EXPIRED`, `DUPLICATE`, `UNAUTHORIZED`, or `PROTOCOL_MISMATCH`.
+## Repository and concurrency
 
-Historical V1/V2 forum records remain immutable evidence. They are not automatically executable as V3 commands.
+All source mutations validate project identity, exact repository name, stable repository ID when supplied, canonical path, and AgentBus namespace through `benefitflow_beta/project_guard.py`. Retryable work uses project-scoped idempotency. Claimable work uses project-scoped expiring leases tied to `agent_instance_id`, with holder-only renewal/release and crashed-instance cleanup. Version-sensitive writes use expected-version compare-and-set; stale writes fail.
 
-## Concurrency and replay
+## Capabilities, project control, and governance
 
-Retried mutations require an idempotency key. Work that can be claimed by multiple agents uses a project-qualified lease with holder instance and expiry. Expired leases are recoverable. Version-sensitive state changes require the caller's expected version; stale writes fail rather than overwriting newer state.
+Primary, Manager, and Research have distinct least-privilege capabilities. Research produces evidence; Manager reviews/recommends; Primary integrates accepted truth. Protected external/financial actions, sensitive identifier disclosure, deployment, material booking-term changes, project-control changes, and cross-project exchange remain behind explicit human approval where applicable. BenefitFlow can be independently `ACTIVE`, `PAUSED`, or `DEGRADED_READ_ONLY` without stopping unrelated projects.
 
-## Capabilities
+## Packages and release gate
 
-Primary, Manager, and Research roles receive different capability sets. Communication does not imply authorization. External/transactional operations, financial actions, sensitive member/plan identifier disclosure, deployment, and material booking-term changes remain behind explicit human-approval boundaries where applicable.
-
-## Repository and artifacts
-
-All mutating operations validate the BenefitFlow project and repository binding before write. Artifact, task, message, lock, lease, and package identifiers are project-qualified internally. Foreign project mutation is denied by default.
-
-## Packages
-
-The canonical project manifest is `control/PROJECT_MANIFEST.json`. Primary, Manager, and Research packages MUST embed the current manifest, this protocol, role bootstrap, coordination runtime, and required shared control files. Package verification compares embedded files to source by SHA-256 and validates project/protocol/package versions. Relevant protocol/control-plane changes require all three role packages to be rebuilt as one release set.
+PRIMARY, MANAGER, and RESEARCH are one coordinated release set. Packages embed/hash the current project/repository identity controls, root routing/communication-awareness bootstrap, this protocol, message schema, coordination/project-guard runtime, role bootstrap, recursive backup snapshot, and required enhancement/kernel context. `tools/verify_role_package_enhancement_sync.py` verifies source parity, embedded hashes, protocol/project/package versions, exact source revision, repository ID, lifecycle/child-inheritance/ownership flags, communication-awareness contract, and foreign-write denial. Relevant control-plane changes are incomplete while an affected package remains stale.
 
 ## BenefitFlow governance preserved
 
-Research produces evidence; Manager reviews/recommends; Primary accepts and integrates project truth; explicit human approval remains required for protected transactional/external actions. Multi-agent autonomy never weakens those boundaries.
+The P0 architecture gate remains authoritative. Multi-agent hardening does not authorize real member data, credentials, claims submission, live booking adapters, financial actions, or protected external transactions.
