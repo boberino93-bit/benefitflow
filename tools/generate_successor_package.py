@@ -32,6 +32,10 @@ ENHANCEMENT_CONTEXT = [
     BUS / 'control' / 'RECURSIVE_CROSS_PROJECT_ENHANCEMENT_V1.md',
     BUS / 'control' / 'ENHANCEMENT_SOURCE_REGISTRY.json',
     BUS / 'control' / 'ENHANCEMENT_CURSOR.json',
+    ROOT / 'SWARM_LAUNCH_KERNEL_V1.md',
+    ROOT / 'swarm_kernel' / 'project.json',
+    ROOT / 'swarm_kernel' / 'AGENT_BOOTSTRAP_OVERLAY.md',
+    ROOT / 'swarm_kernel' / 'kernel.py',
 ]
 
 
@@ -115,7 +119,7 @@ def main():
     roster = json.loads((BUS / 'control/SWARM_ROSTER.json').read_text(encoding='utf-8'))
     bootstrap = out / f'{role}_BOOTSTRAP.md'
     manifest = {
-        'schema': 'benefitflow/successor-package/v5',
+        'schema': 'benefitflow/successor-package/v6',
         'package_id': f"benefitflow:{role.lower()}:{project['package_version']}:{ts}",
         'project_id': project['project_id'],
         'project_name': project['project_name'],
@@ -142,6 +146,9 @@ def main():
         'protocol_artifact_hashes': protocol_hashes,
         'foreign_source_mode': 'READ_ONLY_FOREIGN_SOURCES',
         'foreign_mutation_allowed': False,
+        'swarm_kernel_version': '1.0.0',
+        'swarm_kernel_required': True,
+        'swarm_kernel_overlay': 'ENHANCEMENT_CONTEXT/AGENT_BOOTSTRAP_OVERLAY.md',
         'package_sync_required_after_control_plane_graft': True,
         'snapshot': 'DEPLOYMENT_METADATA/AGENTBUS_SNAPSHOT/SNAPSHOT_MANIFEST.json',
     }
