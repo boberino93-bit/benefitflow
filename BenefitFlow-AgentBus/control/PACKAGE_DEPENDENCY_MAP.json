@@ -9,7 +9,11 @@
     "benefitflow_beta/coordination.py",
     "BenefitFlow-AgentBus/control/RECURSIVE_CROSS_PROJECT_ENHANCEMENT_V1.md",
     "BenefitFlow-AgentBus/control/ENHANCEMENT_SOURCE_REGISTRY.json",
-    "BenefitFlow-AgentBus/control/ENHANCEMENT_CURSOR.json"
+    "BenefitFlow-AgentBus/control/ENHANCEMENT_CURSOR.json",
+    "SWARM_LAUNCH_KERNEL_V1.md",
+    "swarm_kernel/project.json",
+    "swarm_kernel/AGENT_BOOTSTRAP_OVERLAY.md",
+    "swarm_kernel/kernel.py"
   ],
   "role_inputs": {
     "PRIMARY": ["BenefitFlow-AgentBus/bootstrap/PRIMARY.md"],
@@ -25,6 +29,7 @@
     "task/lease/idempotency behavior",
     "repository binding",
     "cross-project policy",
+    "swarm kernel version or configuration",
     "shared runtime"
   ],
   "build": "python tools/generate_all_role_packages.py",
