@@ -1,0 +1,11 @@
+{
+  "schema": "org-agent-mesh/intercomm-profile-pointer/v1",
+  "project_id": "benefitflow",
+  "active_profile_path": "/BenefitFlow-AgentBus/control/INTERCOMM_OPTIMIZATION_PROFILE_V1.json",
+  "profile_sha256": "98704d480248d0654cb091dafbc1b5233b92a06ef01bfcbadaaa6cfec1d1039d",
+  "effective_at": "2026-10-04T00:12:30Z",
+  "requires_bootstrap_read": true,
+  "github_agentbus_role": "BACKUP_RECOVERY_MIRROR_ONLY",
+  "source_repo_role": "NORMAL_PROJECT_VERSION_CONTROL",
+  "stale_profile_fail": "UNKNOWN_OR_BLOCKED"
+}

@@ -1,0 +1,21 @@
+{
+  "schema": "org-agent-mesh/message/v2",
+  "kind": "SERVICE_CHECKPOINT",
+  "status": "ACTIVE",
+  "project_id": "benefitflow",
+  "from": "primary-rollout",
+  "to": "all",
+  "timestamp_utc": "2026-10-04T00:12:30Z",
+  "subject": "Intercommunication optimization profile V1 activated",
+  "summary": "Activates split-plane coordination, 20% verified-capacity reserve, UNKNOWN fail-closed capacity, digest deduplication, coalesced writes, read-only sanitized peer capacity signaling, and local-first AgentBus backup semantics.",
+  "canonical_source": "/BenefitFlow-AgentBus/control/INTERCOMM_OPTIMIZATION_PROFILE_V1.md",
+  "github_agentbus_role": "BACKUP_RECOVERY_MIRROR_ONLY",
+  "github_agentbus_is_canonical": false,
+  "source_repository_role": "NORMAL_PROJECT_VERSION_CONTROL",
+  "checksums_sha256": {
+    "INTERCOMM_OPTIMIZATION_PROFILE_V1.md": "79cabb2b98de4e40782aa04a1299ff5297637b5bd2fc78217787c9c36ce2e771",
+    "INTERCOMM_OPTIMIZATION_PROFILE_V1.json": "98704d480248d0654cb091dafbc1b5233b92a06ef01bfcbadaaa6cfec1d1039d"
+  },
+  "supersedes_conflicting_durable_heartbeat_requirements": "WHEN_CONFLICTING",
+  "notes": "Historical records remain immutable; this checkpoint changes active interpretation only."
+}
