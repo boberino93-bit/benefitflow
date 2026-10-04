@@ -26,6 +26,10 @@ REQUIRED_CONTEXT = (
     BUS / "control" / "RECURSIVE_CROSS_PROJECT_ENHANCEMENT_V1.md",
     BUS / "control" / "ENHANCEMENT_SOURCE_REGISTRY.json",
     BUS / "control" / "ENHANCEMENT_CURSOR.json",
+    ROOT / "SWARM_LAUNCH_KERNEL_V1.md",
+    ROOT / "swarm_kernel" / "project.json",
+    ROOT / "swarm_kernel" / "AGENT_BOOTSTRAP_OVERLAY.md",
+    ROOT / "swarm_kernel" / "kernel.py",
 )
 
 
@@ -64,6 +68,22 @@ def verify_source_parity() -> list[str]:
         for key, value in expected.items():
             if lock.get(key) != value:
                 errors.append(f"identity lock mismatch for {key}: {lock.get(key)!r}")
+
+    kernel_cfg = ROOT / "swarm_kernel/project.json"
+    if kernel_cfg.is_file():
+        kernel = json.loads(kernel_cfg.read_text(encoding="utf-8"))
+        expected_kernel = {
+            "kernel_version": "1.0.0",
+            "project_id": "benefitflow",
+            "repository": "boberino93-bit/benefitflow",
+            "canonical_branch": "main",
+            "coordination_root": "BenefitFlow-AgentBus/",
+            "state_root": ".swarm",
+            "cross_project_telemetry": "READ_ONLY",
+        }
+        for key, value in expected_kernel.items():
+            if kernel.get(key) != value:
+                errors.append(f"swarm kernel mismatch for {key}: {kernel.get(key)!r}")
 
     project_path = BUS / "control/PROJECT_MANIFEST.json"
     if project_path.is_file():
@@ -105,7 +125,7 @@ def verify_source_parity() -> list[str]:
         errors.append("missing successor package generator")
     else:
         text = generator.read_text(encoding="utf-8")
-        for token in ("IDENTITY_CONTEXT", "PROTOCOL_CONTEXT", "PROJECT_MANIFEST.json", "MULTI_PROJECT_PROTOCOL_V3.md", "coordination.py", "protocol_artifact_hashes", "source_revision", "READ_ONLY_FOREIGN_SOURCES", "foreign_mutation_allowed", "verify_role_package_enhancement_sync.py"):
+        for token in ("IDENTITY_CONTEXT", "PROTOCOL_CONTEXT", "SWARM_LAUNCH_KERNEL_V1.md", "AGENT_BOOTSTRAP_OVERLAY.md", "swarm_kernel_version", "source_revision", "READ_ONLY_FOREIGN_SOURCES", "foreign_mutation_allowed", "verify_role_package_enhancement_sync.py"):
             if token not in text:
                 errors.append(f"successor package generator missing required token: {token}")
     return errors
@@ -149,6 +169,8 @@ def verify_generated_package(package: Path) -> list[str]:
         "project_version": project["project_version"],
         "protocol_version": project["protocol_version"],
         "package_version": project["package_version"],
+        "swarm_kernel_version": "1.0.0",
+        "swarm_kernel_required": True,
     }
     for key, value in expected_manifest.items():
         if manifest.get(key) != value:
@@ -184,12 +206,14 @@ def verify_generated_package(package: Path) -> list[str]:
     for source in REQUIRED_CONTEXT:
         packaged = context / source.name
         if not packaged.is_file():
-            errors.append(f"package missing enhancement context: {packaged.name}")
+            errors.append(f"package missing enhancement/kernel context: {packaged.name}")
+        elif sha256(packaged) != sha256(source):
+            errors.append(f"package enhancement/kernel drift: {source.relative_to(ROOT)}")
     return errors
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="Verify BenefitFlow identity, protocol-v3, recovery, and package parity.")
+    parser = argparse.ArgumentParser(description="Verify BenefitFlow identity, protocol-v3, enhancement, swarm-kernel, recovery, and package parity.")
     parser.add_argument("--package", action="append", default=[])
     args = parser.parse_args()
     errors = verify_source_parity()
@@ -198,7 +222,7 @@ def main() -> None:
     if errors:
         print(json.dumps({"valid": False, "errors": errors}, indent=2))
         raise SystemExit(2)
-    print(json.dumps({"valid": True, "roles": list(ROLES), "identity_mode": "FAIL_CLOSED", "protocol_version": "3.0.0"}, indent=2))
+    print(json.dumps({"valid": True, "roles": list(ROLES), "identity_mode": "FAIL_CLOSED", "protocol_version": "3.0.0", "swarm_kernel_version": "1.0.0"}, indent=2))
 
 
 if __name__ == "__main__":
