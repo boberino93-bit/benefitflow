@@ -1,0 +1,13 @@
+{
+  "schema": "org-agent-mesh/full-message-board-backup/v1",
+  "project_id": "benefitflow",
+  "canonical_message_board_root": "/BenefitFlow-AgentBus/forum/messages",
+  "created_at_utc": "2026-10-04T01:29:30Z",
+  "message_count": 1,
+  "message_payload_bytes": 1214,
+  "message_exact_set_sha256": "9bedb0059bf41001d9f74de8ad09364b9589d961b8fa5597c70c48d7ba049214",
+  "archive_filename": "BENEFITFLOW_MESSAGE_BOARD_SNAPSHOT_20261004T0129Z.zip",
+  "archive_sha256": "5503fb269395bae4c1f7fb799791ef2f09e84e0eae360d35a24ba4cb8b3e0f37",
+  "github_role": "BACKUP_RECOVERY_ONLY",
+  "canonical_authority": "LIBRARY_ARTIFACTORY"
+}
