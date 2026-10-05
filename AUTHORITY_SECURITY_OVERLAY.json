@@ -1,6 +1,6 @@
 {
   "schema": "org-agent-mesh/project-authority-security-overlay/v1",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "project_id": "benefitflow",
   "repository": "boberino93-bit/benefitflow",
   "status": "REQUIRED_ON_STARTUP",
@@ -46,7 +46,7 @@
     "pending_human_response_blocks_only_dependent_branch": true,
     "continue_other_safe_work_while_human_response_pending": true,
     "research_manager_durable_write_exception": "APPEND_ONLY_NON_AUTHORITATIVE_COORDINATION_PUBLICATION",
-    "coordination_artifactory_namespace": "BenefitFlow-AgentBus/forum/messages/",
+    "coordination_artifactory_namespace": "BenefitFlow-AgentBus/forum/",
     "coordination_github_backup_prefix": "agentbus-backup/coordination-messages/",
     "coordination_cross_project_write": "DENY",
     "coordination_overwrite_delete_rename_move": "DENY",
