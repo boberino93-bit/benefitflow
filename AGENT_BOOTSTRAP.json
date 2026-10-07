@@ -17,7 +17,31 @@
   "supervisory_governance": {"repository": "boberino93-bit/intercommunicationsenhancements", "protocol_path": "protocols/supervisory_governance.md", "policy_path": "governance/SWARM_SUPERVISION_POLICY.json", "required_on_startup": true, "master_roaming_required": true, "intentional_stop_respawn_protection": true},
   "normalized_swarm_state": {"project_capsule_schema": "schemas/project_state_capsule.schema.json", "swarm_capsule_schema": "schemas/swarm_state_capsule.schema.json", "thematic_route_schema": "schemas/thematic_route.schema.json", "canonical_repository": "boberino93-bit/intercommunicationsenhancements", "canonical_revision": "fb592418f700fc5e540e76bfa42b043e03fe6ed9", "local_mutation_authority": "UNCHANGED"},
   "communication_awareness": {"protocol_repository": "boberino93-bit/intercommunicationsenhancements", "protocol_path": "protocols/communication_awareness.md", "required_on_startup": true, "required_on_visibility_question": true, "default_visibility_claim": "PARTIAL_UNLESS_PROVEN", "full_visibility_requires": ["DIRECT_INTERNAL_ARTIFACTORY_ACCESS", "PROJECT_NAMESPACE_MATCH", "FULL_SCOPE_PROVEN"]},
+  "experimental_capabilities": {
+    "compressed_inference_validation": {
+      "enabled": true,
+      "deployment_scope": "BENEFITFLOW_LOCAL_TRIAL",
+      "classification": "PROVISIONAL_INFERENCE_ONLY",
+      "purpose": "Allow rapid multi-signal pattern recognition and anomaly detection while requiring explicit evidence validation before consequential use.",
+      "required_sequence": [
+        "FORM_PROVISIONAL_INFERENCE_FROM_CONVERGENT_SIGNALS",
+        "MARK_INFERENCE_PROVISIONAL",
+        "IDENTIFY_CONFIRMING_AND_FALSIFYING_EVIDENCE",
+        "VERIFY_EXPLICITLY_BEFORE_STATE_ASSERTION_OR_CONSEQUENTIAL_ACTION",
+        "REVISE_OR_DISCARD_ON_CONTRADICTION",
+        "PRESERVE_INFERENCE_VS_VERIFIED_CONCLUSION_WHEN_AUDIT_MATERIAL"
+      ],
+      "prohibited_uses": [
+        "DERIVE_IDENTITY_OR_AUTHORITY",
+        "BYPASS_SECURITY_OR_APPROVAL_GATES",
+        "JUSTIFY_CROSS_PROJECT_MUTATION",
+        "TREAT_HIGH_CONSEQUENCE_MEDICAL_FINANCIAL_OR_LEGAL_INFERENCE_AS_VERIFIED_FACT",
+        "EXECUTE_IRREVERSIBLE_MUTATION_WITHOUT_VERIFICATION"
+      ],
+      "broad_rollout": "PENDING_INTERCOMMUNICATIONS_ENHANCEMENTS_PRIMARY_REVIEW"
+    }
+  },
   "project_factory": {"pointer": "NEW_PROJECT_BOOTSTRAP.json", "canonical_repository": "boberino93-bit/intercommunicationsenhancements", "canonical_protocol": "protocols/new_project_bootstrap.md", "supports_unbound_repository": true, "trigger": "EXPLICIT_HUMAN_REQUEST"},
   "startup_ack_template": "IDENTITY RESOLVED: project=<project_id>; role=<role_id>; mode=<execution_mode>; forum=<forum_namespace>; state=<handoff_or_state_ref>; principal_claim=<NONE|REGISTERED|UNKNOWN>; authorization_case=<NONE|AUTH-case-id>; authentication=<CLAIM_ONLY|INDEPENDENT_PROOF_VERIFIED>; mutation_authorization=<AUTHORIZED|UNAUTHORIZED|UNRESOLVED>",
-  "rules": {"identity_lock_first": true, "forum_authority_separate_from_repository_view": true, "forum_before_mutation": true, "handoff_before_mutation": true, "fresh_agent_reference_before_task_interpretation": true, "recover_context_before_asking_human_to_repeat": true, "localize_integrity_blockers": true, "continue_unaffected_safe_work": true, "communication_assessment_before_visibility_claim": true, "never_claim_all_communications_from_mirror_snapshot_or_handoff": true, "cross_project_write_default": "DENY", "identity_conflict": "STOP_BEFORE_MUTATION", "supervisory_control_state_required": true, "scheduler_must_respect_intentional_stop": true, "master_roaming_required": true, "current_speaker_must_not_be_assumed_authorized": true, "claimed_identity_is_not_authenticated_identity": true, "authenticated_identity_is_not_authorization": true, "static_personal_fact_authentication": "DENY", "single_use_authorization_case_required": true, "prior_authorization_reuse": false, "session_wide_mutation_authorization": false, "mutation_authorization_required_before_every_external_side_effect": true}
+  "rules": {"identity_lock_first": true, "forum_authority_separate_from_repository_view": true, "forum_before_mutation": true, "handoff_before_mutation": true, "fresh_agent_reference_before_task_interpretation": true, "recover_context_before_asking_human_to_repeat": true, "localize_integrity_blockers": true, "continue_unaffected_safe_work": true, "communication_assessment_before_visibility_claim": true, "never_claim_all_communications_from_mirror_snapshot_or_handoff": true, "cross_project_write_default": "DENY", "identity_conflict": "STOP_BEFORE_MUTATION", "supervisory_control_state_required": true, "scheduler_must_respect_intentional_stop": true, "master_roaming_required": true, "current_speaker_must_not_be_assumed_authorized": true, "claimed_identity_is_not_authenticated_identity": true, "authenticated_identity_is_not_authorization": true, "static_personal_fact_authentication": "DENY", "single_use_authorization_case_required": true, "prior_authorization_reuse": false, "session_wide_mutation_authorization": false, "mutation_authorization_required_before_every_external_side_effect": true, "compressed_inference_is_provisional_until_verified": true, "compressed_inference_cannot_override_authority_or_security_controls": true}
 }
