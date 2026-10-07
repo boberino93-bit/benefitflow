@@ -1,21 +1,35 @@
 {
   "schema": "org-agent-mesh/local-agent-bootstrap/v1",
-  "routing_contract_version": "1.5.0",
+  "routing_contract_version": "1.6.0",
   "mode": "FAIL_CLOSED",
   "project_id": "benefitflow",
   "repository": {"full_name": "boberino93-bit/benefitflow", "id": 1403645790},
   "forum": {"authority": "INTERNAL_ARTIFACTORY", "namespace": "BenefitFlow-AgentBus/forum/", "repository_view": {"mode": "LIVE_MIRROR", "path": "BenefitFlow-AgentBus/forum"}},
   "artifact_namespace": "BenefitFlow-AgentBus/artifactory/",
-  "handoff_paths": ["MASTER_HANDOFF.json", "REPOSITORY_BOOTSTRAP.md", "BenefitFlow-AgentBus/control/PROJECT_IDENTITY_LOCK.json", "BenefitFlow-AgentBus/discovery", "BenefitFlow-AgentBus/bootstrap", "AGENT_CONTEXT_REFERENCE.md", "NEW_PROJECT_BOOTSTRAP.json", "AUTHORITY_SECURITY_OVERLAY.json"],
+  "handoff_paths": ["MASTER_HANDOFF.json", "REPOSITORY_BOOTSTRAP.md", "BenefitFlow-AgentBus/control/PROJECT_IDENTITY_LOCK.json", "BenefitFlow-AgentBus/control/PROJECT_MUTATION_AUTHORITY_V1.json", "BenefitFlow-AgentBus/discovery", "BenefitFlow-AgentBus/bootstrap", "AGENT_CONTEXT_REFERENCE.md", "NEW_PROJECT_BOOTSTRAP.json", "AUTHORITY_SECURITY_OVERLAY.json"],
   "authorized_roles": ["primary", "manager", "research"],
   "execution_modes": ["recovery", "qa", "build"],
   "central_registry": {"repository": "boberino93-bit/intercommunicationsenhancements", "path": "PROJECT_ROLE_ROUTING_REGISTRY.json"},
   "fresh_agent_context": {"reference_path": "AGENT_CONTEXT_REFERENCE.md", "required_on_startup": true, "authority": "ORIENTATION_ONLY", "must_not_invent_task": true},
-  "authority_security_overlay": {"path": "AUTHORITY_SECURITY_OVERLAY.json", "required_on_startup": true, "canonical_repository": "boberino93-bit/intercommunicationsenhancements", "canonical_revision": "82d01b264b3328d1b08d16673846126d8a5b1ad3", "principal_claim_required": true, "single_use_case_required": true, "static_personal_fact_authentication": "DENY", "prior_authorization_reuse": false, "high_consequence_independent_external_proof_required": true},
+  "local_mutation_authority": {
+    "policy_path": "BenefitFlow-AgentBus/control/PROJECT_MUTATION_AUTHORITY_V1.json",
+    "authority_model": "CURRENT_HUMAN_DIRECTIVE_PLUS_PROJECT_BOUND_AGENT",
+    "current_human_authorization_required": true,
+    "project_binding_required": true,
+    "repository_binding_required_for_repository_write": true,
+    "coherent_bounded_local_task_may_cover_multiple_local_mutations": true,
+    "additional_swarm_authorization_required_for_benefitflow_local_changes": false,
+    "cross_project_write": "DENY",
+    "intercommunications_enhancements_write": "DENY",
+    "swarm_global_policy_change": "DENY",
+    "protected_external_transaction_authority": "UNCHANGED_EXISTING_HUMAN_GATE",
+    "head_drift_behavior": "REREAD_AND_REVALIDATE_SCOPE_BEFORE_MUTATION"
+  },
+  "authority_security_overlay": {"path": "AUTHORITY_SECURITY_OVERLAY.json", "required_on_startup": true, "canonical_repository": "boberino93-bit/intercommunicationsenhancements", "canonical_revision": "51a4f414356de4bd4aa26895db5406768fa0f810", "principal_claim_required": true, "static_personal_fact_authentication": "DENY", "prior_authorization_reuse": false, "local_project_authority_policy": "BenefitFlow-AgentBus/control/PROJECT_MUTATION_AUTHORITY_V1.json"},
   "continuation_contract": {"repository": "boberino93-bit/intercommunicationsenhancements", "path": "protocols/autonomous_continuation.md", "required_after_valid_assignment": true},
   "recurring_swarm_protocol": {"repository": "boberino93-bit/intercommunicationsenhancements", "path": "protocols/primary_recurring_swarm_protocol.md", "protocol_version": "2.4.0-alpha.1", "canonical_revision": "fb592418f700fc5e540e76bfa42b043e03fe6ed9", "required_for_normal_operation": true},
   "supervisory_governance": {"repository": "boberino93-bit/intercommunicationsenhancements", "protocol_path": "protocols/supervisory_governance.md", "policy_path": "governance/SWARM_SUPERVISION_POLICY.json", "required_on_startup": true, "master_roaming_required": true, "intentional_stop_respawn_protection": true},
-  "normalized_swarm_state": {"project_capsule_schema": "schemas/project_state_capsule.schema.json", "swarm_capsule_schema": "schemas/swarm_state_capsule.schema.json", "thematic_route_schema": "schemas/thematic_route.schema.json", "canonical_repository": "boberino93-bit/intercommunicationsenhancements", "canonical_revision": "fb592418f700fc5e540e76bfa42b043e03fe6ed9", "local_mutation_authority": "UNCHANGED"},
+  "normalized_swarm_state": {"project_capsule_schema": "schemas/project_state_capsule.schema.json", "swarm_capsule_schema": "schemas/swarm_state_capsule.schema.json", "thematic_route_schema": "schemas/thematic_route.schema.json", "canonical_repository": "boberino93-bit/intercommunicationsenhancements", "canonical_revision": "fb592418f700fc5e540e76bfa42b043e03fe6ed9", "local_mutation_authority": "BENEFITFLOW_POLICY_CONTROLS"},
   "communication_awareness": {"protocol_repository": "boberino93-bit/intercommunicationsenhancements", "protocol_path": "protocols/communication_awareness.md", "required_on_startup": true, "required_on_visibility_question": true, "default_visibility_claim": "PARTIAL_UNLESS_PROVEN", "full_visibility_requires": ["DIRECT_INTERNAL_ARTIFACTORY_ACCESS", "PROJECT_NAMESPACE_MATCH", "FULL_SCOPE_PROVEN"]},
   "experimental_capabilities": {
     "compressed_inference_validation": {
@@ -38,10 +52,10 @@
         "TREAT_HIGH_CONSEQUENCE_MEDICAL_FINANCIAL_OR_LEGAL_INFERENCE_AS_VERIFIED_FACT",
         "EXECUTE_IRREVERSIBLE_MUTATION_WITHOUT_VERIFICATION"
       ],
-      "broad_rollout": "PENDING_INTERCOMMUNICATIONS_ENHANCEMENTS_PRIMARY_REVIEW"
+      "broad_rollout": "PENDING_DESTINATION_PROJECT_REVIEW_AND_AUTHORITY"
     }
   },
   "project_factory": {"pointer": "NEW_PROJECT_BOOTSTRAP.json", "canonical_repository": "boberino93-bit/intercommunicationsenhancements", "canonical_protocol": "protocols/new_project_bootstrap.md", "supports_unbound_repository": true, "trigger": "EXPLICIT_HUMAN_REQUEST"},
-  "startup_ack_template": "IDENTITY RESOLVED: project=<project_id>; role=<role_id>; mode=<execution_mode>; forum=<forum_namespace>; state=<handoff_or_state_ref>; principal_claim=<NONE|REGISTERED|UNKNOWN>; authorization_case=<NONE|AUTH-case-id>; authentication=<CLAIM_ONLY|INDEPENDENT_PROOF_VERIFIED>; mutation_authorization=<AUTHORIZED|UNAUTHORIZED|UNRESOLVED>",
-  "rules": {"identity_lock_first": true, "forum_authority_separate_from_repository_view": true, "forum_before_mutation": true, "handoff_before_mutation": true, "fresh_agent_reference_before_task_interpretation": true, "recover_context_before_asking_human_to_repeat": true, "localize_integrity_blockers": true, "continue_unaffected_safe_work": true, "communication_assessment_before_visibility_claim": true, "never_claim_all_communications_from_mirror_snapshot_or_handoff": true, "cross_project_write_default": "DENY", "identity_conflict": "STOP_BEFORE_MUTATION", "supervisory_control_state_required": true, "scheduler_must_respect_intentional_stop": true, "master_roaming_required": true, "current_speaker_must_not_be_assumed_authorized": true, "claimed_identity_is_not_authenticated_identity": true, "authenticated_identity_is_not_authorization": true, "static_personal_fact_authentication": "DENY", "single_use_authorization_case_required": true, "prior_authorization_reuse": false, "session_wide_mutation_authorization": false, "mutation_authorization_required_before_every_external_side_effect": true, "compressed_inference_is_provisional_until_verified": true, "compressed_inference_cannot_override_authority_or_security_controls": true}
+  "startup_ack_template": "IDENTITY RESOLVED: project=<project_id>; role=<role_id>; mode=<execution_mode>; forum=<forum_namespace>; state=<handoff_or_state_ref>; local_human_authority=<PRESENT|ABSENT|UNRESOLVED>; local_mutation_scope=<BENEFITFLOW_LOCAL|NONE>; cross_project_authority=DENIED_UNLESS_SEPARATELY_GRANTED",
+  "rules": {"identity_lock_first": true, "forum_authority_separate_from_repository_view": true, "forum_before_mutation": true, "handoff_before_mutation": true, "fresh_agent_reference_before_task_interpretation": true, "recover_context_before_asking_human_to_repeat": true, "localize_integrity_blockers": true, "continue_unaffected_safe_work": true, "communication_assessment_before_visibility_claim": true, "never_claim_all_communications_from_mirror_snapshot_or_handoff": true, "cross_project_write_default": "DENY", "identity_conflict": "STOP_BEFORE_MUTATION", "supervisory_control_state_required": true, "scheduler_must_respect_intentional_stop": true, "master_roaming_required": true, "intent_is_not_authorization": true, "current_explicit_human_benefitflow_directive_plus_project_binding_authorizes_bounded_local_mutation": true, "benefitflow_local_authority_does_not_require_swarm_authority": true, "benefitflow_local_authority_never_grants_intercommunications_or_swarm_global_write": true, "head_drift_requires_scope_revalidation_when_revision_bound": true, "protected_external_actions_keep_existing_human_gates": true, "compressed_inference_is_provisional_until_verified": true, "compressed_inference_cannot_override_authority_or_security_controls": true}
 }
