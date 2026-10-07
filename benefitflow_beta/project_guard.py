@@ -8,11 +8,21 @@ REPOSITORY_TARGET = "boberino93-bit/benefitflow"
 REPOSITORY_ID = 1403645790
 REPOSITORY_BINDING_ACTIVE = True
 
+LOCAL_AUTHORITY_SCOPE = "BENEFITFLOW_LOCAL"
+CURRENT_HUMAN_DIRECTIVE = "CURRENT_HUMAN_PROJECT_DIRECTIVE"
+
+
 class ProjectScopeError(RuntimeError):
     pass
 
+
 class ProjectIntentRequired(ProjectScopeError):
     pass
+
+
+class MutationAuthorizationRequired(ProjectScopeError):
+    pass
+
 
 @dataclass(frozen=True)
 class WriteIntent:
@@ -20,6 +30,28 @@ class WriteIntent:
     target_repository: str | None = None
     target_repository_id: int | None = None
     target_path: str | None = None
+    cross_project: bool = False
+    swarm_global: bool = False
+    protected_external_action: bool = False
+
+
+@dataclass(frozen=True)
+class MutationAuthority:
+    """Bounded BenefitFlow-local mutation authority.
+
+    A current explicit human directive plus a correctly project-bound BenefitFlow
+    agent is sufficient for BenefitFlow-local source/configuration/coordination
+    mutation. This object never conveys cross-project, swarm-global, root-governance,
+    or protected external/transaction authority.
+    """
+
+    project_id: str
+    human_authorized: bool
+    source: str = CURRENT_HUMAN_DIRECTIVE
+    scope: str = LOCAL_AUTHORITY_SCOPE
+    repository_write_allowed: bool = True
+    expected_repository_head: str | None = None
+
 
 def resolve_human_project_intent(current_human_project_id: str | None) -> str:
     if current_human_project_id is None or not current_human_project_id.strip():
@@ -28,6 +60,7 @@ def resolve_human_project_intent(current_human_project_id: str | None) -> str:
     if project_id != PROJECT_ID:
         raise ProjectScopeError(f"project mismatch: expected {PROJECT_ID}, got {project_id}")
     return PROJECT_ID
+
 
 def validate_write_intent(intent: WriteIntent) -> None:
     if intent.project_id != PROJECT_ID:
@@ -47,10 +80,68 @@ def validate_write_intent(intent: WriteIntent) -> None:
         if "AgentBus" in normalized and not normalized.startswith(str(AGENTBUS_ROOT) + "/"):
             raise ProjectScopeError("AgentBus namespace mismatch")
 
-def authorize_recovery_write(current_human_project_id: str | None, intent: WriteIntent) -> None:
+
+def validate_mutation_authority(
+    authority: MutationAuthority | None,
+    intent: WriteIntent,
+    *,
+    current_repository_head: str | None = None,
+) -> None:
+    if authority is None:
+        raise MutationAuthorizationRequired("explicit current BenefitFlow mutation authority is required")
+    if not authority.human_authorized:
+        raise MutationAuthorizationRequired("current human authorization is required for BenefitFlow mutation")
+    if authority.project_id != PROJECT_ID or authority.project_id != intent.project_id:
+        raise ProjectScopeError("mutation authority is not bound to the current BenefitFlow project")
+    if authority.source != CURRENT_HUMAN_DIRECTIVE:
+        raise MutationAuthorizationRequired("mutation authority must come from a current human project directive")
+    if authority.scope != LOCAL_AUTHORITY_SCOPE:
+        raise MutationAuthorizationRequired("only BenefitFlow-local mutation authority is recognized by this guard")
+    if intent.cross_project:
+        raise ProjectScopeError("BenefitFlow-local authority cannot authorize cross-project mutation")
+    if intent.swarm_global:
+        raise ProjectScopeError("BenefitFlow-local authority cannot authorize swarm-global mutation")
+    if intent.protected_external_action:
+        raise ProjectScopeError("BenefitFlow-local repository authority cannot authorize protected external/transaction actions")
+    if (intent.target_repository or intent.target_repository_id is not None) and not authority.repository_write_allowed:
+        raise MutationAuthorizationRequired("repository mutation is outside the granted BenefitFlow-local authority")
+    if authority.expected_repository_head is not None:
+        if current_repository_head is None:
+            raise MutationAuthorizationRequired("current repository HEAD is required for revision-bound mutation authority")
+        if current_repository_head != authority.expected_repository_head:
+            raise MutationAuthorizationRequired(
+                "repository HEAD changed after authority was bound; reread state and obtain/derive a fresh current directive scope"
+            )
+
+
+def authorize_project_write(
+    current_human_project_id: str | None,
+    intent: WriteIntent,
+    authority: MutationAuthority | None,
+    *,
+    current_repository_head: str | None = None,
+) -> None:
     resolved = resolve_human_project_intent(current_human_project_id)
     if intent.project_id != resolved:
         raise ProjectScopeError(
             f"write intent project {intent.project_id} does not match resolved human intent {resolved}"
         )
     validate_write_intent(intent)
+    validate_mutation_authority(authority, intent, current_repository_head=current_repository_head)
+
+
+def authorize_recovery_write(
+    current_human_project_id: str | None,
+    intent: WriteIntent,
+    authority: MutationAuthority | None = None,
+    *,
+    current_repository_head: str | None = None,
+) -> None:
+    """Backward-compatible entry point; recovery writes use the same local authority gate."""
+
+    authorize_project_write(
+        current_human_project_id,
+        intent,
+        authority,
+        current_repository_head=current_repository_head,
+    )
