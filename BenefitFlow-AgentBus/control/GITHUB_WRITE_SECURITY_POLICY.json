@@ -10,7 +10,11 @@
     "validate_full_name": true,
     "validate_stable_repository_id": true,
     "foreign_repository_write_default": "DENY",
-    "cross_project_bridge_does_not_grant_repository_write": true
+    "cross_project_bridge_does_not_grant_repository_write": true,
+    "project_mutation_authority_policy": "BenefitFlow-AgentBus/control/PROJECT_MUTATION_AUTHORITY_V1.json",
+    "current_human_benefitflow_authorization_required": true,
+    "correct_repository_target_alone_is_not_sufficient_authority": true,
+    "revision_bound_authority_revalidates_after_head_change": true
   },
   "ci": {
     "workflow": ".github/workflows/benefitflow-ci.yml",
@@ -29,6 +33,12 @@
     "ruleset_observed_at_hardening": "NONE",
     "branch_protection_visibility": "NOT_ACCESSIBLE_TO_CONNECTED_GITHUB_APP",
     "recommended_external_control": "Require reviewed/verified changes or an equivalent protected-main policy if the deployment model permits it."
+  },
+  "authority_scope": {
+    "benefitflow_local": "CURRENT_HUMAN_DIRECTIVE_PLUS_PROJECT_BOUND_AGENT",
+    "cross_project": "DENY_WITHOUT_SEPARATE_DESTINATION_AUTHORITY",
+    "swarm_global": "DENY_FROM_BENEFITFLOW_AUTHORITY",
+    "protected_external_actions": "UNCHANGED_EXISTING_HUMAN_GATES"
   },
   "note": "Runtime/project-package hardening is enforced in-repo. Installation-wide GitHub App scope and branch-protection administration are server-side account settings and are not mutated by BenefitFlow code."
 }
