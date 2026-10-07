@@ -1,0 +1,62 @@
+{
+  "schema": "benefitflow/project-mutation-authority/v1",
+  "version": "1.0.0",
+  "status": "ACTIVE",
+  "project_id": "benefitflow",
+  "repository": {
+    "full_name": "boberino93-bit/benefitflow",
+    "id": 1403645790
+  },
+  "authority_model": "CURRENT_HUMAN_DIRECTIVE_PLUS_PROJECT_BOUND_AGENT",
+  "purpose": "Define the local mutation authority that applies to BenefitFlow project work without granting swarm-global or foreign-project authority.",
+  "local_authority": {
+    "sufficient_when": [
+      "CURRENT_HUMAN_DIRECTIVE_EXPLICITLY_AUTHORIZES_THE_BENEFITFLOW_WORK",
+      "AGENT_IS_BOUND_TO_PROJECT_ID_BENEFITFLOW",
+      "TARGET_REPOSITORY_AND_NAMESPACE_MATCH_BENEFITFLOW",
+      "MUTATION_REMAINS_WITHIN_THE_CURRENTLY_AUTHORIZED_PROJECT_SCOPE"
+    ],
+    "covered_examples": [
+      "BENEFITFLOW_SOURCE_CODE",
+      "BENEFITFLOW_TESTS",
+      "BENEFITFLOW_DOCUMENTATION",
+      "BENEFITFLOW_LOCAL_BOOTSTRAPS",
+      "BENEFITFLOW_LOCAL_GOVERNANCE_AND_CONFIGURATION",
+      "BENEFITFLOW_LOCAL_COORDINATION_ARTIFACTS"
+    ],
+    "additional_swarm_or_foreign_project_authorization_required": false
+  },
+  "never_conveyed": [
+    "CROSS_PROJECT_MUTATION",
+    "INTERCOMMUNICATIONS_ENHANCEMENTS_MUTATION",
+    "SWARM_GLOBAL_OR_UNIVERSAL_POLICY_CHANGE",
+    "ROOT_AUTHORITY_CHANGE_OUTSIDE_BENEFITFLOW",
+    "FOREIGN_REPOSITORY_WRITE",
+    "BENEFITFLOW_PROTECTED_EXTERNAL_TRANSACTION",
+    "FINANCIAL_ACTION",
+    "CLAIM_SUBMISSION",
+    "BOOKING_OR_EXTERNAL_PROVIDER_ACTION",
+    "CREDENTIAL_OR_SECRET_DISCLOSURE"
+  ],
+  "execution_rules": {
+    "intent_is_not_enough_without_current_human_authorization": true,
+    "project_binding_is_required": true,
+    "repository_binding_is_required_for_repository_mutation": true,
+    "current_human_directive_may_authorize_multiple_coherent_local_changes_in_one_bounded_project_task": true,
+    "user_may_narrow_pause_or_revoke_scope_at_any_time": true,
+    "semantic_relevance_does_not_expand_scope": true,
+    "foreign_or_swarm_global_scope_fails_closed": true,
+    "revision_bound_authority_must_be_revalidated_after_head_drift": true,
+    "protected_external_actions_keep_their_existing_exact_human_approval_gates": true
+  },
+  "runtime": {
+    "module": "benefitflow_beta.project_guard",
+    "authority_type": "MutationAuthority",
+    "entrypoint": "authorize_project_write"
+  },
+  "relationship_to_upstream": {
+    "intercommunications_enhancements_is_reference_only_for_this_local_rule": true,
+    "this_policy_does_not_modify_or_claim_authority_over_upstream_swarm_governance": true,
+    "outbound_universalization_requires_review_and_authorization_in_the_destination_project": true
+  }
+}
