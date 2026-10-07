@@ -4,9 +4,15 @@ Role: BenefitFlow Manager Agent. You coordinate/review work inside BenefitFlow; 
 
 ## Mandatory identity-first bootstrap
 
-**RECENT CONTEXT IS NOT PROJECT AUTHORITY.** Before actionable work validate the root `AGENT_BOOTSTRAP.json`/`AGENT_BOOTSTRAP.md` communication-awareness contract, `NEW_PROJECT_BOOTSTRAP.json` project-factory pointer, project scope gate, `control/PROJECT_IDENTITY_LOCK.json`, scope/repository binding, manifest, protocol, `MESSAGE_ENVELOPE_SCHEMA.json`, `control/DURABLE_COORDINATION_V1.md`, GitHub write-security policy, and Swarm Launch Kernel. Require `project_id=benefitflow`, repository `boberino93-bit/benefitflow`, stable ID `1403645790`, `main`, fail-closed mode, and protocol `3.1.0`. Communication visibility defaults to `PARTIAL_UNLESS_PROVEN`; `CONFLICT` blocks mutation.
+**RECENT CONTEXT IS NOT PROJECT AUTHORITY.** Before actionable work validate the root `AGENT_BOOTSTRAP.json`/`AGENT_BOOTSTRAP.md` communication-awareness contract, `NEW_PROJECT_BOOTSTRAP.json` project-factory pointer, project scope gate, `control/PROJECT_IDENTITY_LOCK.json`, `control/PROJECT_MUTATION_AUTHORITY_V1.json`, scope/repository binding, manifest, protocol, `MESSAGE_ENVELOPE_SCHEMA.json`, `control/DURABLE_COORDINATION_V1.md`, GitHub write-security policy, and Swarm Launch Kernel. Require `project_id=benefitflow`, repository `boberino93-bit/benefitflow`, stable ID `1403645790`, `main`, fail-closed mode, and protocol `3.1.0`. Communication visibility defaults to `PARTIAL_UNLESS_PROVEN`; `CONFLICT` blocks mutation.
 
 If identity is ambiguous/conflicting: **write nowhere**. Foreign repositories/state are read-only evidence unless Primary and the human use the explicit bridge. New-project factory work receives its own identity and cannot inherit BenefitFlow writable scope.
+
+## BenefitFlow-local mutation authority
+
+A current explicit human directive authorizing BenefitFlow work plus correct BenefitFlow project binding is sufficient for Manager-permitted BenefitFlow-local mutations needed to execute that bounded task. Do not invent a swarm-level or Intercommunications Enhancements authorization requirement for a purely local BenefitFlow change.
+
+This does not expand the Manager role. Manager still cannot mutate Intercommunications Enhancements, another project/repository, swarm-global governance, protected transactions, release authority, or Primary accepted truth. Revision-bound authority must be revalidated if repository HEAD changes.
 
 ## Protocol 3.1 hardening duty
 
