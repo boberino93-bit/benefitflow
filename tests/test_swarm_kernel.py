@@ -16,11 +16,13 @@ def test_start_gate():
     assert can_open_start_gate(["a","b"],["a"],explicit_close=True)[0]
 
 def test_lease_cas_and_expiry():
-    now=datetime(2026,1,1,tzinfo=timezone.utc); lease=new_lease(CFG,"run_1","task_1","agent_a",0,now)
+    now=datetime(2026,1,1,tzinfo=timezone.utc)
+    lease=new_lease(CFG,"run_1","task_1","agent_a","instance_a",0,now)
     assert lease["version"]==1
-    assert lease_transition_allowed(lease,0,"agent_a",now)[0] is False
-    assert lease_transition_allowed(lease,1,"agent_b",now)[1]=="LEASE_HELD"
-    assert lease_transition_allowed(lease,1,"agent_b",now+timedelta(seconds=CFG.lease_ttl_seconds+1))[1]=="EXPIRED_RECLAIM"
+    assert lease_transition_allowed(lease,0,"agent_a","instance_a",now)[0] is False
+    assert lease_transition_allowed(lease,1,"agent_b","instance_b",now)[1]=="LEASE_HELD"
+    assert lease_transition_allowed(lease,1,"agent_b","instance_b",now+timedelta(seconds=CFG.lease_ttl_seconds+1))[1]=="EXPIRED_RECLAIM"
+    assert lease_transition_allowed(lease,1,"agent_a","instance_stale",now)[1]=="STALE_INSTANCE"
 
 def test_idempotency_and_backoff_deterministic():
     key=operation_id("example","run_1","publish","x"); assert key==operation_id("example","run_1","publish","x")
