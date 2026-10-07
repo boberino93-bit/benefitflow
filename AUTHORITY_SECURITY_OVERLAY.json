@@ -1,6 +1,6 @@
 {
   "schema": "org-agent-mesh/project-authority-security-overlay/v1",
-  "version": "1.2.1",
+  "version": "1.3.0",
   "project_id": "benefitflow",
   "repository": "boberino93-bit/benefitflow",
   "status": "REQUIRED_ON_STARTUP",
@@ -23,16 +23,44 @@
     "coordination_publication_protocol": "protocols/non_authoritative_coordination_publication.md",
     "coordination_publication_runtime": "org_agent_mesh.coordination_publication"
   },
-  "invariants": ["CLAIMED_IDENTITY_IS_NOT_AUTHENTICATED_IDENTITY", "AUTHENTICATED_IDENTITY_IS_NOT_AUTHORIZATION", "AUTHORIZATION_IS_CASE_BOUND_SINGLE_USE", "NO_SESSION_WIDE_MUTATION_AUTHORITY", "PROJECT_HOLD_IS_NOT_CANCELLATION", "PENDING_HUMAN_RESPONSE_BLOCKS_ONLY_DEPENDENT_BRANCH", "COORDINATION_PUBLICATION_IS_NOT_MUTATION_AUTHORIZATION", "BACKUP_WRITE_IS_NOT_SOURCE_WRITE"],
+  "local_project_authority": {
+    "policy": "BenefitFlow-AgentBus/control/PROJECT_MUTATION_AUTHORITY_V1.json",
+    "model": "CURRENT_HUMAN_DIRECTIVE_PLUS_PROJECT_BOUND_AGENT",
+    "applies_to": [
+      "BENEFITFLOW_SOURCE_CODE",
+      "BENEFITFLOW_TESTS",
+      "BENEFITFLOW_DOCUMENTATION",
+      "BENEFITFLOW_LOCAL_BOOTSTRAPS",
+      "BENEFITFLOW_LOCAL_GOVERNANCE_AND_CONFIGURATION",
+      "BENEFITFLOW_LOCAL_COORDINATION_ARTIFACTS"
+    ],
+    "requires_additional_swarm_level_authorization": false,
+    "cannot_authorize": [
+      "CROSS_PROJECT_MUTATION",
+      "INTERCOMMUNICATIONS_ENHANCEMENTS_MUTATION",
+      "SWARM_GLOBAL_OR_UNIVERSAL_POLICY_CHANGE",
+      "FOREIGN_REPOSITORY_WRITE",
+      "PROTECTED_EXTERNAL_TRANSACTION"
+    ]
+  },
+  "invariants": [
+    "INTENT_ALONE_IS_NOT_AUTHORIZATION",
+    "CURRENT_HUMAN_BENEFITFLOW_DIRECTIVE_PLUS_PROJECT_BINDING_MAY_AUTHORIZE_BOUNDED_LOCAL_MUTATION",
+    "LOCAL_PROJECT_AUTHORITY_IS_NOT_SWARM_AUTHORITY",
+    "LOCAL_PROJECT_AUTHORITY_IS_NOT_CROSS_PROJECT_AUTHORITY",
+    "PROJECT_HOLD_IS_NOT_CANCELLATION",
+    "PENDING_HUMAN_RESPONSE_BLOCKS_ONLY_DEPENDENT_BRANCH",
+    "COORDINATION_PUBLICATION_IS_NOT_CROSS_PROJECT_MUTATION_AUTHORIZATION",
+    "BACKUP_WRITE_IS_NOT_SOURCE_WRITE"
+  ],
   "requirements": {
-    "explicit_principal_claim_before_authorization": true,
-    "assume_current_speaker_is_authorized": false,
-    "static_personal_fact_authentication": "DENY",
-    "fresh_single_use_case_for_each_distinct_mutation": true,
-    "prior_authorization_reuse": false,
-    "schedule_or_parent_delegation_is_authorization": false,
-    "high_consequence_independent_external_proof_required": true,
-    "agent_may_create_or_satisfy_its_own_authentication_proof": false,
+    "current_human_benefitflow_authorization_before_local_mutation": true,
+    "project_and_repository_binding_before_local_mutation": true,
+    "local_authority_may_cover_coherent_bounded_multi_file_project_task": true,
+    "prior_unrelated_authorization_reuse": false,
+    "semantic_relevance_may_expand_authority": false,
+    "cross_project_or_swarm_global_scope_requires_separate_destination_authority": true,
+    "agent_may_infer_cross_project_authority": false,
     "safe_read_only_work_may_continue_when_mutation_blocked": true,
     "project_work_control_required_before_new_work": true,
     "project_work_control_recheck_between_bounded_units": true,
@@ -40,8 +68,6 @@
     "active_agent_checkpoint_then_stop_on_hold": true,
     "hold_is_cancellation": false,
     "hold_is_failure": false,
-    "manual_hold_expiry_requires_authenticated_resume": true,
-    "auto_resume_only_when_hold_explicitly_sets_AUTO_AT_EXPIRY": true,
     "ordinary_user_interruption_auto_resumes": true,
     "pending_human_response_blocks_only_dependent_branch": true,
     "continue_other_safe_work_while_human_response_pending": true,
@@ -50,6 +76,8 @@
     "coordination_github_backup_prefix": "agentbus-backup/coordination-messages/",
     "coordination_cross_project_write": "DENY",
     "coordination_overwrite_delete_rename_move": "DENY",
-    "coordination_authority_conveyed": false
+    "coordination_authority_conveyed": false,
+    "protected_external_transactions_keep_existing_exact_human_approval": true,
+    "revision_bound_local_authority_invalidates_on_head_drift": true
   }
 }
