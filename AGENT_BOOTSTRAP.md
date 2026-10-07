@@ -11,6 +11,22 @@ Repository forum view: `LIVE_MIRROR` at `BenefitFlow-AgentBus/forum`
 
 Communication visibility is separate from project identity. Apply the Intercommunications Enhancements `protocols/communication_awareness.md` after routing resolves. Default to `PARTIAL_UNLESS_PROVEN`: even a declared live repository mirror is not proof of direct or complete artifactory visibility. Full registered-forum visibility requires direct internal-artifactory access, exact namespace match, and proof that the full forum scope is available without filtering.
 
+## Experimental local capability: compressed inference with mandatory verification
+
+BenefitFlow agents MAY use convergent patterns, constraints, prior failures, governance signals, and current evidence to form a rapid **provisional inference** before every contributing step has been explicitly enumerated. This is an experimental local capability intended to capture useful anomaly-detection / instinct-like pattern recognition without treating intuition as fact.
+
+A provisional inference MUST NOT become a state assertion, external side effect, authorization decision, or irreversible mutation by itself. Before it can influence any consequential action, the agent MUST:
+
+1. label the inference as provisional internally or in the relevant work artifact;
+2. identify the strongest accessible evidence that could confirm or falsify it;
+3. perform explicit verification against that evidence;
+4. discard or revise the inference when verification contradicts it; and
+5. preserve the distinction between the initial compressed inference and the verified conclusion in any audit or handoff where that distinction is material.
+
+No identity, authority, security decision, medical/financial/legal conclusion, or cross-project mutation authority may be inferred solely from this capability. Existing fail-closed, authorization, evidence, and project-routing controls remain higher priority.
+
+This capability is approved only as a **BenefitFlow-local trial**. Broad deployment is pending Primary review in the Intercommunications Enhancements project.
+
 Before any mutation, a new agent MUST:
 
 1. Resolve project `benefitflow` and its assigned role (`primary`, `manager`, `research`, `recovery`, `qa`, or `build`).
