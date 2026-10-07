@@ -1,0 +1,12 @@
+{
+  "schema":"org-agent-mesh/project-glance/v1",
+  "project_id":"benefitflow",
+  "repository":"boberino93-bit/benefitflow",
+  "observed_at_utc":"2026-10-07T13:10:00Z",
+  "status":"UNKNOWN",
+  "current_focus":"BenefitFlow Alpha v0.4.2 P0 hardening/implementation with durable multi-process coordination and evidence-backed synthetic booking lifecycle.",
+  "blockers":["Current live AgentBus worker state is not yet materialized into the local glance snapshot."],
+  "next_action":"Refresh this snapshot from current BenefitFlow AgentBus state on the next material worker transition.",
+  "last_material_change":"Scheduler-service binding was added; current repository orientation remains P0 hardening/implementation.",
+  "evidence_refs":["README.md","bootstrap/INTERNAL_SCHEDULER_SERVICE.json","INTERNAL_SCHEDULER_SERVICE_BINDING.json"]
+}
