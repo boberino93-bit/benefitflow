@@ -27,7 +27,7 @@ jobs:
           data = json.loads(Path('AGENT_BOOTSTRAP.json').read_text())
           assert data['project_id'] == 'benefitflow'
           assert data['repository']['full_name'] == 'boberino93-bit/benefitflow'
-          assert data['routing_contract_version'] == '1.5.0'
+          assert data['routing_contract_version'] == '1.6.0'
           assert set(('primary','manager','research')).issubset(data['authorized_roles'])
           assert data['central_registry'] == {'repository':'boberino93-bit/intercommunicationsenhancements','path':'PROJECT_ROLE_ROUTING_REGISTRY.json'}
           recurring = data['recurring_swarm_protocol']
@@ -37,8 +37,16 @@ jobs:
           assert normalized['project_capsule_schema'] == 'schemas/project_state_capsule.schema.json'
           assert normalized['swarm_capsule_schema'] == 'schemas/swarm_state_capsule.schema.json'
           assert normalized['thematic_route_schema'] == 'schemas/thematic_route.schema.json'
-          assert normalized['local_mutation_authority'] == 'UNCHANGED'
+          assert normalized['local_mutation_authority'] == 'BENEFITFLOW_POLICY_CONTROLS'
+          local = data['local_mutation_authority']
+          assert local['policy_path'] == 'BenefitFlow-AgentBus/control/PROJECT_MUTATION_AUTHORITY_V1.json'
+          assert local['authority_model'] == 'CURRENT_HUMAN_DIRECTIVE_PLUS_PROJECT_BOUND_AGENT'
+          assert local['cross_project_write'] == 'DENY'
+          assert local['intercommunications_enhancements_write'] == 'DENY'
+          assert local['swarm_global_policy_change'] == 'DENY'
           assert data['rules']['cross_project_write_default'] == 'DENY'
           assert data['rules']['identity_conflict'].startswith('STOP')
+          assert data['rules']['benefitflow_local_authority_does_not_require_swarm_authority'] is True
+          assert data['rules']['benefitflow_local_authority_never_grants_intercommunications_or_swarm_global_write'] is True
           print('BenefitFlow normalized swarm parity: PASS')
           PY
